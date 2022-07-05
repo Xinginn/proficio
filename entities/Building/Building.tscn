@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/building_01.png" type="Texture" id=1]
-[ext_resource path="res://entities/Building/Building.gd" type="Script" id=2]
+[ext_resource path="res://entities/building/building.gd" type="Script" id=1]
+[ext_resource path="res://assets/building_01.png" type="Texture" id=2]
 
 [node name="Building" type="TextureRect"]
 margin_left = -35.0
@@ -10,8 +10,8 @@ margin_right = 35.0
 margin_bottom = 37.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource( 1 )
-script = ExtResource( 2 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

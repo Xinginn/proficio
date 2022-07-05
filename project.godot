@@ -10,22 +10,34 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "BuildingData",
+"language": "GDScript",
+"path": "res://classes/building_data.gd"
+}, {
+"base": "Node",
 "class": "Equipable",
 "language": "GDScript",
-"path": "res://classes/Equipable/Equipable.gd"
+"path": "res://classes/equipable/equipable.gd"
+}, {
+"base": "Node",
+"class": "ItemData",
+"language": "GDScript",
+"path": "res://classes/item_data.gd"
 }, {
 "base": "Equipable",
 "class": "LeatherJacket",
 "language": "GDScript",
-"path": "res://classes/Equipable/Armors/LeatherJacket.gd"
+"path": "res://classes/equipable/armors/leather_jacket.gd"
 }, {
 "base": "Node",
 "class": "WearAttribute",
 "language": "GDScript",
-"path": "res://classes/Equipable/WearAttribute.gd"
+"path": "res://classes/equipable/wear_attribute.gd"
 } ]
 _global_script_class_icons={
+"BuildingData": "",
 "Equipable": "",
+"ItemData": "",
 "LeatherJacket": "",
 "WearAttribute": ""
 }
@@ -33,8 +45,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Proficio"
-run/main_scene="res://scenes/Playground/Playground.tscn"
+run/main_scene="res://scenes/playground/playground.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Data="*res://globals/data.gd"
 
 [rendering]
 

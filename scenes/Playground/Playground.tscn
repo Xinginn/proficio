@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/bg_01.jpg" type="Texture" id=1]
-[ext_resource path="res://entities/Actor/Actor.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/Playground/Playground.gd" type="Script" id=3]
+[ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/playground/playground.gd" type="Script" id=3]
 [ext_resource path="res://assets/building_01.png" type="Texture" id=4]
-[ext_resource path="res://entities/BuildingButton/BuildingButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/building_button/building_button.tscn" type="PackedScene" id=5]
 
 [node name="Playground" type="Node2D"]
 script = ExtResource( 3 )
@@ -25,10 +25,19 @@ margin_top = 206.766
 margin_right = -413.953
 margin_bottom = 281.766
 
+[node name="CraftList" type="VBoxContainer" parent="BG/Citizen/Camera2D"]
+margin_left = 318.498
+margin_top = -87.4915
+margin_right = 491.498
+margin_bottom = 86.5085
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="BuildingGhost" type="Sprite" parent="."]
 visible = false
 modulate = Color( 0, 1, 0, 0.635294 )
 texture = ExtResource( 4 )
 
 [node name="BuildingsHolder" type="Node2D" parent="."]
-[connection signal="pressed" from="BG/Citizen/Camera2D/BuildingButton" to="." method="build_mode_on" binds= [ "test" ]]
+[connection signal="pressed" from="BG/Citizen/Camera2D/BuildingButton" to="." method="build_mode_on"]

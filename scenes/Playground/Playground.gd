@@ -1,6 +1,6 @@
 extends Node2D
 
-const building_scene: PackedScene = preload('res://entities/Building/Building.tscn')
+const building_scene: PackedScene = preload('res://entities/building/building.tscn')
 
 onready var player = $BG/Citizen
 onready var building_ghost = $BuildingGhost
@@ -10,9 +10,9 @@ onready var buildings_holder = $BuildingsHolder
 var is_placing_building = false
 var type_to_build = null
 
-func build_mode_on(type) -> void:
+func build_mode_on() -> void:
   is_placing_building = true
-  type_to_build = type
+  type_to_build = Data.buildings[0]
   building_ghost.global_position = get_global_mouse_position()
   building_ghost.show()
 
@@ -25,6 +25,7 @@ func place_building() -> void:
   buildings_holder.add_child(new_building)
   var pos = get_global_mouse_position() - new_building.rect_size / 2.0
   new_building.init(player, type_to_build, pos)
+  build_mode_off()
 
 func _unhandled_input(event):
   if event is InputEventMouseButton:
@@ -45,4 +46,5 @@ func _unhandled_input(event):
 func _ready():
   var new_armor = LeatherJacket.new()
   player.gear['body'] = new_armor
-  player.gain_xp("move_speed", 25)
+  player.gain_xp("def", 4)
+  
