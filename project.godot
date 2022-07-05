@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "Equipable",
+"language": "GDScript",
+"path": "res://classes/Equipable/Equipable.gd"
+}, {
+"base": "Equipable",
+"class": "LeatherJacket",
+"language": "GDScript",
+"path": "res://classes/Equipable/Armors/LeatherJacket.gd"
+}, {
+"base": "Node",
+"class": "WearAttribute",
+"language": "GDScript",
+"path": "res://classes/Equipable/WearAttribute.gd"
+} ]
+_global_script_class_icons={
+"Equipable": "",
+"LeatherJacket": "",
+"WearAttribute": ""
+}
+
+[application]
+
+config/name="Proficio"
+run/main_scene="res://scenes/Playground/Playground.tscn"
+config/icon="res://icon.png"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
