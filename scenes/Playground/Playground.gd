@@ -43,7 +43,7 @@ func _unhandled_input(event):
     building_ghost.global_position = get_global_mouse_position()
 
 func _ready():
-  var new_armor = LeatherJacket.new()
+  var new_armor = Data.crafts[0].product.new()
   player.gear['body'] = new_armor
   player.gain_xp("def", 4)
   GameManager.player_actor = player

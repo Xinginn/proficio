@@ -1,13 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/bg_01.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/playground/playground.gd" type="Script" id=3]
 [ext_resource path="res://assets/building_01.png" type="Texture" id=4]
 [ext_resource path="res://entities/building_button/building_button.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/icons/default.png" type="Texture" id=7]
+[ext_resource path="res://assets/texture_back.png" type="Texture" id=8]
+[ext_resource path="res://assets/texture_front.png" type="Texture" id=9]
+[ext_resource path="res://scenes/playground/craft_panel.gd" type="Script" id=10]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 312.9, 10 )
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.231373, 0.329412, 0.596078, 0.486275 )
 
 [node name="Playground" type="Node2D"]
 script = ExtResource( 3 )
@@ -28,11 +32,65 @@ margin_top = 206.766
 margin_right = -413.953
 margin_bottom = 281.766
 
-[node name="CraftList" type="VBoxContainer" parent="World/Player/Camera2D"]
-margin_left = 318.498
-margin_top = -87.4915
-margin_right = 491.498
-margin_bottom = 86.5085
+[node name="CraftPanel" type="Panel" parent="World/Player/Camera2D"]
+margin_left = 78.0
+margin_top = -295.0
+margin_right = 505.0
+margin_bottom = -46.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="World/Player/Camera2D/CraftPanel"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "CRAFT"
+
+[node name="CraftListScroll" type="ScrollContainer" parent="World/Player/Camera2D/CraftPanel"]
+margin_left = 4.0
+margin_top = 14.0
+margin_right = 203.0
+margin_bottom = 246.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RecipeContainer" type="VBoxContainer" parent="World/Player/Camera2D/CraftPanel/CraftListScroll"]
+
+[node name="CurrentCraftIcon" type="TextureRect" parent="World/Player/Camera2D/CraftPanel"]
+margin_left = 260.05
+margin_top = 3.33031
+margin_right = 356.05
+margin_bottom = 99.3303
+rect_min_size = Vector2( 96, 96 )
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="World/Player/Camera2D/CraftPanel/CurrentCraftIcon"]
+margin_left = 99.5255
+margin_top = -0.280617
+margin_right = 107.526
+margin_bottom = 94.7194
+value = 25.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 9 )
+fill_mode = 3
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QueueContainer" type="GridContainer" parent="World/Player/Camera2D/CraftPanel"]
+margin_left = 209.333
+margin_top = 129.667
+margin_right = 422.333
+margin_bottom = 245.667
+columns = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -43,11 +101,4 @@ modulate = Color( 0, 1, 0, 0.635294 )
 texture = ExtResource( 4 )
 
 [node name="BuildingsHolder" type="Node2D" parent="."]
-
-[node name="Area2D" type="Area2D" parent="."]
-input_pickable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 45.4084, 153.043 )
-shape = SubResource( 1 )
 [connection signal="pressed" from="World/Player/Camera2D/BuildingButton" to="." method="build_mode_on"]

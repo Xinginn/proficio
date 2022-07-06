@@ -1,14 +1,16 @@
 extends Node
 
-class_name ItemData
+class_name CraftData
 
-var label
+var id
+var product
 var stamina
 var resources
-var duration
+var needed_progress
 
-func _init(_label, _stamina, _resources, _duration = 1.0):
-  label = _label
+func _init(_id, _product, _stamina, _resources, _needed_progress = 1000):
+  id = _id
+  product = _product
   stamina = _stamina
   resources = _resources
-  duration = _duration
+  needed_progress = _needed_progress

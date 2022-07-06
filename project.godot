@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/data_holders/building_data.gd"
 }, {
+"base": "Node",
+"class": "CraftData",
+"language": "GDScript",
+"path": "res://classes/data_holders/craft_data.gd"
+}, {
 "base": "Item",
 "class": "Equipable",
 "language": "GDScript",
@@ -33,11 +38,6 @@ _global_script_classes=[ {
 "class": "Item",
 "language": "GDScript",
 "path": "res://classes/item/item.gd"
-}, {
-"base": "Node",
-"class": "ItemData",
-"language": "GDScript",
-"path": "res://classes/data_holders/craft_data.gd"
 }, {
 "base": "Equipable",
 "class": "LeatherJacket",
@@ -53,9 +53,9 @@ _global_script_class_icons={
 "Actor": "",
 "Building": "",
 "BuildingData": "",
+"CraftData": "",
 "Equipable": "",
 "Item": "",
-"ItemData": "",
 "LeatherJacket": "",
 "WearAttribute": ""
 }

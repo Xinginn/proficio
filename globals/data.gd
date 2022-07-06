@@ -1,9 +1,11 @@
 extends Node
 
-var items = []
+var crafts = []
 var buildings = []
 
 func _ready():
-  items.append(ItemData.new("leather_jacket", 4, {"leather": 2}))
+  # id, product, stamina, resources, ?needed_progress = 1000
+  crafts.append(CraftData.new(0, LeatherJacket, 4, {"leather": 2}, 800))
   
-  buildings.append(BuildingData.new("test", 500, 4, {"wood": 4}, ["leather_jacket"]))
+  # id, label, max_health, resources, ?craft_ids = []
+  buildings.append(BuildingData.new(0, "test", 500, 4, {"wood": 4}, [0]))

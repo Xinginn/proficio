@@ -1,6 +1,8 @@
 extends Sprite
-
 class_name Building
+
+const HEALTH_GAIN_PER_SECOND = 50
+const CRAFT_GAIN_PER_SECOND = 50
 
 onready var health_bar = $HealthBar
 onready var health_bar_label = $HealthBar/Label
@@ -10,6 +12,10 @@ var max_health
 var building_owner = null
 var building_data: BuildingData = null
 var is_building: bool = false
+var is_crafting: bool = false
+var craft_progress: float = 0.0
+var craft_queue: Array = []
+
 
 signal building_destroyed(building)
 signal building_constructed(building)
@@ -50,10 +56,12 @@ func _on_body_exited(body):
         
 func _process(delta):
   if is_building:
-    var health_gain = 50 * building_owner.construction * delta
+    var health_gain = HEALTH_GAIN_PER_SECOND * building_owner.construction * delta
     self.health += health_gain
-    building_owner.gain_xp("construction", 50 * delta)
+    building_owner.gain_xp("construction", HEALTH_GAIN_PER_SECOND * delta)
     if health >= max_health:
       emit_signal('building_constructed', self)
       is_building = false
       display_buidling_window(true)
+  elif is_crafting:
+    print("should progress craft")
