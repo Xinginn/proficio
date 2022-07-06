@@ -3,6 +3,10 @@ extends Equipable
 class_name LeatherJacket
 
 func _init(crafter = null):
+  #valeurs immuables (nom, poids)
+  label = "Veste de cuir"
+  _name = "leather_jacket"
+  weight = 4.0
   # calcul des valeur selon niveau de crafteur
   var base_def = 6
   var base_move_speed = 12
@@ -16,5 +20,3 @@ func _init(crafter = null):
   
   def = WearAttribute.new(base_def + bonus_def, "light_armor", 0.1)
   move_speed = WearAttribute.new(base_move_speed + bonus_move_speed, "light_armor", 0.05)
-  
-  print("créé! def: %s, move_speed:%s" % [def.base_value, move_speed.base_value])

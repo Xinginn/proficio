@@ -9,34 +9,52 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://entities/actor/actor.gd"
+}, {
+"base": "Sprite",
+"class": "Building",
+"language": "GDScript",
+"path": "res://entities/building/building.gd"
+}, {
 "base": "Node",
 "class": "BuildingData",
 "language": "GDScript",
-"path": "res://classes/building_data.gd"
+"path": "res://classes/data_holders/building_data.gd"
 }, {
-"base": "Node",
+"base": "Item",
 "class": "Equipable",
 "language": "GDScript",
-"path": "res://classes/equipable/equipable.gd"
+"path": "res://classes/item/equipable/equipable.gd"
+}, {
+"base": "Node",
+"class": "Item",
+"language": "GDScript",
+"path": "res://classes/item/item.gd"
 }, {
 "base": "Node",
 "class": "ItemData",
 "language": "GDScript",
-"path": "res://classes/item_data.gd"
+"path": "res://classes/data_holders/craft_data.gd"
 }, {
 "base": "Equipable",
 "class": "LeatherJacket",
 "language": "GDScript",
-"path": "res://classes/equipable/armors/leather_jacket.gd"
+"path": "res://classes/item/equipable/armors/leather_jacket.gd"
 }, {
 "base": "Node",
 "class": "WearAttribute",
 "language": "GDScript",
-"path": "res://classes/equipable/wear_attribute.gd"
+"path": "res://classes/item/equipable/wear_attribute.gd"
 } ]
 _global_script_class_icons={
+"Actor": "",
+"Building": "",
 "BuildingData": "",
 "Equipable": "",
+"Item": "",
 "ItemData": "",
 "LeatherJacket": "",
 "WearAttribute": ""
@@ -51,6 +69,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Data="*res://globals/data.gd"
+GameManager="*res://globals/game_manager.tscn"
 
 [rendering]
 

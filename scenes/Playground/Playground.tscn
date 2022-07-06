@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/bg_01.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
@@ -6,26 +6,29 @@
 [ext_resource path="res://assets/building_01.png" type="Texture" id=4]
 [ext_resource path="res://entities/building_button/building_button.tscn" type="PackedScene" id=5]
 
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 312.9, 10 )
+
 [node name="Playground" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="BG" type="Sprite" parent="."]
+[node name="World" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 centered = false
 
-[node name="Citizen" parent="BG" instance=ExtResource( 2 )]
-position = Vector2( 187.288, 251.716 )
+[node name="Player" parent="World" instance=ExtResource( 2 )]
+position = Vector2( 124.359, 299.661 )
 
-[node name="Camera2D" type="Camera2D" parent="BG/Citizen"]
+[node name="Camera2D" type="Camera2D" parent="World/Player"]
 current = true
 
-[node name="BuildingButton" parent="BG/Citizen/Camera2D" instance=ExtResource( 5 )]
+[node name="BuildingButton" parent="World/Player/Camera2D" instance=ExtResource( 5 )]
 margin_left = -483.953
 margin_top = 206.766
 margin_right = -413.953
 margin_bottom = 281.766
 
-[node name="CraftList" type="VBoxContainer" parent="BG/Citizen/Camera2D"]
+[node name="CraftList" type="VBoxContainer" parent="World/Player/Camera2D"]
 margin_left = 318.498
 margin_top = -87.4915
 margin_right = 491.498
@@ -40,4 +43,11 @@ modulate = Color( 0, 1, 0, 0.635294 )
 texture = ExtResource( 4 )
 
 [node name="BuildingsHolder" type="Node2D" parent="."]
-[connection signal="pressed" from="BG/Citizen/Camera2D/BuildingButton" to="." method="build_mode_on"]
+
+[node name="Area2D" type="Area2D" parent="."]
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 45.4084, 153.043 )
+shape = SubResource( 1 )
+[connection signal="pressed" from="World/Player/Camera2D/BuildingButton" to="." method="build_mode_on"]

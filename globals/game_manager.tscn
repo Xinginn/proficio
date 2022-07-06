@@ -1,0 +1,148 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://globals/game_manager.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "from_black"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/BlackPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/BlackPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.854902, 0.784314, 0.188235, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.788235, 0.2, 0.152941, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.215686, 0.596078, 0.109804, 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+
+[node name="GameManager" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/from_black = SubResource( 1 )
+anims/to_black = SubResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="BlackPanel" type="Panel" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HUD" type="Control" parent="."]
+visible = false
+
+[node name="Icons" type="HBoxContainer" parent="HUD"]
+visible = false
+anchor_right = 1.0
+margin_right = 1028.0
+margin_bottom = 80.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaminaIcon" type="TextureRect" parent="HUD/Icons"]
+margin_top = 40.0
+margin_bottom = 40.0
+size_flags_vertical = 4
+
+[node name="StaminaBar" type="ProgressBar" parent="HUD/Icons"]
+margin_left = 4.0
+margin_top = 28.0
+margin_right = 244.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 240, 24 )
+size_flags_vertical = 4
+custom_styles/fg = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
+step = 1.0
+value = 40.0
+percent_visible = false
+
+[node name="FoodIcon" type="TextureRect" parent="HUD/Icons"]
+margin_left = 248.0
+margin_top = 8.0
+margin_right = 312.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_vertical = 4
+stretch_mode = 1
+
+[node name="FoodBar" type="ProgressBar" parent="HUD/Icons"]
+margin_left = 316.0
+margin_top = 28.0
+margin_right = 556.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 240, 24 )
+size_flags_vertical = 4
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 5 )
+step = 1.0
+value = 40.0
+percent_visible = false
+
+[node name="HealthIcon" type="TextureRect" parent="HUD/Icons"]
+margin_left = 560.0
+margin_top = 40.0
+margin_right = 560.0
+margin_bottom = 40.0
+size_flags_vertical = 4
+
+[node name="HealthBar" type="ProgressBar" parent="HUD/Icons"]
+margin_left = 564.0
+margin_top = 28.0
+margin_right = 804.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 240, 24 )
+size_flags_vertical = 4
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 8 )
+step = 1.0
+value = 40.0
+percent_visible = false
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
