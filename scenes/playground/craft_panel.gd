@@ -7,19 +7,27 @@ onready var current_craft_icon: TextureRect = $CurrentCraftIcon
 onready var current_craft_progress_bar: TextureProgress = $CurrentCraftIcon/TextureProgress
 onready var queue_container: GridContainer = $QueueContainer
 
-signal recipe_added_to_queue(index)
-signal recipe_removed_from_queue(index)
+signal recipe_button_pressed(index)
+signal cancel_craft_button_pressed(index)
 
-func show():
-  .show()
-  # TODO affichage liste craft_datas, queue et progress laissé en plan
 
 func _on_craft_progress_changed(value):
   current_craft_progress_bar.value = value
 
-func _on_player_entered_own_building():
-  # signal in
-  print("should display ")
+func _on_player_entered_owned_building(building_data):
+  print("should display")
+  # cleanup
+  for child in recipe_container.get_children():
+    child.queue_free()
+  for id in building_data.craft_ids:
+    var new_button = recipe_button_scene.instance()
+    recipe_container.add_child(new_button)
+    new_button._initialize(Data.crafts[id])
+  # TODO affichage liste craft_datas, queue et progress laissé en plan
+  show()
+    
+func _on_player_exited_owned_building(building_data):
+  hide()
 
 func _on_queue_changed(queue: Array):
   # signal in

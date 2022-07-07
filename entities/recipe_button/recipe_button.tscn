@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entities/recipe_button/recipe_button.gd" type="Script" id=1]
 [ext_resource path="res://assets/icons/default.png" type="Texture" id=2]
+[ext_resource path="res://entities/recipe_button/recipe_button_hover.png" type="Texture" id=3]
+[ext_resource path="res://entities/recipe_button/recipe_button.png" type="Texture" id=4]
 
-
-[node name="RecipeButton" type="Button"]
+[node name="RecipeButton" type="TextureButton"]
 margin_right = 186.0
 margin_bottom = 54.0
 rect_min_size = Vector2( 186, 54 )
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 3 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -29,3 +33,6 @@ margin_right = 181.0
 margin_bottom = 43.0
 text = "Text"
 valign = 1
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

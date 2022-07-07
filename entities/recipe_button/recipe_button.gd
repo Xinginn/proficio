@@ -1,4 +1,24 @@
-extends Button
+extends TextureButton
 
-func _initialize(recipe):
-  pass
+var craft_data: CraftData
+var expected_product: Item
+
+signal recipe_button_pressed(data)
+
+func _initialize(_data: CraftData):
+  craft_data = _data
+  expected_product = _data.product.new(GameManager.player_actor, false)
+
+  var texture = load('res://assets/icons/' + expected_product._name + ".png")
+  if !!texture:
+    $Icon.texture = texture
+  $Label.text = expected_product.label
+
+func _on_mouse_entered():
+  print('should tooltip recipe')
+
+func _on_mouse_exited():
+  print('should hide tooltip recipe')
+
+func _on_pressed():
+  emit_signal('recipe_button_pressed', craft_data)

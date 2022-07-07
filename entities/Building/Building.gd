@@ -13,20 +13,34 @@ var building_owner = null
 var building_data: BuildingData = null
 var is_building: bool = false
 var is_crafting: bool = false
-var craft_progress: float = 0.0
+var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
 
 
 signal building_destroyed(building)
 signal building_constructed(building)
+signal craft_progress_changed(value)
+signal player_entered_owned_building(data)
+signal player_exited_owned_building(data)
 
-func _set_health(value):
+func _set_health(value) -> void:
   health = int(clamp(value, 0, max_health))
   health_bar.value = health
   health_bar_label.text = "%d / %d" % [health, max_health]
   if health == 0:
     emit_signal('building_destroyed', self)
     queue_free()
+
+func _set_craft_progress(value) -> void:
+  craft_progress = value
+  emit_signal('craft_progress_changed', craft_progress)
+  if craft_queue.size() > 0:
+    if craft_progress >= craft_queue[0].needed_progress:
+      # TODO creation item
+      
+      print('should add item:', craft_queue[0].product.label)
+      # TODO gain de pex
+      # TODO  changement d'item
 
 func init(_owner, data, pos) -> void:
   building_owner = _owner
@@ -47,12 +61,12 @@ func _on_body_entered(body):
       if health < max_health:
         is_building = true
       elif body == GameManager.player_actor:
-        display_buidling_window(true)
+        emit_signal("player_entered_owned_building", building_data)
 
 func _on_body_exited(body):
   if body == building_owner:
     is_building = false
-    display_buidling_window(false) 
+    emit_signal('player_exited_owned_building', building_data)
         
 func _process(delta):
   if is_building:
@@ -62,6 +76,6 @@ func _process(delta):
     if health >= max_health:
       emit_signal('building_constructed', self)
       is_building = false
-      display_buidling_window(true)
+      emit_signal("player_entered_owned_building", building_data)
   elif is_crafting:
     print("should progress craft")
