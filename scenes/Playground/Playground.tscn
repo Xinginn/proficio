@@ -86,10 +86,11 @@ __meta__ = {
 }
 
 [node name="QueueContainer" type="GridContainer" parent="World/Player/Camera2D/CraftPanel"]
-margin_left = 209.333
-margin_top = 129.667
-margin_right = 422.333
-margin_bottom = 245.667
+margin_left = 206.0
+margin_top = 131.0
+margin_right = 425.0
+margin_bottom = 247.0
+custom_constants/hseparation = 7
 columns = 4
 __meta__ = {
 "_edit_use_anchors_": false

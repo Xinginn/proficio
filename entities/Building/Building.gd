@@ -3,6 +3,7 @@ class_name Building
 
 const HEALTH_GAIN_PER_SECOND = 50
 const CRAFT_GAIN_PER_SECOND = 50
+const MAX_QUEUE_SIZE = 8
 
 onready var health_bar = $HealthBar
 onready var health_bar_label = $HealthBar/Label
@@ -16,12 +17,12 @@ var is_crafting: bool = false
 var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
 
-
 signal building_destroyed(building)
 signal building_constructed(building)
 signal craft_progress_changed(value)
 signal player_entered_owned_building(data)
 signal player_exited_owned_building(data)
+signal craft_queue_changed(queue)
 
 func _set_health(value) -> void:
   health = int(clamp(value, 0, max_health))
@@ -79,3 +80,13 @@ func _process(delta):
       emit_signal("player_entered_owned_building", building_data)
   elif is_crafting:
     print("should progress craft")
+
+# signaux: recipe_button -> craft panel -> ici
+func _on_recipe_requested(craft_data) -> void:
+  if craft_queue.size() < MAX_QUEUE_SIZE:
+    craft_queue.append(craft_data)
+    emit_signal('craft_queue_changed', craft_queue)
+
+func _on_cancel_requested(index) -> void:
+  craft_queue.remove(index)
+  emit_signal('craft_queue_changed', craft_queue)

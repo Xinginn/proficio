@@ -29,6 +29,9 @@ func place_building() -> void:
   new_building.init(player, type_to_build, get_global_mouse_position())
   new_building.connect('player_entered_owned_building', craft_panel, "_on_player_entered_owned_building")
   new_building.connect('player_exited_owned_building', craft_panel, "_on_player_exited_owned_building")
+  new_building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
+  craft_panel.connect('recipe_requested', new_building, '_on_recipe_requested')
+  craft_panel.connect('cancel_requested', new_building, '_on_cancel_requested')
   build_mode_off()
 
 func _unhandled_input(event):
