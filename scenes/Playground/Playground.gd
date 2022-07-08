@@ -4,10 +4,11 @@ const building_scene: PackedScene = preload('res://entities/building/building.ts
 
 onready var player = $World/Player
 onready var buildings_holder = $BuildingsHolder
+onready var resource_spots_holder = $ResourceSpotsHolder
 
 onready var building_ghost = $BuildingGhost
 
-# var et non onready car le GUI est (pour l'instant un child de la camera, child de player, non certain au départ
+# var est non onready car le GUI est (pour l'instant un child de la camera, child de player, non certain au départ
 var craft_panel
 
 var is_placing_building = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/bg_01.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/texture_back.png" type="Texture" id=8]
 [ext_resource path="res://assets/texture_front.png" type="Texture" id=9]
 [ext_resource path="res://scenes/playground/craft_panel.gd" type="Script" id=10]
+[ext_resource path="res://entities/resource_spot/wood_spot/wood_spot.tscn" type="PackedScene" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.231373, 0.329412, 0.596078, 0.486275 )
@@ -114,5 +115,10 @@ modulate = Color( 0, 1, 0, 0.635294 )
 texture = ExtResource( 4 )
 
 [node name="BuildingsHolder" type="Node2D" parent="."]
+
+[node name="ResourceSpotsHolder" type="Node2D" parent="."]
+
+[node name="WoodSpot" parent="ResourceSpotsHolder" instance=ExtResource( 11 )]
+position = Vector2( 233.042, 395.827 )
 [connection signal="pressed" from="World/Player/Camera2D/BuildingButton" to="." method="build_mode_on"]
 [connection signal="pressed" from="World/Player/Camera2D/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="World/Player/Camera2D/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]

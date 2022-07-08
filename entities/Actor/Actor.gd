@@ -2,9 +2,16 @@ extends KinematicBody2D
 
 class_name Actor
 
+const HARVEST_GAIN_PER_SECOND = 50
+
+onready var texture_progress: TextureProgress = $TextureProgress
+
 var move_speed: float = 100.0
 var target_position = null
 var velocity = null
+
+var harvest_progress: float = 0.0 setget _set_harvest_progress
+var current_resource_spot = null
 
 # stats
 var def = 1
@@ -12,6 +19,8 @@ var def_xp = 0
 # skills
 var leatherwork = 10
 var leatherwork_xp = 0
+var gathering = 10
+var gathering_xp = 10
 # masteries
 var construction = 20
 var construction_xp = 0
@@ -19,6 +28,16 @@ var light_armor = 20
 var light_armor_xp = 0
 
 var inventory: Inventory = Inventory.new()
+
+func _set_harvest_progress(value: float) -> void:
+  if !current_resource_spot:
+    harvest_progress = 0.0
+  else:
+    harvest_progress = clamp(value, 0.0, current_resource_spot.duration)
+    if harvest_progress == current_resource_spot.duration:
+      current_resource_spot.harvest(self)
+      harvest_progress = 0.0
+    texture_progress.value = int(harvest_progress)
 
 func has_resources(needs: Dictionary) -> bool:
   for resource in needs:
@@ -40,14 +59,15 @@ func stop_moving() -> void:
   target_position = null
   velocity = Vector2(0,0)
 
-func _physics_process(delta):
-  if target_position != null:
-    velocity = global_position.direction_to(target_position) * move_speed
-    if global_position.distance_to(target_position) > 5:
-      velocity = move_and_slide(velocity)
-    else:
-      global_position = target_position
-      target_position = null
+func start_harvesting(spot):
+  current_resource_spot = spot
+  texture_progress.max_value = spot.duration
+  texture_progress.show()
+  
+func stop_harvesting() -> void:
+  self.harvest_progress = 0.0
+  current_resource_spot = null
+  texture_progress.hide()
 
 
 # cette methode fait gagner de l'xp à la stat envoyée en argument,
@@ -77,3 +97,18 @@ func gain_xp(attr, xp_value):
     # on applique le gain d'xp
     set(attribute.attribute_name + "_xp", total_xp)
 #    print("new_xp de " + attribute.attribute_name + ": " + str(get(attribute.attribute_name + "_xp")))
+
+func _ready() -> void:
+  texture_progress.hide()
+
+func _physics_process(delta):
+  if target_position != null:
+    velocity = global_position.direction_to(target_position) * move_speed
+    if global_position.distance_to(target_position) > 5:
+      velocity = move_and_slide(velocity)
+    else:
+      global_position = target_position
+      target_position = null
+  if !!current_resource_spot:
+    var harvest_gain = get(current_resource_spot.skill) * HARVEST_GAIN_PER_SECOND * delta
+    self.harvest_progress += harvest_gain

@@ -105,13 +105,12 @@ func _on_recipe_requested(craft_data) -> void:
     if queue_size == 0:
       is_crafting = true
   else:
-    print('not enough resources')
+    pass
 
 func _on_cancel_requested(index) -> void:
   var refund = craft_queue[index].resources
   for res in refund.keys():
     building_owner.add_resource(res, refund[res])
-  print('refunded', building_owner.inventory.resources)
   craft_queue.remove(index)
   emit_signal('craft_queue_changed', craft_queue)
   if craft_queue.size() == 0:
