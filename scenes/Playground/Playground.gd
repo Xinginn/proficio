@@ -51,10 +51,15 @@ func _unhandled_input(event):
     building_ghost.global_position = get_global_mouse_position()
 
 func _ready():
-  var new_armor = Data.crafts[0].product.new()
-  player.gear['body'] = new_armor
-  player.gain_xp("def", 4)
   GameManager.player_actor = player
-  # a faire après que le player soit instancié
+  # dans ready car a faire après que le player soit instancié
   craft_panel = $World/Player/Camera2D/CraftPanel
+  
+  # zone de seed pour test
+  var new_armor = Data.crafts[0].product.new()
+  player.inventory.gear['body'] = new_armor
+  player.add_resource("wood", 4)
+  player.add_resource("stone", 3)
+  player.add_resource("leather", 8)
+  print(player.inventory.resources)
   

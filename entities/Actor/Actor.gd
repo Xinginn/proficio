@@ -18,16 +18,20 @@ var construction_xp = 0
 var light_armor = 20
 var light_armor_xp = 0
 
-var gear = {
-  "main_hand": null,
-  "secondary_hand": null,
-  "body": null,
-  "head": null,
-  "feet": null,
-  "ring": null
- }
+var inventory: Inventory = Inventory.new()
 
-var inventory: Array = []
+func has_resources(needs: Dictionary) -> bool:
+  for resource in needs:
+    if inventory.resources[resource] < needs[resource]:
+      return false
+  return true
+
+func add_resource(resource: String, number: int) -> void:
+  # TODO evaluer dépassement de poids
+  inventory.resources[resource] += number
+
+func remove_resource(resource: String, number: int) -> void:
+  inventory.resources[resource] -= number 
 
 func move_to(coords: Vector2) -> void:
   target_position = coords
@@ -55,7 +59,7 @@ func gain_xp(attr, xp_value):
   set(attr + "_xp", new_xp)
 #  print("new_xp de " + attr + ": " + str(get(attr + "_xp")))
   # gain bonus selon equipement boostant la stat
-  for item in gear.values():   
+  for item in inventory.gear.values():   
     if item == null:
       continue
     # on récupère la stat utilisée par l'equipement

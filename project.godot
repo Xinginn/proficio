@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://classes/item/equipable/equipable.gd"
 }, {
 "base": "Node",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://classes/inventory.gd"
+}, {
+"base": "Node",
 "class": "Item",
 "language": "GDScript",
 "path": "res://classes/item/item.gd"
@@ -55,6 +60,7 @@ _global_script_class_icons={
 "BuildingData": "",
 "CraftData": "",
 "Equipable": "",
+"Inventory": "",
 "Item": "",
 "LeatherJacket": "",
 "WearAttribute": ""
