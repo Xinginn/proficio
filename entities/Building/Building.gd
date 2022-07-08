@@ -31,17 +31,25 @@ func _set_health(value) -> void:
   if health == 0:
     emit_signal('building_destroyed', self)
     queue_free()
+  if health == max_health:
+    emit_signal('building_constructed', self)
+    is_building = false
+    emit_signal("player_entered_owned_building", building_data)
 
 func _set_craft_progress(value) -> void:
   craft_progress = value
   emit_signal('craft_progress_changed', craft_progress)
   if craft_queue.size() > 0:
     if craft_progress >= craft_queue[0].needed_progress:
-      # TODO creation item
-      
-      print('should add item:', craft_queue[0].product.label)
-      # TODO gain de pex
-      # TODO  changement d'item
+      building_owner.inventory.append(craft_queue[0].product.new(building_owner))
+      # gain de pex
+      building_owner.gain_xp("leatherwork", 4)
+      # changement d'item
+      craft_queue.pop_front()
+      emit_signal('craft_queue_changed', craft_queue)
+      if craft_queue.size() == 0:
+        is_crafting = false
+      craft_progress = 0
 
 func init(_owner, data, pos) -> void:
   building_owner = _owner
@@ -74,18 +82,24 @@ func _process(delta):
     var health_gain = HEALTH_GAIN_PER_SECOND * building_owner.construction * delta
     self.health += health_gain
     building_owner.gain_xp("construction", HEALTH_GAIN_PER_SECOND * delta)
-    if health >= max_health:
-      emit_signal('building_constructed', self)
-      is_building = false
-      emit_signal("player_entered_owned_building", building_data)
   elif is_crafting:
-    print("should progress craft")
+    if craft_queue.size() == 0:
+      is_crafting = false
+      return
+    var skill_level = building_owner.get(craft_queue[0].skill)
+    var craft_gain = CRAFT_GAIN_PER_SECOND * skill_level * delta
+    self.craft_progress += craft_gain 
+  else:
+    pass
 
 # signaux: recipe_button -> craft panel -> ici
 func _on_recipe_requested(craft_data) -> void:
-  if craft_queue.size() < MAX_QUEUE_SIZE:
+  var queue_size = craft_queue.size()
+  if queue_size < MAX_QUEUE_SIZE:
     craft_queue.append(craft_data)
     emit_signal('craft_queue_changed', craft_queue)
+  if queue_size == 0:
+    is_crafting = true
 
 func _on_cancel_requested(index) -> void:
   craft_queue.remove(index)

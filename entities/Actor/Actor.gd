@@ -27,6 +27,8 @@ var gear = {
   "ring": null
  }
 
+var inventory: Array = []
+
 func move_to(coords: Vector2) -> void:
   target_position = coords
 
@@ -46,7 +48,8 @@ func _physics_process(delta):
 # puis augmente d'une fraction les compétences des équipements qui ameillorent aussi cette stat
 # ex: gain d'xp de def -> porte une armure légere qui augmente la def -> gain d'xp d'armure legere
 func gain_xp(attr, xp_value):
-#  print("xp gain for " + attr)
+  if attr != "construction":
+    print("xp gain for " + attr)
   # gain de base
   var new_xp = get(attr + "_xp") + xp_value
   set(attr + "_xp", new_xp)
