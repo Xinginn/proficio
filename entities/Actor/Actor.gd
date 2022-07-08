@@ -38,6 +38,7 @@ func move_to(coords: Vector2) -> void:
 
 func stop_moving() -> void:
   target_position = null
+  velocity = Vector2(0,0)
 
 func _physics_process(delta):
   if target_position != null:
@@ -47,6 +48,7 @@ func _physics_process(delta):
     else:
       global_position = target_position
       target_position = null
+
 
 # cette methode fait gagner de l'xp à la stat envoyée en argument,
 # puis augmente d'une fraction les compétences des équipements qui ameillorent aussi cette stat

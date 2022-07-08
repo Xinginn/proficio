@@ -7,6 +7,7 @@ func _init(crafter = null):
   label = "Veste de cuir"
   _name = "leather_jacket"
   weight = 4.0
+  description = "Une armure légère faite en cuir d'animaux."
   # calcul des valeur selon niveau de crafteur
   var base_def = 6
   var base_move_speed = 12
@@ -21,3 +22,7 @@ func _init(crafter = null):
   
   def = WearAttribute.new(base_def + bonus_def, "light_armor", 0.1)
   move_speed = WearAttribute.new(base_move_speed + bonus_move_speed, "light_armor", 0.05)
+
+# override du getter
+func _get_stats_text() -> String:
+  return "Défense %+d \nVitesse %+d" % [def.value, move_speed.value]

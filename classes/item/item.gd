@@ -6,3 +6,4 @@ class_name Item
 var _name: String
 var label: String
 var weight: float
+var description: String

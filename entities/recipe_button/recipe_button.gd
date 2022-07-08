@@ -15,10 +15,10 @@ func _initialize(_data: CraftData):
   $Label.text = expected_product.label
 
 func _on_mouse_entered():
-  print('should tooltip recipe')
+  CraftTooltip.display(craft_data, expected_product)
 
 func _on_mouse_exited():
-  print('should hide tooltip recipe')
+  CraftTooltip.hide()
 
 func _on_pressed():
   emit_signal('recipe_button_pressed', craft_data)

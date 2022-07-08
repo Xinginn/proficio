@@ -11,6 +11,8 @@ var xp
 var resources
 var needed_progress
 
+var resources_text setget ,_get_resources_text
+
 func _init(_id, _product, _name, _stamina, _skill, _xp, _resources, _needed_progress = 1000):
   id = _id
   product = _product
@@ -20,3 +22,13 @@ func _init(_id, _product, _name, _stamina, _skill, _xp, _resources, _needed_prog
   xp = _xp
   resources = _resources
   needed_progress = _needed_progress
+
+func _get_resources_text() -> String:
+  var text = ""
+  var i = 0
+  for resource_name in resources.keys():
+    text += "%s x%d" % [Data.resource_dictionary[resource_name], resources[resource_name]]
+    i += 1
+    if i < resources.size():
+      text += ", "
+  return text

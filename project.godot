@@ -76,6 +76,7 @@ config/icon="res://icon.png"
 
 Data="*res://globals/data.gd"
 GameManager="*res://globals/game_manager.tscn"
+CraftTooltip="*res://globals/craft_tooltip/craft_tooltip.tscn"
 
 [rendering]
 

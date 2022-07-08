@@ -17,6 +17,7 @@ bg_color = Color( 0.231373, 0.329412, 0.596078, 0.486275 )
 script = ExtResource( 3 )
 
 [node name="World" type="Sprite" parent="."]
+z_index = -10
 texture = ExtResource( 1 )
 centered = false
 

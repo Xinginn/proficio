@@ -1,5 +1,11 @@
 extends Node
 
+var resource_dictionary: Dictionary = {
+  "leather": "Cuir",
+  "stone": "Pierre",
+  "wood": "Bois",
+ }
+
 var crafts = []
 var buildings = []
 
