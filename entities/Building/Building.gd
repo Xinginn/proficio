@@ -1,8 +1,9 @@
 extends Sprite
 class_name Building
 
-const HEALTH_GAIN_PER_SECOND = 50
-const CRAFT_GAIN_PER_SECOND = 50
+#const HEALTH_GAIN_SPEED = 100
+const HEALTH_GAIN_SPEED = 1000 # valeur boostée pour vitesse de test
+const CRAFT_GAIN_SPEED = 100
 const MAX_QUEUE_SIZE = 8
 
 onready var health_bar = $HealthBar
@@ -21,7 +22,7 @@ signal building_destroyed(building)
 signal building_constructed(building)
 signal craft_progress_changed(value)
 signal player_entered_owned_building(data)
-signal player_exited_owned_building(data)
+signal player_exited_owned_building
 signal craft_queue_changed(queue)
 
 func _set_health(value) -> void:
@@ -64,6 +65,7 @@ func display_buidling_window(_visible: bool):
   print("should toggle building display ", _visible)
 
 func _on_body_entered(body):
+  
   if body is Actor:
     body.stop_moving()
     if body == building_owner:
@@ -75,19 +77,19 @@ func _on_body_entered(body):
 func _on_body_exited(body):
   if body == building_owner:
     is_building = false
-    emit_signal('player_exited_owned_building', building_data)
+    emit_signal('player_exited_owned_building')
         
 func _process(delta):
   if is_building:
-    var health_gain = HEALTH_GAIN_PER_SECOND * building_owner.construction * delta
+    var health_gain = HEALTH_GAIN_SPEED * (1 + (building_owner.construction / 20.0)) * delta
     self.health += health_gain
-    building_owner.gain_xp("construction", HEALTH_GAIN_PER_SECOND * delta)
+    building_owner.gain_xp("construction", HEALTH_GAIN_SPEED * delta)
   elif is_crafting:
     if craft_queue.size() == 0:
       is_crafting = false
       return
     var skill_level = building_owner.get(craft_queue[0].skill)
-    var craft_gain = CRAFT_GAIN_PER_SECOND * skill_level * delta
+    var craft_gain = CRAFT_GAIN_SPEED * (1 + (skill_level / 20.0)) * delta
     self.craft_progress += craft_gain 
   else:
     pass

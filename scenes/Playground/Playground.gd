@@ -3,8 +3,8 @@ extends Node2D
 const building_scene: PackedScene = preload('res://entities/building/building.tscn')
 
 onready var player = $World/Player
-onready var buildings_holder = $BuildingsHolder
-onready var resource_spots_holder = $ResourceSpotsHolder
+onready var buildings_holder = $World/BuildingsHolder
+onready var resource_spots_holder = $World/ResourceSpotsHolder
 
 onready var building_ghost = $BuildingGhost
 

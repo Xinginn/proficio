@@ -19,7 +19,13 @@ var items = []
 
 # ressources
 var resources: Dictionary = {
+  "cristal" : 0,
+  "fiber": 0,
+  "herb": 0,
   "leather": 0,
+  "ore": 0,
+  "skin": 0,
   "stone": 0,
+  "wheat": 0,
   "wood": 0,
  }

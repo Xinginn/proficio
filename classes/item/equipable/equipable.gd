@@ -6,6 +6,7 @@ var atk: WearAttribute
 var def: WearAttribute
 var move_speed: WearAttribute
 var construction: WearAttribute
+var skinning: WearAttribute
 
 var stats_text setget ,_get_stats_text
 

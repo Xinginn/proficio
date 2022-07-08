@@ -27,7 +27,7 @@ func _on_player_entered_owned_building(building_data) -> void:
   # TODO affichage liste craft_datas, queue et progress laissé en plan
   show()
     
-func _on_player_exited_owned_building(building_data) -> void:
+func _on_player_exited_owned_building() -> void:
   hide()
 
 func _on_craft_progress_changed(value) -> void:

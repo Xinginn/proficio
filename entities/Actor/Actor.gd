@@ -14,18 +14,52 @@ var harvest_progress: float = 0.0 setget _set_harvest_progress
 var current_resource_spot = null
 
 # stats
+var atk = 1
+var atk_xp = 0
 var def = 1
 var def_xp = 0
 # skills
-var leatherwork = 10
-var leatherwork_xp = 0
-var gathering = 10
-var gathering_xp = 10
-# masteries
-var construction = 20
+var construction = 10
 var construction_xp = 0
-var light_armor = 20
-var light_armor_xp = 0
+var gathering = 1
+var gathering_xp = 0
+var lumberjack = 1
+var lumberjack_xp = 0
+var smelting = 1
+var smelting_xp = 0
+var skinning = 1
+var skinning_xp = 0
+var leatherwork = 1
+var leatherwork_xp = 0
+var weaponsmith = 1
+var weaponsmith_xp = 0
+var armorsmith = 1
+var armorsmith_xp = 0
+var weaving = 1
+var weaving_xp = 0
+var woodcarving = 1
+var woodcarving_xp = 0
+var shoemaking = 1
+var shoemaking_xp = 0
+var toolmaking = 1
+var toolmaking_xp = 0
+# masteries
+var tools = 1
+var tools_xp = 0
+var knives = 1
+var knives_xp = 0
+var swords = 1
+var swords_xp = 0
+var masses = 1
+var masses_xp = 0
+var clothes = 1
+var clothes_xp = 0
+var shoes = 1
+var shoes_xp = 0
+var light_armors = 1
+var light_armors_xp = 0
+var heavy_armors = 1
+var heavy_armors_xp = 0
 
 var inventory: Inventory = Inventory.new()
 

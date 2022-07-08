@@ -4,7 +4,7 @@ func _ready():
   skill = "gathering"
   xp_gain = 5
   duration = 1000
-  remaining_harvests = 2
+  remaining_harvests = 10
   
 func harvest(harvester) -> void:
   #gain de ressources
