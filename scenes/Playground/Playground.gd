@@ -62,4 +62,3 @@ func _ready():
   player.add_resource("stone", 3)
   player.add_resource("leather", 8)
   print(player.inventory.resources)
-  

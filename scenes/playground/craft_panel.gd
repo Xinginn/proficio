@@ -5,6 +5,7 @@ const queue_button_scene: PackedScene = preload('res://entities/queue_button/que
 
 onready var recipe_container: VBoxContainer = $CraftListScroll/RecipeContainer
 onready var current_craft_icon: TextureRect = $CurrentCraftIcon
+onready var current_craft_button: TextureButton = $CurrentCraftIcon/CurrentCraftButton
 onready var current_craft_progress_bar: TextureProgress = $CurrentCraftIcon/TextureProgress
 onready var queue_container: GridContainer = $QueueContainer
 
@@ -38,6 +39,7 @@ func _on_craft_queue_changed(queue: Array) -> void:
   if queue_size == 0:
     # ici, queue vide donc on nettoie tout
     current_craft_icon.texture = null
+    current_craft_button.disabled = true
     current_craft_progress_bar.value = 0
     current_craft_progress_bar.hide()
     for child in queue_container.get_children():
@@ -45,6 +47,7 @@ func _on_craft_queue_changed(queue: Array) -> void:
   else:
     current_craft_icon.show()
     current_craft_icon.texture = load('res://assets/icons/' + queue[0].product_name + ".png")
+    current_craft_button.disabled = false
     current_craft_progress_bar.show()
     current_craft_progress_bar.max_value = queue[0].needed_progress
     # gestion de boutons (queue en plus du premier slot)
@@ -55,6 +58,8 @@ func _on_craft_queue_changed(queue: Array) -> void:
       queue_buttons[i-1].hide()
 
 func _on_queue_button_cancel_pressed(index) -> void:
+  if index == 0:
+    current_craft_button.disabled = true
   emit_signal('cancel_requested', index)
   
 func _on_recipe_button_pressed(craft_data) -> void:
@@ -63,7 +68,9 @@ func _on_recipe_button_pressed(craft_data) -> void:
 func _ready() -> void:
   
   for i in range(1, 9):
+    hide()
     current_craft_progress_bar.hide()
+    current_craft_button.disabled = true
     var new_button = queue_button_scene.instance()
     queue_container.add_child(new_button)
     queue_buttons.append(new_button)

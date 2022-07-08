@@ -94,13 +94,25 @@ func _process(delta):
 
 # signaux: recipe_button -> craft panel -> ici
 func _on_recipe_requested(craft_data) -> void:
-  var queue_size = craft_queue.size()
-  if queue_size < MAX_QUEUE_SIZE:
-    craft_queue.append(craft_data)
-    emit_signal('craft_queue_changed', craft_queue)
-  if queue_size == 0:
-    is_crafting = true
+  var cost = craft_data.resources
+  if building_owner.has_resources(cost):
+    for res in cost.keys():
+      building_owner.remove_resource(res, cost[res])
+    var queue_size = craft_queue.size()
+    if queue_size < MAX_QUEUE_SIZE:
+      craft_queue.append(craft_data)
+      emit_signal('craft_queue_changed', craft_queue)
+    if queue_size == 0:
+      is_crafting = true
+  else:
+    print('not enough resources')
 
 func _on_cancel_requested(index) -> void:
+  var refund = craft_queue[index].resources
+  for res in refund.keys():
+    building_owner.add_resource(res, refund[res])
+  print('refunded', building_owner.inventory.resources)
   craft_queue.remove(index)
   emit_signal('craft_queue_changed', craft_queue)
+  if craft_queue.size() == 0:
+    self.craft_progress = 0
