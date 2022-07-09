@@ -7,17 +7,20 @@ func _init(crafter = null):
   label = "Couteau de chasse"
   _name = "hunting_knife"
   weight = 0.5
-  description = "Un couteau utilitaire."
+  description = "Un couteau utilitaire qui facilite le dépeçage."
   # calcul des valeur selon niveau de crafteur
   var base_atk = 4
+  var bonus_atk = 0
   var base_skinning = 2
-  var bonus_atk = 0 
   var bonus_skinning = 0
   
+  # calcul des values de base + bonus du au skill de craft
   if crafter != null:
     bonus_atk = int(crafter.toolmaking * 0.1)
-    bonus_skinning = int(crafter.leatherwork * 0.2)
+    bonus_skinning = int(crafter.toolmaking * 0.2)
   
+  # declaration des wear attribute: valeur inhérente à l'objet crafté, mastery l'augmentant 
+  # et ratio de boost et gain d'xp en l'utilisant
   atk = WearAttribute.new(base_atk + bonus_atk, "tools", 0.1)
   skinning = WearAttribute.new(base_skinning + bonus_skinning, "tools", 0.1)
 

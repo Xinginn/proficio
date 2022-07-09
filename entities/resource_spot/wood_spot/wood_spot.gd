@@ -3,7 +3,7 @@ extends ResourceSpot
 func _ready():
   skill = "gathering"
   xp_gain = 5
-  duration = 1000
+  duration = 200
   remaining_harvests = 10
   
 func harvest(harvester) -> void:

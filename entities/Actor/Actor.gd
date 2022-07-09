@@ -18,6 +18,14 @@ var atk = 1
 var atk_xp = 0
 var def = 1
 var def_xp = 0
+var max_health = 10
+var max_health_xp = 0
+var max_stamina = 10
+var max_stamina_xp = 0
+var max_mana = 10
+var max_mana_xp = 0
+var critical = 1
+var critical_xp = 0
 # skills
 var construction = 10
 var construction_xp = 0

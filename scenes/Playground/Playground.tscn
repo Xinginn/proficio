@@ -37,7 +37,6 @@ position = Vector2( 233.042, 395.827 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 124.359, 299.661 )
-z_index = 0
 
 [node name="Camera2D" type="Camera2D" parent="World/Player"]
 current = true

@@ -1,25 +1,25 @@
 extends Equipable
 
-class_name HideArmor
+class_name Cudgel
 
 func _init(crafter = null):
   #valeurs immuables (nom, poids)
-  label = "Armure de peaux"
-  _name = "hide_armor"
-  weight = 3.0
-  description = "Une armure rudimentaire faite de peaux d'animaux."
+  label = "Gourdin"
+  _name = "cudgel"
+  weight = 0.8
+  description = "Un baton court adapté au combat."
   # calcul des valeur selon niveau de crafteur
-  var base_def = 4
-  var bonus_def = 0
+  var base_atk = 4
+  var bonus_atk = 0 
   
   # calcul des values de base + bonus du au skill de craft
   if crafter != null:
-    bonus_def = int(crafter.leatherwork * 0.35)
+    bonus_atk = int(crafter.woodcarving * 0.2)
   
   # declaration des wear attribute: valeur inhérente à l'objet crafté, mastery l'augmentant 
   # et ratio de boost et gain d'xp en l'utilisant
-  def = WearAttribute.new(base_def + bonus_def, "light_armors", 0.1)
+  atk = WearAttribute.new(base_atk + bonus_atk, "masses", 0.1)
 
 # override du getter
 func _get_stats_text() -> String:
-  return "Défense %+d" % [def.value]
+  return "Attaque %+d" % [atk.value]

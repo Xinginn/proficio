@@ -2,8 +2,9 @@ extends Sprite
 class_name Building
 
 #const HEALTH_GAIN_SPEED = 100
-const HEALTH_GAIN_SPEED = 1000 # valeur boostée pour vitesse de test
-const CRAFT_GAIN_SPEED = 100
+#const CRAFT_GAIN_SPEED = 100
+const HEALTH_GAIN_SPEED = 1000 # valeur boostée pour simplicité de test
+const CRAFT_GAIN_SPEED = 1000
 const MAX_QUEUE_SIZE = 8
 
 onready var health_bar = $HealthBar
@@ -44,7 +45,7 @@ func _set_craft_progress(value) -> void:
     if craft_progress >= craft_queue[0].needed_progress:
       building_owner.inventory.items.append(craft_queue[0].product.new(building_owner))
       # gain de pex
-      building_owner.gain_xp("leatherwork", 4)
+      building_owner.gain_xp(craft_queue[0].skill, craft_queue[0].xp)
       # changement d'item
       craft_queue.pop_front()
       emit_signal('craft_queue_changed', craft_queue)
