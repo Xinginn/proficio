@@ -90,6 +90,7 @@ func has_resources(needs: Dictionary) -> bool:
 func add_resource(resource: String, number: int) -> void:
   # TODO evaluer dépassement de poids
   inventory.resources[resource] += number
+  print("added resource", inventory.resources)
 
 func remove_resource(resource: String, number: int) -> void:
   inventory.resources[resource] -= number 

@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/texture_back.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 31.7171, 31.7438 )
+extents = Vector2( 7.9627, 7.79011 )
 
 [node name="Actor" type="KinematicBody2D"]
 script = ExtResource( 2 )

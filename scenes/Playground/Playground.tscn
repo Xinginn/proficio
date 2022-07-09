@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/bg_01.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
@@ -10,7 +10,9 @@
 [ext_resource path="res://assets/texture_back.png" type="Texture" id=8]
 [ext_resource path="res://assets/texture_front.png" type="Texture" id=9]
 [ext_resource path="res://scenes/playground/craft_panel.gd" type="Script" id=10]
-[ext_resource path="res://entities/resource_spot/wood_spot/wood_spot.tscn" type="PackedScene" id=11]
+[ext_resource path="res://entities/resource_spot/tree_spot/tree_spot.tscn" type="PackedScene" id=11]
+[ext_resource path="res://entities/resource_spot/herbs_spot/herbs_spot.tscn" type="PackedScene" id=12]
+[ext_resource path="res://entities/resource_spot/pebbles_spot/pebble_spot.tscn" type="PackedScene" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.231373, 0.329412, 0.596078, 0.486275 )
@@ -30,8 +32,14 @@ centered = false
 
 [node name="ResourceSpotsHolder" type="Node2D" parent="World"]
 
-[node name="WoodSpot" parent="World/ResourceSpotsHolder" instance=ExtResource( 11 )]
-position = Vector2( 233.042, 395.827 )
+[node name="TreeSpot" parent="World/ResourceSpotsHolder" instance=ExtResource( 11 )]
+position = Vector2( 169.271, 446.341 )
+
+[node name="HerbsSpot" parent="World/ResourceSpotsHolder" instance=ExtResource( 12 )]
+position = Vector2( 285.979, 385.76 )
+
+[node name="PebbleSpot" parent="World/ResourceSpotsHolder" instance=ExtResource( 13 )]
+position = Vector2( 49.7839, 394.44 )
 
 [node name="BuildingsHolder" type="Node2D" parent="World"]
 
