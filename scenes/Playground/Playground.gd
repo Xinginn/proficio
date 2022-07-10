@@ -5,6 +5,7 @@ const building_scene: PackedScene = preload('res://entities/building/building.ts
 onready var player = $World/Player
 onready var buildings_holder = $World/BuildingsHolder
 onready var resource_spots_holder = $World/ResourceSpotsHolder
+onready var inventory_panel = $World/Player/Camera2D/InventoryPanel
 
 onready var building_ghost = $BuildingGhost
 
@@ -56,6 +57,8 @@ func _ready():
   # dans ready car a faire après que le player soit instancié
   craft_panel = $World/Player/Camera2D/CraftPanel
   
+  player.connect('gold_changed', inventory_panel, "_on_gold_changed")
+  
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()
   player.inventory.gear['body'] = new_armor
@@ -63,3 +66,4 @@ func _ready():
   player.add_resource("stone", 3)
   player.add_resource("leather", 8)
   print(player.inventory.resources)
+  player.gold += 4

@@ -22,3 +22,9 @@ func _on_mouse_exited():
 
 func _on_pressed():
   emit_signal('recipe_button_pressed', craft_data)
+  
+# methode pour liberer la variable expected_product de la mémoire
+# (n'est pas fait par défaut car instancié avec new(), est orphelin)
+func destroy():
+  expected_product.destroy()
+  queue_free()

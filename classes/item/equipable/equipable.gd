@@ -2,6 +2,12 @@ extends Item
 
 class_name Equipable
 
+var attributes = [
+  "atk", "def", "max_health", "max_stamina", "max_mana", "critical", "move_speed", "construction",
+  "gathering", "lumberjack", "smelting", "skinning", "leatherwork", "weaponsmith", "armorsmith", "weaving",
+  "woodcarving", "shoemaking", "toolmaking"
+]
+
 var atk: WearAttribute
 var def: WearAttribute
 var max_health: WearAttribute
@@ -31,3 +37,9 @@ var description_text: String =  "description par defaut"
 
 func _get_stats_text() -> String:
   return "No stats"
+
+# retrait des WeatAttributes de la mémoire 
+func destroy():
+  for attr in attributes:
+    if !!get(attr): get(attr).queue_free()
+  .destroy()

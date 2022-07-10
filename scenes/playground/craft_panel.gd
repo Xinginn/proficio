@@ -16,9 +16,7 @@ signal cancel_requested(index)
 
 
 func _on_player_entered_owned_building(building_data) -> void:
-  # cleanup
-  for child in recipe_container.get_children():
-    child.queue_free()
+
   for id in building_data.craft_ids:
     var new_button = recipe_button_scene.instance()
     recipe_container.add_child(new_button)
@@ -28,6 +26,10 @@ func _on_player_entered_owned_building(building_data) -> void:
   show()
     
 func _on_player_exited_owned_building() -> void:
+  # cleanup
+  for child in recipe_container.get_children():
+    child.disconnect('recipe_button_pressed', self, '_on_recipe_button_pressed')
+    child.destroy()
   hide()
 
 func _on_craft_progress_changed(value) -> void:

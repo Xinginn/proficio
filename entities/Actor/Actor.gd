@@ -13,6 +13,9 @@ var velocity = null
 var harvest_progress: float = 0.0 setget _set_harvest_progress
 var current_resource_spot = null
 
+var gold: int = 0 setget _set_gold
+var inventory: Inventory = Inventory.new()
+
 # stats
 var atk = 1
 var atk_xp = 0
@@ -69,7 +72,11 @@ var light_armors_xp = 0
 var heavy_armors = 1
 var heavy_armors_xp = 0
 
-var inventory: Inventory = Inventory.new()
+signal gold_changed(value)
+
+func _set_gold(value: int) -> void:
+  gold = value
+  emit_signal("gold_changed", value)
 
 func _set_harvest_progress(value: float) -> void:
   if !current_resource_spot:

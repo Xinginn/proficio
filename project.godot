@@ -138,6 +138,10 @@ Data="*res://globals/data.gd"
 GameManager="*res://globals/game_manager.tscn"
 CraftTooltip="*res://globals/craft_tooltip/craft_tooltip.tscn"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
