@@ -9,6 +9,9 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var save_number: int = 1
 var player_actor = null
 
+var world_width: int = 5
+var world_height: int = 3
+
 signal to_black_finished
 signal from_black_finished
 

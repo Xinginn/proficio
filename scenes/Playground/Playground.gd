@@ -2,9 +2,11 @@ extends Node2D
 
 const building_scene: PackedScene = preload('res://entities/building/building.tscn')
 const building_button_scene: PackedScene = preload('res://entities/building_button/building_button.tscn')
+const terrain_texture: Texture = preload('res://assets/terrain.png')
 
 onready var player = $World/Player
 onready var buildings_holder = $World/BuildingsHolder
+onready var terrains_holder = $World/TerrainsHolder
 onready var resource_spots_holder = $World/ResourceSpotsHolder
 onready var inventory_panel = $World/Player/Camera2D/InventoryPanel
 onready var building_buttons_container = $World/Player/Camera2D/StartBuildButton/BuildingButtonsContainer
@@ -19,6 +21,8 @@ var is_selecting_building = false
 var type_to_build = null
 
 func _on_start_build_button_pressed():
+  for child in building_buttons_container.get_children():
+    child.queue_free()
   if is_selecting_building:
     build_mode_off()
   else:
@@ -83,6 +87,18 @@ func _ready():
   player.connect('gold_changed', inventory_panel, "_on_gold_changed")
   player.connect('resources_changed', inventory_panel, "_on_resources_changed")
   player.connect('inventory_changed', inventory_panel, "_on_inventory_changed")
+  
+  # generation du terrain
+  var w = terrain_texture.get_width()
+  var h = terrain_texture.get_height()
+  for i in range(GameManager.world_width):
+    for j in range(GameManager.world_height):
+      var new_terrain = Sprite.new()
+      new_terrain.texture = terrain_texture
+      terrains_holder.add_child(new_terrain)
+      new_terrain.global_position = Vector2(w * i, h * j)
+  
+  player.global_position = Vector2(GameManager.world_width * w / 2.0, GameManager.world_height * h / 2.0)
   
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()
