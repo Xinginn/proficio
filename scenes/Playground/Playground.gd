@@ -49,7 +49,9 @@ func _unhandled_input(event):
         player.move_to(pos)
     if event.button_index == BUTTON_RIGHT and event.pressed:
       build_mode_off()
-  if event is InputEventMouseMotion and is_placing_building:
+      
+func _process(delta):
+  if is_placing_building:
     building_ghost.global_position = get_global_mouse_position()
 
 func _ready():

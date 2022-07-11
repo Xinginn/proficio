@@ -14,9 +14,7 @@ var queue_buttons: Array = []
 signal recipe_requested(data)
 signal cancel_requested(index)
 
-
 func _on_player_entered_owned_building(building_data) -> void:
-
   for id in building_data.craft_ids:
     var new_button = recipe_button_scene.instance()
     recipe_container.add_child(new_button)
@@ -68,9 +66,8 @@ func _on_recipe_button_pressed(craft_data) -> void:
   emit_signal('recipe_requested', craft_data)
 
 func _ready() -> void:
-  
+  hide()
   for i in range(1, 9):
-    hide()
     current_craft_progress_bar.hide()
     current_craft_button.disabled = true
     var new_button = queue_button_scene.instance()

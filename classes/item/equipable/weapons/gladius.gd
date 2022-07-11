@@ -8,6 +8,7 @@ func _init(crafter = null):
   _name = "gladius"
   weight = 1.2
   description = "Une épée de conception ancienne, courte et large."
+  slots = ["main_hand"]
   # calcul des valeur selon niveau de crafteur
   var base_atk = 4
   var bonus_atk = 0

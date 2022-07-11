@@ -8,6 +8,7 @@ func _init(crafter = null):
   _name = "tunic"
   weight = 2.0
   description = "Un vêtement léger, idéal pour travailler."
+  slots = ["body"]
   # calcul des valeur selon niveau de crafteur
   var base_max_stamina = 4
   var bonus_max_stamina = 0

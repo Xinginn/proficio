@@ -138,6 +138,7 @@ margin_left = -505.0
 margin_top = -295.0
 margin_right = 21.0
 margin_bottom = 64.0
+mouse_filter = 2
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 15 )
 __meta__ = {
@@ -149,6 +150,7 @@ margin_left = 96.7898
 margin_top = 0.468322
 margin_right = 296.79
 margin_bottom = 200.469
+mouse_filter = 2
 texture = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -219,6 +221,7 @@ __meta__ = {
 margin_top = 202.0
 margin_right = 523.0
 margin_bottom = 358.0
+mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -232,6 +235,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="World/Player/Camera2D/InventoryPanel/ScrollContainer"]
 margin_right = 2.0
 margin_bottom = 2.0
+mouse_filter = 1
 custom_constants/margin_top = 2
 custom_constants/margin_left = 2
 
@@ -283,5 +287,7 @@ margin_top = 9.34388
 margin_right = 76.7081
 margin_bottom = 23.3439
 text = "12.4/40.0"
+
+[node name="ItemGhost" type="Sprite" parent="World/Player/Camera2D/InventoryPanel"]
 [connection signal="pressed" from="World/Player/Camera2D/BuildingButton" to="." method="build_mode_on"]
 [connection signal="pressed" from="World/Player/Camera2D/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="World/Player/Camera2D/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]

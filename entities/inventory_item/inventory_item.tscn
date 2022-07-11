@@ -6,6 +6,7 @@
 [node name="InventoryItem" type="TextureButton"]
 margin_right = 48.0
 margin_bottom = 48.0
+mouse_filter = 1
 texture_normal = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {

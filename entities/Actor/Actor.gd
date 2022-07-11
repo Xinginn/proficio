@@ -109,6 +109,28 @@ func add_item(item):
   inventory.items.append(item)
   emit_signal('inventory_changed', inventory)
 
+func swap_inventory_items(slot_a, slot_b):
+  var temp = inventory.items[slot_a]
+  inventory.items[slot_a] = inventory.items[slot_b]
+  inventory.items[slot_b] = temp
+  emit_signal('inventory_changed', inventory)
+
+func swap_gear_and_inventory_item(gear_slot, item_slot):
+  # cas où la gear est vide
+  if inventory.gear[gear_slot] == null:
+    inventory.gear[gear_slot] = inventory.items[item_slot]
+    inventory.items.remove(item_slot)
+  else:
+    var temp = inventory.items[item_slot]
+    inventory.items[item_slot] = inventory.gear[gear_slot]
+    inventory.gear[gear_slot] = temp
+  emit_signal('inventory_changed', inventory)
+
+func unequip(gear_slot):
+  inventory.items.append(inventory.gear[gear_slot])
+  inventory.gear[gear_slot] = null
+  emit_signal('inventory_changed', inventory)
+
 func move_to(coords: Vector2) -> void:
   target_position = coords
 
@@ -125,6 +147,8 @@ func stop_harvesting() -> void:
   self.harvest_progress = 0.0
   current_resource_spot = null
   texture_progress.hide()
+
+
 
 
 # cette methode fait gagner de l'xp à la stat envoyée en argument,

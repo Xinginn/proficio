@@ -8,6 +8,7 @@ func _init(crafter = null):
   _name = "cudgel"
   weight = 0.8
   description = "Un baton court adapté au combat."
+  slots = ["main_hand"]
   # calcul des valeur selon niveau de crafteur
   var base_atk = 4
   var bonus_atk = 0 
