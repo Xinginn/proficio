@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://entities/building/building.gd" type="Script" id=1]
-[ext_resource path="res://assets/building_01.png" type="Texture" id=2]
+[ext_resource path="res://assets/buildings/building_base.png" type="Texture" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.203922, 0.517647, 0.0862745, 1 )

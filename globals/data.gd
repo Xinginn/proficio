@@ -18,8 +18,8 @@ var buildings = []
 
 func _ready():
   # id, product, name, stamina, skill, xp, resources, ?needed_progress = 1000
-  crafts.append(CraftData.new(0, LeatherJacket, "leather_jacket", 4, "leatherwork", 10, {"leather": 3}, 1200))
-  crafts.append(CraftData.new(1, HideArmor, "hide_armor", 4, "leatherwork", 8, {"skin": 3}, 1000))
+  crafts.append(CraftData.new(0, HideArmor, "hide_armor", 4, "leatherwork", 8, {"skin": 3}, 1000))  
+  crafts.append(CraftData.new(1, LeatherJacket, "leather_jacket", 4, "leatherwork", 10, {"leather": 3}, 1200))
   crafts.append(CraftData.new(2, HuntingKnife, "hunting_knife", 4, "toolmaking", 8, {"ore": 2, "wood": 1}, 1000))
   crafts.append(CraftData.new(3, Gladius, "gladius", 4, "weaponsmith", 10, {"ore": 2, "iron": 3}, 1200))
   crafts.append(CraftData.new(4, Tunic, "tunic", 4, "weaving", 6, {"fiber": 6}, 900))
@@ -30,4 +30,11 @@ func _ready():
   crafts.append(CraftData.new(9, Dirk, "dirk", 4, "weaponsmith", 4, {"ore": 3}, 800))
   
   # id, label, max_health, resources, ?craft_ids = []
-  buildings.append(BuildingData.new(99, "test", 500, 4, {"wood": 4}, [0,1,2,3,4,5,6,7,8,9]))
+  buildings.append(BuildingData.new(0, "workshop", 500, 4, {"wood": 5}, [2, 3, 5, 8, 9]))
+  buildings.append(BuildingData.new(1, "hunting_lodge", 500, 4, {"wood": 24}, [0, 1, 2]))
+  buildings.append(BuildingData.new(2, "armory", 500, 4, {"wood": 4, "stone": 3}, [0, 1, 6]))
+  buildings.append(BuildingData.new(3, "foundry", 500, 4, {"stone": 8}, []))
+  buildings.append(BuildingData.new(4, "store", 500, 4, {"wood": 6, "stone": 4}, [4, 7]))
+  
+  # building de test  TODO retirer en prod
+  buildings.append(BuildingData.new(99, "building_01", 500, 4, {}, [0,1,2,3,4,5,6,7,8,9]))

@@ -1,11 +1,13 @@
 extends Node2D
 
 const building_scene: PackedScene = preload('res://entities/building/building.tscn')
+const building_button_scene: PackedScene = preload('res://entities/building_button/building_button.tscn')
 
 onready var player = $World/Player
 onready var buildings_holder = $World/BuildingsHolder
 onready var resource_spots_holder = $World/ResourceSpotsHolder
 onready var inventory_panel = $World/Player/Camera2D/InventoryPanel
+onready var building_buttons_container = $World/Player/Camera2D/StartBuildButton/BuildingButtonsContainer
 
 onready var building_ghost = $BuildingGhost
 
@@ -13,22 +15,38 @@ onready var building_ghost = $BuildingGhost
 var craft_panel
 
 var is_placing_building = false
+var is_selecting_building = false
 var type_to_build = null
 
-func build_mode_on() -> void:
+func _on_start_build_button_pressed():
+  if is_selecting_building:
+    build_mode_off()
+  else:
+    # instanciation de tous les boutons
+    for data in Data.buildings:
+      var new_button = building_button_scene.instance()
+      building_buttons_container.add_child(new_button)
+      new_button._initialize(data)
+      new_button.connect("building_button_pressed", self, "_on_building_button_pressed")
+      new_button.connect("building_button_pright_pressed", self, "build_mode_off")
+
+func _on_building_button_pressed(data) -> void:
   is_placing_building = true
-  type_to_build = Data.buildings[0]
+  type_to_build = data
   building_ghost.global_position = get_global_mouse_position()
+  building_ghost.texture = load('res://assets/buildings/%s.png' % data.label)
   building_ghost.show()
 
 func build_mode_off() -> void:
   is_placing_building = false
   building_ghost.hide()
+  for child in building_buttons_container.get_children():
+    child.queue_free()
 
 func place_building() -> void:
   var new_building = building_scene.instance()
   buildings_holder.add_child(new_building)
-  new_building.init(player, type_to_build, get_global_mouse_position())
+  new_building._initialize(player, type_to_build, get_global_mouse_position())
   new_building.connect('player_entered_owned_building', craft_panel, "_on_player_entered_owned_building")
   new_building.connect('player_exited_owned_building', craft_panel, "_on_player_exited_owned_building")
   new_building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")

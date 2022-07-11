@@ -55,7 +55,7 @@ func _set_craft_progress(value) -> void:
         is_crafting = false
       craft_progress = 0
 
-func init(_owner, data, pos) -> void:
+func _initialize(_owner, data, pos) -> void:
   building_owner = _owner
   building_data = data
   global_position = pos

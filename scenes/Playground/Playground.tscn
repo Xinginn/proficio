@@ -3,8 +3,7 @@
 [ext_resource path="res://assets/bg_01.jpg" type="Texture" id=1]
 [ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/playground/playground.gd" type="Script" id=3]
-[ext_resource path="res://assets/building_01.png" type="Texture" id=4]
-[ext_resource path="res://entities/building_button/building_button.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/buildings/building_01.png" type="Texture" id=4]
 [ext_resource path="res://assets/button_48x48_hover.png" type="Texture" id=6]
 [ext_resource path="res://assets/icons/default.png" type="Texture" id=7]
 [ext_resource path="res://assets/texture_back.png" type="Texture" id=8]
@@ -21,6 +20,9 @@
 [ext_resource path="res://entities/inventory_item/inventory_item.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/empty_48.png" type="Texture" id=22]
 
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+
 [node name="Playground" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -28,7 +30,7 @@ script = ExtResource( 3 )
 visible = false
 modulate = Color( 0, 1, 0, 0.635294 )
 z_index = 5
-texture = ExtResource( 4 )
+texture = SubResource( 1 )
 
 [node name="World" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -53,11 +55,26 @@ position = Vector2( 124.359, 299.661 )
 [node name="Camera2D" type="Camera2D" parent="World/Player"]
 current = true
 
-[node name="BuildingButton" parent="World/Player/Camera2D" instance=ExtResource( 5 )]
-margin_left = -483.953
-margin_top = 206.766
-margin_right = -413.953
-margin_bottom = 281.766
+[node name="StartBuildButton" type="TextureButton" parent="World/Player/Camera2D"]
+margin_left = -502.863
+margin_top = 216.635
+margin_right = -432.863
+margin_bottom = 291.635
+texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuildingButtonsContainer" type="HBoxContainer" parent="World/Player/Camera2D/StartBuildButton"]
+margin_left = 22.0
+margin_top = -55.0
+margin_right = 247.0
+margin_bottom = -5.0
+mouse_filter = 2
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CraftPanel" type="Panel" parent="World/Player/Camera2D"]
 margin_left = 78.0
@@ -289,5 +306,6 @@ margin_bottom = 23.3439
 text = "12.4/40.0"
 
 [node name="ItemGhost" type="Sprite" parent="World/Player/Camera2D/InventoryPanel"]
-[connection signal="pressed" from="World/Player/Camera2D/BuildingButton" to="." method="build_mode_on"]
+modulate = Color( 0, 0.592157, 0.160784, 1 )
+[connection signal="pressed" from="World/Player/Camera2D/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="World/Player/Camera2D/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="World/Player/Camera2D/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
