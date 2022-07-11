@@ -30,4 +30,4 @@ func _ready():
   crafts.append(CraftData.new(9, Dirk, "dirk", 4, "weaponsmith", 4, {"ore": 3}, 800))
   
   # id, label, max_health, resources, ?craft_ids = []
-  buildings.append(BuildingData.new(0, "test", 500, 4, {"wood": 4}, [0,1,2,3,4,5,6,7,8,9]))
+  buildings.append(BuildingData.new(99, "test", 500, 4, {"wood": 4}, [0,1,2,3,4,5,6,7,8,9]))

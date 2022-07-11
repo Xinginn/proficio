@@ -43,7 +43,10 @@ func _unhandled_input(event):
       # en train de construire
       if is_placing_building:
         # TODO verif de présence d'obstacles
-        place_building()
+        if GameManager.player_actor.has_resources(type_to_build.resources):
+          for key in type_to_build.resources.keys():
+            GameManager.player_actor.remove_resource(key, type_to_build.resources[key])
+          place_building()
       else :
         var pos = get_global_mouse_position()
         player.move_to(pos)

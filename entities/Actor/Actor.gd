@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 class_name Actor
 
+const MAX_BUILDINGS = 3
 const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
@@ -17,6 +18,7 @@ var current_resource_spot = null
 
 var gold: int = 0 setget _set_gold
 var inventory: Inventory = Inventory.new()
+var active_buildings: Array = []
 
 # stats
 var atk = 1
