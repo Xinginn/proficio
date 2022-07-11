@@ -34,6 +34,8 @@ func _set_health(value) -> void:
     emit_signal('building_destroyed', self)
     queue_free()
   if health == max_health:
+    # TODO gerer valeur de px gagné
+    building_owner.gain_xp("construction", 10)
     emit_signal('building_constructed', self)
     is_building = false
     emit_signal("player_entered_owned_building", building_data)
@@ -84,7 +86,6 @@ func _process(delta):
   if is_building:
     var health_gain = HEALTH_GAIN_SPEED * (1 + (building_owner.construction / 20.0)) * delta
     self.health += health_gain
-    building_owner.gain_xp("construction", HEALTH_GAIN_SPEED * delta)
   elif is_crafting:
     if craft_queue.size() == 0:
       is_crafting = false

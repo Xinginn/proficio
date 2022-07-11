@@ -3,6 +3,8 @@ extends KinematicBody2D
 class_name Actor
 
 const HARVEST_GAIN_PER_SECOND = 50
+const BASE_XP_NEED = 100
+const XP_NEED_GROWTH = 1.2
 
 onready var texture_progress: TextureProgress = $TextureProgress
 
@@ -30,7 +32,7 @@ var max_mana_xp = 0
 var critical = 1
 var critical_xp = 0
 # skills
-var construction = 10
+var construction = 1
 var construction_xp = 0
 var gathering = 1
 var gathering_xp = 0
@@ -148,18 +150,16 @@ func stop_harvesting() -> void:
   current_resource_spot = null
   texture_progress.hide()
 
-
-
-
+# ------- gestion XP -------
 # cette methode fait gagner de l'xp à la stat envoyée en argument,
 # puis augmente d'une fraction les compétences des équipements qui ameillorent aussi cette stat
 # ex: gain d'xp de def -> porte une armure légere qui augmente la def -> gain d'xp d'armure legere
 func gain_xp(attr, xp_value):
-  if attr != "construction":
-    print("xp gain for " + attr)
+#  print("+ %d xp for %s" % [xp_value, attr])
   # gain de base
   var new_xp = get(attr + "_xp") + xp_value
   set(attr + "_xp", new_xp)
+  check_for_lvl_up(attr)
 #  print("new_xp de " + attr + ": " + str(get(attr + "_xp")))
   # gain bonus selon equipement boostant la stat
   for item in inventory.gear.values():   
@@ -178,6 +178,16 @@ func gain_xp(attr, xp_value):
     # on applique le gain d'xp
     set(attribute.attribute_name + "_xp", total_xp)
 #    print("new_xp de " + attribute.attribute_name + ": " + str(get(attribute.attribute_name + "_xp")))
+
+func check_for_lvl_up(attribute_name: String):
+  
+  var attribute_level = get(attribute_name)
+  var current_xp = get(attribute_name + "_xp")
+  var needed_xp = int(BASE_XP_NEED * pow(XP_NEED_GROWTH, attribute_level - 1))
+  if current_xp > needed_xp:
+    set(attribute_name, attribute_level + 1)
+    set(attribute_name + "_xp", current_xp - needed_xp)
+    print('%s level up!' % attribute_name)
 
 func _ready() -> void:
   texture_progress.hide()
