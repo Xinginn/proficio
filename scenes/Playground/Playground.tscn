@@ -16,10 +16,10 @@
 [ext_resource path="res://styles/panel.tres" type="StyleBox" id=14]
 [ext_resource path="res://scenes/playground/inventory_panel.gd" type="Script" id=15]
 [ext_resource path="res://assets/inventory_gear.png" type="Texture" id=16]
-[ext_resource path="res://assets/grid_line.png" type="Texture" id=17]
-[ext_resource path="res://entities/resource_stock_display/resource_stock_display.tscn" type="PackedScene" id=18]
 [ext_resource path="res://assets/weight.png" type="Texture" id=19]
 [ext_resource path="res://assets/gold.png" type="Texture" id=20]
+[ext_resource path="res://entities/inventory_item/inventory_item.tscn" type="PackedScene" id=21]
+[ext_resource path="res://assets/empty_48.png" type="Texture" id=22]
 
 [node name="Playground" type="Node2D"]
 script = ExtResource( 3 )
@@ -136,7 +136,7 @@ __meta__ = {
 [node name="InventoryPanel" type="Panel" parent="World/Player/Camera2D"]
 margin_left = -505.0
 margin_top = -295.0
-margin_right = 10.0
+margin_right = 21.0
 margin_bottom = 64.0
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 15 )
@@ -145,20 +145,69 @@ __meta__ = {
 }
 
 [node name="Gear" type="TextureRect" parent="World/Player/Camera2D/InventoryPanel"]
-margin_left = 75.9787
-margin_top = -0.126282
-margin_right = 275.979
-margin_bottom = 199.874
+margin_left = 96.7898
+margin_top = 0.468322
+margin_right = 296.79
+margin_bottom = 200.469
 texture = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HeadButton" parent="World/Player/Camera2D/InventoryPanel/Gear" instance=ExtResource( 21 )]
+margin_left = 73.3674
+margin_top = 5.19356
+margin_right = 121.367
+margin_bottom = 53.1936
+texture_normal = ExtResource( 22 )
+
+[node name="BodyButton" parent="World/Player/Camera2D/InventoryPanel/Gear" instance=ExtResource( 21 )]
+margin_left = 73.2644
+margin_top = 64.7127
+margin_right = 121.264
+margin_bottom = 112.713
+texture_normal = ExtResource( 22 )
+
+[node name="MainHandButton" parent="World/Player/Camera2D/InventoryPanel/Gear" instance=ExtResource( 21 )]
+margin_left = 16.8682
+margin_top = 88.3208
+margin_right = 64.8682
+margin_bottom = 136.321
+texture_normal = ExtResource( 22 )
+
+[node name="OffHandButton" parent="World/Player/Camera2D/InventoryPanel/Gear" instance=ExtResource( 21 )]
+margin_left = 134.229
+margin_top = 90.9664
+margin_right = 182.229
+margin_bottom = 138.966
+texture_normal = ExtResource( 22 )
+
+[node name="FeetButton" parent="World/Player/Camera2D/InventoryPanel/Gear" instance=ExtResource( 21 )]
+margin_left = 72.6946
+margin_top = 143.015
+margin_right = 120.695
+margin_bottom = 191.015
+texture_normal = ExtResource( 22 )
+
+[node name="RightRingButton" parent="World/Player/Camera2D/InventoryPanel/Gear" instance=ExtResource( 21 )]
+margin_left = 4.95148
+margin_top = 29.8889
+margin_right = 52.9515
+margin_bottom = 77.8889
+texture_normal = ExtResource( 22 )
+
+[node name="LeftRingButton" parent="World/Player/Camera2D/InventoryPanel/Gear" instance=ExtResource( 21 )]
+margin_left = 147.446
+margin_top = 29.8901
+margin_right = 195.446
+margin_bottom = 77.8901
+texture_normal = ExtResource( 22 )
+
 [node name="ResourcesContainer" type="GridContainer" parent="World/Player/Camera2D/InventoryPanel"]
-margin_left = 325.941
-margin_top = 4.03375
-margin_right = 508.941
-margin_bottom = 196.034
+margin_left = 336.644
+margin_top = 5.81756
+margin_right = 519.644
+margin_bottom = 197.818
 custom_constants/vseparation = 8
 custom_constants/hseparation = 60
 columns = 2
@@ -166,87 +215,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ResourceStockDisplay" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-
-[node name="ResourceStockDisplay2" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_left = 92.0
-margin_right = 124.0
-
-[node name="ResourceStockDisplay3" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_top = 40.0
-margin_bottom = 72.0
-
-[node name="ResourceStockDisplay4" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_left = 92.0
-margin_top = 40.0
-margin_right = 124.0
-margin_bottom = 72.0
-
-[node name="ResourceStockDisplay5" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_top = 80.0
-margin_bottom = 112.0
-
-[node name="ResourceStockDisplay6" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_left = 92.0
-margin_top = 80.0
-margin_right = 124.0
-margin_bottom = 112.0
-
-[node name="ResourceStockDisplay7" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_top = 120.0
-margin_bottom = 152.0
-
-[node name="ResourceStockDisplay8" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_left = 92.0
-margin_top = 120.0
-margin_right = 124.0
-margin_bottom = 152.0
-
-[node name="ResourceStockDisplay9" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_top = 160.0
-margin_bottom = 192.0
-
-[node name="ResourceStockDisplay10" parent="World/Player/Camera2D/InventoryPanel/ResourcesContainer" instance=ExtResource( 18 )]
-margin_left = 92.0
-margin_top = 160.0
-margin_right = 124.0
-margin_bottom = 192.0
-
 [node name="ScrollContainer" type="ScrollContainer" parent="World/Player/Camera2D/InventoryPanel"]
 margin_top = 202.0
-margin_right = 513.0
-margin_bottom = 382.0
+margin_right = 523.0
+margin_bottom = 358.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="World/Player/Camera2D/InventoryPanel/ScrollContainer"]
-margin_right = 511.0
-margin_bottom = 154.0
+[node name="LinesContainer" type="VBoxContainer" parent="World/Player/Camera2D/InventoryPanel/ScrollContainer"]
 custom_constants/separation = -1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Line" type="TextureRect" parent="World/Player/Camera2D/InventoryPanel/ScrollContainer/VBoxContainer"]
-margin_right = 511.0
-margin_bottom = 52.0
-texture = ExtResource( 17 )
+[node name="MarginContainer" type="MarginContainer" parent="World/Player/Camera2D/InventoryPanel/ScrollContainer"]
+margin_right = 2.0
+margin_bottom = 2.0
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
 
-[node name="Line2" type="TextureRect" parent="World/Player/Camera2D/InventoryPanel/ScrollContainer/VBoxContainer"]
-margin_top = 51.0
-margin_right = 511.0
-margin_bottom = 103.0
-texture = ExtResource( 17 )
-
-[node name="Line3" type="TextureRect" parent="World/Player/Camera2D/InventoryPanel/ScrollContainer/VBoxContainer"]
-margin_top = 102.0
-margin_right = 511.0
-margin_bottom = 154.0
-texture = ExtResource( 17 )
+[node name="ItemsGrid" type="GridContainer" parent="World/Player/Camera2D/InventoryPanel/ScrollContainer/MarginContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 2.0
+margin_bottom = 2.0
+custom_constants/vseparation = 3
+custom_constants/hseparation = 3
+columns = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="GoldIcon" type="TextureRect" parent="World/Player/Camera2D/InventoryPanel"]
-margin_left = 8.00902
-margin_top = 18.0204
-margin_right = 40.009
-margin_bottom = 50.0204
+margin_left = 6.22521
+margin_top = 86.9944
+margin_right = 38.2252
+margin_bottom = 118.994
 texture = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -258,6 +263,9 @@ margin_top = 9.34388
 margin_right = 76.7081
 margin_bottom = 23.3439
 text = "1024"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="WeightIcon" type="TextureRect" parent="World/Player/Camera2D/InventoryPanel"]
 margin_left = 6.00677

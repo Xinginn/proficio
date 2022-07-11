@@ -43,7 +43,7 @@ func _set_craft_progress(value) -> void:
   emit_signal('craft_progress_changed', craft_progress)
   if craft_queue.size() > 0:
     if craft_progress >= craft_queue[0].needed_progress:
-      building_owner.inventory.items.append(craft_queue[0].product.new(building_owner))
+      building_owner.add_item(craft_queue[0].product.new(building_owner))
       # gain de pex
       building_owner.gain_xp(craft_queue[0].skill, craft_queue[0].xp)
       # changement d'item

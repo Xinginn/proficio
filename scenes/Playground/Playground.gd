@@ -58,10 +58,13 @@ func _ready():
   craft_panel = $World/Player/Camera2D/CraftPanel
   
   player.connect('gold_changed', inventory_panel, "_on_gold_changed")
+  player.connect('resources_changed', inventory_panel, "_on_resources_changed")
+  player.connect('inventory_changed', inventory_panel, "_on_inventory_changed")
   
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()
   player.inventory.gear['body'] = new_armor
+  player.emit_signal('inventory_changed', player.inventory)
   player.add_resource("wood", 4)
   player.add_resource("stone", 3)
   player.add_resource("leather", 8)

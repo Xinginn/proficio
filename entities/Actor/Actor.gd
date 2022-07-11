@@ -73,6 +73,8 @@ var heavy_armors = 1
 var heavy_armors_xp = 0
 
 signal gold_changed(value)
+signal inventory_changed(inventory)
+signal resources_changed(resources)
 
 func _set_gold(value: int) -> void:
   gold = value
@@ -97,10 +99,15 @@ func has_resources(needs: Dictionary) -> bool:
 func add_resource(resource: String, number: int) -> void:
   # TODO evaluer dépassement de poids
   inventory.resources[resource] += number
-  print("added resource", inventory.resources)
+  emit_signal('resources_changed', inventory.resources)
 
 func remove_resource(resource: String, number: int) -> void:
   inventory.resources[resource] -= number 
+  emit_signal('resources_changed', inventory.resources)
+
+func add_item(item):
+  inventory.items.append(item)
+  emit_signal('inventory_changed', inventory)
 
 func move_to(coords: Vector2) -> void:
   target_position = coords

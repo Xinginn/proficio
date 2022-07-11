@@ -7,11 +7,12 @@ var total_weight: float
 # equippés
 var gear = {
   "main_hand": null,
-  "secondary_hand": null,
+  "off_hand": null,
   "body": null,
   "head": null,
   "feet": null,
-  "ring": null
+  "right_ring": null,
+  "left_ring": null,
  }
 
 # equipables et potions
