@@ -19,4 +19,4 @@ func _ready():
       var new_land = land_scene.instance()
       lands_holder.add_child(new_land)
       new_land._initialize(map[i][j])
-      new_land.global_position = Vector2(LAND_SIZE * j, LAND_SIZE * i)
+      new_land.position = Vector2(LAND_SIZE * j, LAND_SIZE * i)

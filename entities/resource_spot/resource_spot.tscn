@@ -26,4 +26,3 @@ collision_mask = 524288
 shape = SubResource( 2 )
 [connection signal="body_entered" from="CollectTriggerArea" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="CollectTriggerArea" to="." method="_on_body_exited"]
-[connection signal="area_entered" from="OccupiedSpaceArea" to="." method="_on_occupied_space_collided"]

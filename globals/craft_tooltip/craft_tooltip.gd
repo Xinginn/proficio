@@ -22,7 +22,7 @@ func hide():
 func _ready():
   panel.hide()
 
-func _process(delta):
+func _process(_delta):
   if panel.visible:
     # TODO gestion decalage si pas de place pour display
     panel.rect_global_position = get_viewport().get_mouse_position() + neutral_offset

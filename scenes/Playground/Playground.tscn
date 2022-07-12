@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
@@ -9,9 +9,6 @@
 [ext_resource path="res://assets/texture_back.png" type="Texture" id=8]
 [ext_resource path="res://assets/texture_front.png" type="Texture" id=9]
 [ext_resource path="res://scenes/playground/craft_panel.gd" type="Script" id=10]
-[ext_resource path="res://entities/resource_spot/tree_spot/tree_spot.tscn" type="PackedScene" id=11]
-[ext_resource path="res://entities/resource_spot/herbs_spot/herbs_spot.tscn" type="PackedScene" id=12]
-[ext_resource path="res://entities/resource_spot/pebbles_spot/pebble_spot.tscn" type="PackedScene" id=13]
 [ext_resource path="res://styles/panel.tres" type="StyleBox" id=14]
 [ext_resource path="res://scenes/playground/inventory_panel.gd" type="Script" id=15]
 [ext_resource path="res://assets/inventory_gear.png" type="Texture" id=16]
@@ -37,21 +34,10 @@ script = ExtResource( 1 )
 
 [node name="LandsHolder" type="Node2D" parent="World"]
 
-[node name="ResourceSpotsHolder" type="Node2D" parent="World"]
-
-[node name="TreeSpot" parent="World/ResourceSpotsHolder" instance=ExtResource( 11 )]
-position = Vector2( 169.271, 446.341 )
-
-[node name="HerbsSpot" parent="World/ResourceSpotsHolder" instance=ExtResource( 12 )]
-position = Vector2( 285.979, 385.76 )
-
-[node name="PebbleSpot" parent="World/ResourceSpotsHolder" instance=ExtResource( 13 )]
-position = Vector2( 49.7839, 394.44 )
-
 [node name="BuildingsHolder" type="Node2D" parent="World"]
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 124.359, 299.661 )
+position = Vector2( -13.589, 22.5758 )
 
 [node name="Camera2D" type="Camera2D" parent="World/Player"]
 current = true

@@ -5,7 +5,6 @@ const building_button_scene: PackedScene = preload('res://entities/building_butt
 
 onready var player = $World/Player
 onready var buildings_holder = $World/BuildingsHolder
-onready var resource_spots_holder = $World/ResourceSpotsHolder
 onready var inventory_panel = $World/Player/Camera2D/InventoryPanel
 onready var building_buttons_container = $World/Player/Camera2D/StartBuildButton/BuildingButtonsContainer
 
@@ -73,7 +72,7 @@ func _unhandled_input(event):
     if event.button_index == BUTTON_RIGHT and event.pressed:
       build_mode_off()
       
-func _process(delta):
+func _process(_delta):
   if is_placing_building:
     building_ghost.global_position = get_global_mouse_position()
 
@@ -85,8 +84,7 @@ func _ready():
   player.connect('gold_changed', inventory_panel, "_on_gold_changed")
   player.connect('resources_changed', inventory_panel, "_on_resources_changed")
   player.connect('inventory_changed', inventory_panel, "_on_inventory_changed")
-  
-  player.global_position = Vector2(10, 10)
+
   
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()

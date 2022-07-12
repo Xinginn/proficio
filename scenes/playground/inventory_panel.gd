@@ -54,7 +54,7 @@ func _on_inventory_changed(_inventory: Inventory) -> void:
     child.queue_free()
   # creation des lignes et items
   var size = _inventory.items.size()
-  for i in range( int( max(size/10, 2) ) ):
+  for _i in range( int( max(size/10, 2) ) ):
     var new_grid_line = grid_line_scene.instance()
     inventory_lines_container.add_child(new_grid_line)
     new_grid_line.connect("line_clicked", self, "_on_line_clicked")
@@ -117,7 +117,7 @@ func _ready():
     new_resource.texture = load('res://assets/icons/resource_%s.png' % key)
     resource_stock_displays[key] = new_resource
 
-func _process(delta):
+func _process(_delta):
   if armed_slot != null:
     item_ghost.global_position = get_global_mouse_position()
 

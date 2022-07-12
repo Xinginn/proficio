@@ -38,11 +38,14 @@ func _on_body_exited(body):
 # necessaire pour la gestion des overlap au spawn
 # la methode get_overlapping_areas ne donne des résultats cohérents qu'après
 # qu'une frame physique ait été calculée
-func _physics_process(delta):
-  if is_spawning:
+func _physics_process(_delta):
+  if !is_spawning:
+    pass
+  else:
     if occupied_space.get_overlapping_areas():
       emit_signal('occupied_space_overlapped', self)
     else:
       frames_since_no_overlap += 1
       if frames_since_no_overlap >= 3:
         emit_signal('ended_spawning', self)
+  
