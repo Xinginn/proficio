@@ -38,8 +38,6 @@ func change_scene(scene_path: String):
   get_tree().change_scene(scene_path)
   from_black()
 
-
-
 func _on_animation_finished(anim_name):
   emit_signal(anim_name + '_finished')
 

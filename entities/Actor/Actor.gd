@@ -10,6 +10,8 @@ const XP_NEED_GROWTH = 1.2
 onready var texture_progress: TextureProgress = $TextureProgress
 
 var move_speed: float = 100.0
+# var move_speed: float = 500.0 #pour test
+
 var target_position = null
 var velocity = null
 
