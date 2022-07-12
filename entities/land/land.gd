@@ -1,25 +1,17 @@
 extends Node2D
 
-var land_type: int
+onready var resources_holder: Node2D = $ResourcesHolder
+
+var land_data: LandData
+var resources_lottery: Array = []
+
 
 func _initialize(land_code: String):
-  print(land_code)
   var texture = null
   var path = "res://assets/lands/"
-  land_type = int(land_code[0])
+  land_data = Data.lands[int(land_code[0])]
   var orientation =int(land_code[1])
-  match land_type:
-    0:
-      path += "center"
-    1:
-      path += "crown"
-    2:
-      path += "plain"
-    3:
-      path += "forest"
-    _:
-      print('unexpected number while parsing land_type %d' % land_type)
-      
+  path += land_data.land_name
   if orientation == 0:
     path += ".png"
   elif orientation % 2 == 0:
@@ -27,7 +19,6 @@ func _initialize(land_code: String):
   else:
     path += "_corner.png"
   
-  print(path)
   $Sprite.texture = load(path)
 
   # calcul rotation selon orientation
