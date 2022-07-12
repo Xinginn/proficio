@@ -307,6 +307,6 @@ margin_bottom = 23.3439
 text = "12.4/40.0"
 
 [node name="ItemGhost" type="Sprite" parent="World/Player/Camera2D/InventoryPanel"]
-modulate = Color( 0, 0.592157, 0.160784, 1 )
+visible = false
 [connection signal="pressed" from="World/Player/Camera2D/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="World/Player/Camera2D/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="World/Player/Camera2D/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]

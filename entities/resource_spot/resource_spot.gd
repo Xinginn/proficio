@@ -2,12 +2,21 @@ extends Sprite
 
 class_name ResourceSpot
 
+onready var occupied_space = $OccupiedSpaceArea
+
+# variables necessaires pour le physics_process afin de verifier les overlap au spawn
+var is_spawning = false
+var frames_since_no_overlap = 0
+
 var skill: String
 var xp_gain: int
 var duration: int
 var remaining_harvests: int
 # TODO changement de sprite selon harvest restantes
 var required_tools: Array = []
+
+signal occupied_space_overlapped(spot)
+signal ended_spawning(spot)
 
 # destiné à être surchargé
 func harvest(harvester) -> void:
@@ -25,3 +34,15 @@ func _on_body_entered(body):
 func _on_body_exited(body):
   if body is Actor:
     body.stop_harvesting()
+
+# necessaire pour la gestion des overlap au spawn
+# la methode get_overlapping_areas ne donne des résultats cohérents qu'après
+# qu'une frame physique ait été calculée
+func _physics_process(delta):
+  if is_spawning:
+    if occupied_space.get_overlapping_areas():
+      emit_signal('occupied_space_overlapped', self)
+    else:
+      frames_since_no_overlap += 1
+      if frames_since_no_overlap >= 3:
+        emit_signal('ended_spawning', self)

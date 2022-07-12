@@ -26,10 +26,13 @@ func _set_armed_slot(value):
   match typeof(value):
     TYPE_INT:
       item_ghost.texture = load("res://assets/icons/%s.png" % GameManager.player_actor.inventory.items[value]._name)
+      item_ghost.show()
     TYPE_STRING:  
       item_ghost.texture = load("res://assets/icons/%s.png" % GameManager.player_actor.inventory.gear[value]._name)
+      item_ghost.show()
     TYPE_NIL:
       item_ghost.texture = null
+      item_ghost.hide()
 
 func toggle_visible():
   if visible:
