@@ -20,7 +20,6 @@ func _on_player_entered_owned_building(building_data) -> void:
     recipe_container.add_child(new_button)
     new_button._initialize(Data.crafts[id])
     new_button.connect('recipe_button_pressed', self, '_on_recipe_button_pressed')
-  # TODO affichage liste craft_datas, queue et progress laissé en plan
   show()
     
 func _on_player_exited_owned_building() -> void:

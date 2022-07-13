@@ -17,17 +17,21 @@
 [ext_resource path="res://entities/inventory_item/inventory_item.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/empty_48.png" type="Texture" id=22]
 
-[sub_resource type="StreamTexture" id=1]
-flags = 4
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 0, 0 )
 
 [node name="Playground" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="BuildingGhost" type="Sprite" parent="."]
-visible = false
-modulate = Color( 0, 1, 0, 0.635294 )
 z_index = 5
-texture = SubResource( 1 )
+
+[node name="OccupiedSpaceArea" type="Area2D" parent="BuildingGhost"]
+collision_layer = 524288
+collision_mask = 524288
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingGhost/OccupiedSpaceArea"]
+shape = SubResource( 1 )
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource( 1 )

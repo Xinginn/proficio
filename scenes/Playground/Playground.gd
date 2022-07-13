@@ -3,12 +3,17 @@ extends Node2D
 const building_scene: PackedScene = preload('res://entities/building/building.tscn')
 const building_button_scene: PackedScene = preload('res://entities/building_button/building_button.tscn')
 
+const GREEN_HUE = Color('a200ff00')
+const RED_HUE = Color('99ff0000')
+
 onready var player = $World/Player
 onready var buildings_holder = $World/BuildingsHolder
 onready var inventory_panel = $World/Player/Camera2D/InventoryPanel
 onready var building_buttons_container = $World/Player/Camera2D/StartBuildButton/BuildingButtonsContainer
 
 onready var building_ghost = $BuildingGhost
+onready var building_ghost_occupied_space = $BuildingGhost/OccupiedSpaceArea
+onready var building_ghost_occupied_collision = $BuildingGhost/OccupiedSpaceArea/CollisionShape2D
 
 # var est non onready car le GUI est (pour l'instant un child de la camera, child de player, non certain au départ
 var craft_panel
@@ -16,6 +21,7 @@ var craft_panel
 var is_placing_building = false
 var is_selecting_building = false
 var type_to_build = null
+var is_building_ghost_overlapped = false
 
 func _on_start_build_button_pressed():
   for child in building_buttons_container.get_children():
@@ -35,7 +41,9 @@ func _on_building_button_pressed(data) -> void:
   is_placing_building = true
   type_to_build = data
   building_ghost.global_position = get_global_mouse_position()
-  building_ghost.texture = load('res://assets/buildings/%s.png' % data.label)
+  var texture = load('res://assets/buildings/%s.png' % data.label)
+  building_ghost.texture = texture
+  building_ghost_occupied_collision.shape.extents = texture.get_size() / 2.0
   building_ghost.show()
 
 func build_mode_off() -> void:
@@ -61,7 +69,8 @@ func _unhandled_input(event):
     if event.button_index == BUTTON_LEFT and event.pressed:
       # en train de construire
       if is_placing_building:
-        # TODO verif de présence d'obstacles
+        if is_building_ghost_overlapped:
+          return
         if GameManager.player_actor.has_resources(type_to_build.resources):
           for key in type_to_build.resources.keys():
             GameManager.player_actor.remove_resource(key, type_to_build.resources[key])
@@ -72,10 +81,19 @@ func _unhandled_input(event):
     if event.button_index == BUTTON_RIGHT and event.pressed:
       build_mode_off()
       
-func _process(_delta):
-  if is_placing_building:
+func _physics_process(_delta):
+  if !is_placing_building:
+    pass
+  else:
     building_ghost.global_position = get_global_mouse_position()
-
+    if building_ghost_occupied_space.get_overlapping_areas():
+      building_ghost.modulate = RED_HUE
+      is_building_ghost_overlapped = true
+    else:
+      building_ghost.modulate = GREEN_HUE
+      is_building_ghost_overlapped = false
+      
+      
 func _ready():
   GameManager.player_actor = player
   # dans ready car a faire après que le player soit instancié
