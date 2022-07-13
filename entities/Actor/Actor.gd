@@ -7,6 +7,7 @@ const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
 
+onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var texture_progress: TextureProgress = $TextureProgress
 
 var move_speed: float = 200.0
@@ -14,6 +15,7 @@ var move_speed: float = 200.0
 
 var target_position = null
 var velocity = null
+var orientation: String = "down" setget _set_orientation
 
 var harvest_progress: float = 0.0 setget _set_harvest_progress
 var current_resource_spot = null
@@ -96,6 +98,10 @@ func _set_harvest_progress(value: float) -> void:
       harvest_progress = 0.0
     texture_progress.value = int(harvest_progress)
 
+func _set_orientation(value):
+  orientation = value
+  animated_sprite.play("walk_%s" % orientation)
+
 func has_resources(needs: Dictionary) -> bool:
   for resource in needs:
     if inventory.resources[resource] < needs[resource]:
@@ -138,9 +144,21 @@ func unequip(gear_slot):
   emit_signal('inventory_changed', inventory)
 
 func move_to(coords: Vector2) -> void:
+  animated_sprite.playing = true
   target_position = coords
+  var dir = global_position.direction_to(target_position).angle_to(Vector2(0,1))
+  if dir < -3.0/4 * PI || dir > 3.0/4 * PI:
+    self.orientation = "up"
+  elif dir > 1.0/4 * PI:
+    self.orientation = "right"
+  elif dir > -1.0/4 * PI:
+    self.orientation = "down"
+  else:
+    self.orientation = "left"
 
 func stop_moving() -> void:
+  animated_sprite.playing = false
+  animated_sprite.frame = 0
   target_position = null
   velocity = Vector2(0,0)
 
@@ -184,7 +202,6 @@ func gain_xp(attr, xp_value):
 #    print("new_xp de " + attribute.attribute_name + ": " + str(get(attribute.attribute_name + "_xp")))
 
 func check_for_lvl_up(attribute_name: String):
-  
   var attribute_level = get(attribute_name)
   var current_xp = get(attribute_name + "_xp")
   var needed_xp = int(BASE_XP_NEED * pow(XP_NEED_GROWTH, attribute_level - 1))
@@ -203,7 +220,7 @@ func _physics_process(delta):
       velocity = move_and_slide(velocity)
     else:
       global_position = target_position
-      target_position = null
+      stop_moving()
   if !!current_resource_spot:
     var harvest_gain = get(current_resource_spot.skill) * HARVEST_GAIN_PER_SECOND * delta
     self.harvest_progress += harvest_gain
