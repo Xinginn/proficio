@@ -22,6 +22,7 @@ var is_placing_building = false
 var is_selecting_building = false
 var type_to_build = null
 var is_building_ghost_overlapped = false
+var last_building_placed = null
 
 func _on_start_build_button_pressed():
   for child in building_buttons_container.get_children():
@@ -55,13 +56,22 @@ func build_mode_off() -> void:
 func place_building() -> void:
   var new_building = building_scene.instance()
   buildings_holder.add_child(new_building)
+
   new_building._initialize(player, type_to_build, get_global_mouse_position())
   new_building.connect('player_entered_owned_building', craft_panel, "_on_player_entered_owned_building")
   new_building.connect('player_exited_owned_building', craft_panel, "_on_player_exited_owned_building")
+  # deconnexion des signaux entre le craft panel et le precedent building
+  if !!last_building_placed:
+    last_building_placed.disconnect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
+    last_building_placed.disconnect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
+    craft_panel.disconnect('recipe_requested', last_building_placed, '_on_recipe_requested')
+    craft_panel.disconnect('cancel_requested', last_building_placed, '_on_cancel_requested')
+  # connexion des signaux avec le nouveau building
   new_building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
   new_building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
   craft_panel.connect('recipe_requested', new_building, '_on_recipe_requested')
   craft_panel.connect('cancel_requested', new_building, '_on_cancel_requested')
+  last_building_placed = new_building
   build_mode_off()
 
 func _unhandled_input(event):

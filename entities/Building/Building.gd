@@ -15,7 +15,7 @@ var max_health
 var building_owner = null
 var building_data: BuildingData = null
 var is_building: bool = false
-var is_crafting: bool = false
+var is_crafting: bool = false setget _set_is_crafting
 var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
 
@@ -25,6 +25,10 @@ signal craft_progress_changed(value)
 signal player_entered_owned_building(data)
 signal player_exited_owned_building
 signal craft_queue_changed(queue)
+
+func _set_is_crafting(value: bool) -> void:
+  is_crafting = value
+  print(is_crafting)
 
 func _set_health(value) -> void:
   health = int(clamp(value, 0, max_health))
@@ -69,7 +73,6 @@ func display_buidling_window(_visible: bool):
   print("should toggle building display ", _visible)
 
 func _on_body_entered(body):
-  
   if body is Actor:
     body.stop_moving()
     if body == building_owner:
@@ -89,7 +92,7 @@ func _process(delta):
     self.health += health_gain
   elif is_crafting:
     if craft_queue.size() == 0:
-      is_crafting = false
+      self.is_crafting = false
       return
     var skill_level = building_owner.get(craft_queue[0].skill)
     var craft_gain = CRAFT_GAIN_SPEED * (1 + (skill_level / 20.0)) * delta
@@ -99,6 +102,7 @@ func _process(delta):
 
 # signaux: recipe_button -> craft panel -> ici
 func _on_recipe_requested(craft_data) -> void:
+  print('z')
   var cost = craft_data.resources
   if building_owner.has_resources(cost):
     for res in cost.keys():
@@ -108,7 +112,7 @@ func _on_recipe_requested(craft_data) -> void:
       craft_queue.append(craft_data)
       emit_signal('craft_queue_changed', craft_queue)
     if queue_size == 0:
-      is_crafting = true
+      self.is_crafting = true
   else:
     pass
 

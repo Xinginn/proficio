@@ -44,6 +44,8 @@ script = ExtResource( 1 )
 position = Vector2( -13.589, 22.5758 )
 
 [node name="Camera2D" type="Camera2D" parent="World/Player"]
+z_index = 1000
+z_as_relative = false
 current = true
 
 [node name="StartBuildButton" type="TextureButton" parent="World/Player/Camera2D"]
