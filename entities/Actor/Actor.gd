@@ -7,12 +7,25 @@ const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
 
+const BASE_HEALTH_REGEN = 1.0
+const BASE_STAMINA_REGEN = 1.0
+const BASE_MANA_REGEN = 1.0
+
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var texture_progress: TextureProgress = $TextureProgress
 
+var atk = 10
+var def = 10
+var health = 15 setget _set_health
+var max_health = 15
+var stamina = 15 setget _set_stamina
+var max_stamina = 15
+var mana = 15 setget _set_mana
+var max_mana = 15
 var move_speed: float = 200.0
 # var move_speed: float = 500.0 #pour test
 
+var total_xp
 var target_position = null
 var velocity = null
 var orientation: String = "down" setget _set_orientation
@@ -24,17 +37,19 @@ var gold: int = 0 setget _set_gold
 var inventory: Inventory = Inventory.new()
 var active_buildings: Array = []
 
+
+# --------- LEVELS AND XP ---------
 # stats
-var atk = 1
-var atk_xp = 0
-var def = 1
-var def_xp = 0
-var max_health = 10
-var max_health_xp = 0
-var max_stamina = 10
-var max_stamina_xp = 0
-var max_mana = 10
-var max_mana_xp = 0
+var atk_lvl = 1
+var atk_lvl_xp = 0
+var def_lvl = 1
+var def_lvl_xp = 0
+var max_health_lvl = 10
+var max_health_lvl_xp = 0
+var max_stamina_lvl = 10
+var max_stamina_lvl_xp = 0
+var max_mana_lvl = 10
+var max_mana_lvl_xp = 0
 var critical = 1
 var critical_xp = 0
 # skills
@@ -83,6 +98,15 @@ var heavy_armors_xp = 0
 signal gold_changed(value)
 signal inventory_changed(inventory)
 signal resources_changed(resources)
+
+func _set_health(value) -> void:
+  health = clamp(value, 0, max_health)
+  
+func _set_stamina(value) -> void:
+  stamina = clamp(value, 0, max_stamina)
+
+func _set_mana(value) -> void:
+  mana = clamp(value, 0, max_mana)
 
 func _set_gold(value: int) -> void:
   gold = value
@@ -214,6 +238,12 @@ func _ready() -> void:
   texture_progress.hide()
 
 func _physics_process(delta):
+  # Regens
+  if health < 0.0:
+    return
+  self.health += delta * BASE_HEALTH_REGEN 
+  self.stamina += delta * BASE_STAMINA_REGEN 
+  self.mana += delta * BASE_MANA_REGEN 
   if target_position != null:
     velocity = global_position.direction_to(target_position) * move_speed
     if global_position.distance_to(target_position) > 5:
@@ -224,3 +254,6 @@ func _physics_process(delta):
   if !!current_resource_spot:
     var harvest_gain = get(current_resource_spot.skill) * HARVEST_GAIN_PER_SECOND * delta
     self.harvest_progress += harvest_gain
+    self.stamina -= current_resource_spot.stamina_loss_while_harvesting * delta
+    if stamina == 0.0:
+      stop_harvesting()

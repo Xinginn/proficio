@@ -28,42 +28,42 @@ region = Rect2( 96, 0, 32, 48 )
 [sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 0, 144, 32, 48 )
+region = Rect2( 0, 48, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 32, 144, 32, 48 )
+region = Rect2( 32, 48, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 64, 144, 32, 48 )
+region = Rect2( 64, 48, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=8]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 96, 144, 32, 48 )
+region = Rect2( 96, 48, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 0, 48, 32, 48 )
+region = Rect2( 0, 144, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=10]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 32, 48, 32, 48 )
+region = Rect2( 32, 144, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=11]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 64, 48, 32, 48 )
+region = Rect2( 64, 144, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=12]
 flags = 4
 atlas = ExtResource( 1 )
-region = Rect2( 96, 48, 32, 48 )
+region = Rect2( 96, 144, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
@@ -94,12 +94,12 @@ animations = [ {
 }, {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
-"name": "walk_up",
+"name": "walk_left",
 "speed": 6.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
-"name": "walk_left",
+"name": "walk_up",
 "speed": 6.0
 }, {
 "frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
@@ -112,7 +112,7 @@ animations = [ {
 extents = Vector2( 7.9627, 7.79011 )
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 32.0538, 32.5044 )
+extents = Vector2( 12.1885, 22.4396 )
 
 [node name="Actor" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -125,14 +125,13 @@ animation = "walk_right"
 shape = SubResource( 18 )
 
 [node name="TextureProgress" type="TextureProgress" parent="."]
-margin_left = 33.0
-margin_top = -31.0
-margin_right = 38.0
-margin_bottom = 32.0
+margin_left = -18.9405
+margin_top = 23.4324
+margin_right = 20.0595
+margin_bottom = 28.4324
 mouse_filter = 2
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
-fill_mode = 3
 nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false

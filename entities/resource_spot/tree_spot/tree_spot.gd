@@ -3,6 +3,7 @@ extends ResourceSpot
 func _ready():
   skill = "gathering"
   xp_gain = 5
+  stamina_loss_while_harvesting = 2.0
   duration = 200
   remaining_harvests = 4
   # randomisation nombre recoltes

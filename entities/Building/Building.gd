@@ -6,6 +6,8 @@ class_name Building
 const HEALTH_GAIN_SPEED = 1000 # valeur boostée pour simplicité de test
 const CRAFT_GAIN_SPEED = 1000
 const MAX_QUEUE_SIZE = 8
+const STAMINA_LOSS_WHILE_BUILDING = 2.0
+const STAMINA_LOSS_WHILE_CRAFTING = 2.0
 
 onready var health_bar = $HealthBar
 onready var health_bar_label = $HealthBar/Label
@@ -28,7 +30,6 @@ signal craft_queue_changed(queue)
 
 func _set_is_crafting(value: bool) -> void:
   is_crafting = value
-  print(is_crafting)
 
 func _set_health(value) -> void:
   health = int(clamp(value, 0, max_health))
@@ -85,24 +86,9 @@ func _on_body_exited(body):
   if body == building_owner:
     is_building = false
     emit_signal('player_exited_owned_building')
-        
-func _process(delta):
-  if is_building:
-    var health_gain = HEALTH_GAIN_SPEED * (1 + (building_owner.construction / 20.0)) * delta
-    self.health += health_gain
-  elif is_crafting:
-    if craft_queue.size() == 0:
-      self.is_crafting = false
-      return
-    var skill_level = building_owner.get(craft_queue[0].skill)
-    var craft_gain = CRAFT_GAIN_SPEED * (1 + (skill_level / 20.0)) * delta
-    self.craft_progress += craft_gain 
-  else:
-    pass
 
 # signaux: recipe_button -> craft panel -> ici
 func _on_recipe_requested(craft_data) -> void:
-  print('z')
   var cost = craft_data.resources
   if building_owner.has_resources(cost):
     for res in cost.keys():
@@ -124,3 +110,23 @@ func _on_cancel_requested(index) -> void:
   emit_signal('craft_queue_changed', craft_queue)
   if craft_queue.size() == 0:
     self.craft_progress = 0
+
+func _process(delta):
+  if is_building:
+    var health_gain = HEALTH_GAIN_SPEED * (1 + (building_owner.construction / 20.0)) * delta
+    self.health += health_gain
+    building_owner.stamina -= delta * STAMINA_LOSS_WHILE_BUILDING
+    if building_owner.stamina == 0.0:
+      is_building = false
+  elif is_crafting:
+    if craft_queue.size() == 0:
+      self.is_crafting = false
+      return
+    var skill_level = building_owner.get(craft_queue[0].skill)
+    var craft_gain = CRAFT_GAIN_SPEED * (1 + (skill_level / 20.0)) * delta
+    self.craft_progress += craft_gain 
+    building_owner.stamina -= delta * STAMINA_LOSS_WHILE_CRAFTING
+    if building_owner.stamina == 0.0:
+      is_crafting = false
+  else:
+    pass

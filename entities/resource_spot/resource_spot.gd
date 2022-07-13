@@ -8,6 +8,7 @@ onready var occupied_space = $OccupiedSpaceArea
 var is_spawning = false
 var frames_since_no_overlap = 0
 
+var stamina_loss_while_harvesting = 1.0
 var skill: String
 var xp_gain: int
 var duration: int

@@ -15,7 +15,6 @@ func _initialize(data: BuildingData) -> void:
 
 func _on_pressed() -> void:
   if GameManager.player_actor.has_resources(building_data.resources):
-    print('affordable building pressed')
     emit_signal('building_button_pressed', building_data)
 
 

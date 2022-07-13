@@ -4,6 +4,7 @@ func _ready():
   skill = "gathering"
   xp_gain = 5
   duration = 200
+  stamina_loss_while_harvesting = 1.0
   remaining_harvests = 4
   # randomisation nombre recoltes
   var harvest_number_modifier = GameManager.rng.randi_range(-1,1)

@@ -97,7 +97,6 @@ func _on_inventory_item_pressed(_slot):
     self.armed_slot = _slot
 
 func _on_line_clicked():
-  print('a')
   if !!armed_slot:
     if typeof(armed_slot) == TYPE_STRING:
       GameManager.player_actor.unequip(armed_slot)
