@@ -9,6 +9,7 @@ const RED_HUE = Color('99ff0000')
 onready var player = $World/Player
 onready var buildings_holder = $World/BuildingsHolder
 onready var inventory_panel = $World/Player/Camera2D/InventoryPanel
+onready var gauges_manager = $World/Player/Camera2D/GaugesManager
 onready var building_buttons_container = $World/Player/Camera2D/StartBuildButton/BuildingButtonsContainer
 
 onready var building_ghost = $BuildingGhost
@@ -112,7 +113,9 @@ func _ready():
   player.connect('gold_changed', inventory_panel, "_on_gold_changed")
   player.connect('resources_changed', inventory_panel, "_on_resources_changed")
   player.connect('inventory_changed', inventory_panel, "_on_inventory_changed")
-
+  player.connect('health_changed', gauges_manager, '_on_player_health_changed')
+  player.connect('stamina_changed', gauges_manager, '_on_player_stamina_changed')
+  player.connect('mana_changed', gauges_manager, '_on_player_mana_changed')
   
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()

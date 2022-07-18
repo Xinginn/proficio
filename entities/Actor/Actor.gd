@@ -8,9 +8,9 @@ const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
 const BASE_MAX_WEIGHT = 100.0
 
-const BASE_HEALTH_REGEN = 1.0
-const BASE_STAMINA_REGEN = 1.0
-const BASE_MANA_REGEN = 1.0
+const BASE_HEALTH_REGEN = 0.1
+const BASE_STAMINA_REGEN = 0.1
+const BASE_MANA_REGEN = 0.1
 
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var texture_progress: TextureProgress = $TextureProgress
@@ -99,15 +99,21 @@ var heavy_armors_xp = 0
 signal gold_changed(value)
 signal inventory_changed(inventory)
 signal resources_changed(resources)
+signal health_changed(current, maxi)
+signal stamina_changed(current, maxi)
+signal mana_changed(current, maxi)
 
 func _set_health(value) -> void:
   health = clamp(value, 0, max_health)
+  emit_signal('health_changed', health, max_health)
   
 func _set_stamina(value) -> void:
   stamina = clamp(value, 0, max_stamina)
+  emit_signal('stamina_changed', stamina, max_stamina)
 
 func _set_mana(value) -> void:
   mana = clamp(value, 0, max_mana)
+  emit_signal('mana_changed', mana, max_mana)
 
 func _set_gold(value: int) -> void:
   gold = value
@@ -216,7 +222,7 @@ func stop_harvesting() -> void:
 # cette methode fait gagner de l'xp à la stat envoyée en argument,
 # puis augmente d'une fraction les compétences des équipements qui ameillorent aussi cette stat
 # ex: gain d'xp de def -> porte une armure légere qui augmente la def -> gain d'xp d'armure legere
-func gain_xp(attr, xp_value):
+func gain_xp(attr, xp_value): 
 #  print("+ %d xp for %s" % [xp_value, attr])
   # gain de base
   var new_xp = get(attr + "_xp") + xp_value
