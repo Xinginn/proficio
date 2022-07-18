@@ -63,7 +63,7 @@ func _set_craft_progress(value) -> void:
 func _initialize(_owner, data, pos) -> void:
   building_owner = _owner
   building_data = data
-  texture = load("res://assets/buildings/%s.png" % data.label)
+  texture = load("res://assets/buildings/%s.png" % data._name)
   global_position = pos
   max_health = building_data.max_health + 5 * _owner.construction
   health_bar.max_value = max_health

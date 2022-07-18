@@ -49,11 +49,11 @@ func _ready():
   crafts.append(CraftData.new(9, Dirk, "dirk", 4, "weaponsmith", 4, {"ore": 3}, 800))
   
   # id, label, max_health, resources, ?craft_ids = []
-  buildings.append(BuildingData.new(0, "workshop", 500, 4, {"wood": 5}, [2, 3, 5, 8, 9]))
-  buildings.append(BuildingData.new(1, "hunting_lodge", 500, 4, {"wood": 24}, [0, 1, 2]))
-  buildings.append(BuildingData.new(2, "armory", 500, 4, {"wood": 4, "stone": 3}, [0, 1, 6]))
-  buildings.append(BuildingData.new(3, "foundry", 500, 4, {"stone": 8}, []))
-  buildings.append(BuildingData.new(4, "store", 500, 4, {"wood": 6, "stone": 4}, [4, 7]))
+  buildings.append(BuildingData.new(0, "workshop", "Atelier", 500, 4, {"wood": 5}, [2, 3, 5, 8, 9]))
+  buildings.append(BuildingData.new(1, "hunting_lodge", "Loge de chasseur", 500, 4, {"wood": 24}, [0, 1, 2]))
+  buildings.append(BuildingData.new(2, "armory", "Armurerie", 500, 4, {"wood": 4, "stone": 3}, [0, 1, 6]))
+  buildings.append(BuildingData.new(3, "foundry", "Fonderie", 500, 4, {"stone": 8}, []))
+  buildings.append(BuildingData.new(4, "store", "Boutique", 500, 4, {"wood": 6, "stone": 4}, [4, 7]))
   
   # building de test  TODO retirer en prod
-  buildings.append(BuildingData.new(99, "building_01", 500, 4, {}, [0,1,2,3,4,5,6,7,8,9]))
+  buildings.append(BuildingData.new(99, "building_01", "Test", 500, 4, {}, [0,1,2,3,4,5,6,7,8,9]))

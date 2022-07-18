@@ -9,9 +9,15 @@ signal building_button_pright_pressed
 
 func _initialize(data: BuildingData) -> void:
   building_data = data
-  texture_normal = load("res://assets/buildings/%s.png" % data.label)
+  texture_normal = load("res://assets/buildings/%s.png" % data._name)
   if !GameManager.player_actor.has_resources(data.resources):
     self_modulate = RED_HUE
+
+func _on_mouse_entered():
+  BuildingTooltip.display(building_data)
+
+func _on_mouse_exited():
+  BuildingTooltip.hide()
 
 func _on_pressed() -> void:
   if GameManager.player_actor.has_resources(building_data.resources):

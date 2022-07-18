@@ -42,7 +42,7 @@ func _on_building_button_pressed(data) -> void:
   is_placing_building = true
   type_to_build = data
   building_ghost.global_position = get_global_mouse_position()
-  var texture = load('res://assets/buildings/%s.png' % data.label)
+  var texture = load('res://assets/buildings/%s.png' % data._name)
   building_ghost.texture = texture
   building_ghost_occupied_collision.shape.extents = texture.get_size() / 2.0
   building_ghost.show()

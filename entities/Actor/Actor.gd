@@ -217,7 +217,6 @@ func stop_harvesting() -> void:
 # puis augmente d'une fraction les compétences des équipements qui ameillorent aussi cette stat
 # ex: gain d'xp de def -> porte une armure légere qui augmente la def -> gain d'xp d'armure legere
 func gain_xp(attr, xp_value):
-  print(inventory.get_total_weight())
 #  print("+ %d xp for %s" % [xp_value, attr])
   # gain de base
   var new_xp = get(attr + "_xp") + xp_value

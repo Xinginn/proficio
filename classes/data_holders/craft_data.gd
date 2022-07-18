@@ -23,6 +23,7 @@ func _init(_id, _product, _name, _stamina, _skill, _xp, _resources, _needed_prog
   resources = _resources
   needed_progress = _needed_progress
 
+# TODO creer une classe-mère pour ne pas dupliquer ce code avec BuildingData ?
 func _get_resources_text() -> String:
   var text = ""
   var i = 0

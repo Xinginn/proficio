@@ -61,11 +61,10 @@ anims/from_black = SubResource( 1 )
 anims/to_black = SubResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 10
+layer = 128
 
 [node name="BlackPanel" type="Panel" parent="CanvasLayer"]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -76,9 +75,11 @@ __meta__ = {
 
 [node name="HUD" type="Control" parent="."]
 visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Icons" type="HBoxContainer" parent="HUD"]
-visible = false
 anchor_right = 1.0
 margin_right = 1028.0
 margin_bottom = 80.0
