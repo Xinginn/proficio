@@ -15,6 +15,7 @@ var max_stamina: WearAttribute
 var max_mana: WearAttribute
 var critical: WearAttribute
 var move_speed: WearAttribute
+var max_weight: WearAttribute
 #skills
 var construction: WearAttribute
 var gathering: WearAttribute

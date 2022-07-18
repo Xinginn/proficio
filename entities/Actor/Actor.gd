@@ -6,6 +6,7 @@ const MAX_BUILDINGS = 3
 const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
+const BASE_MAX_WEIGHT = 100.0
 
 const BASE_HEALTH_REGEN = 1.0
 const BASE_STAMINA_REGEN = 1.0
@@ -126,6 +127,21 @@ func _set_orientation(value):
   orientation = value
   animated_sprite.play("walk_%s" % orientation)
 
+func get_max_weight() -> float:
+  return BASE_MAX_WEIGHT + get_gear_bonus("max_weight")
+        
+func get_gear_bonus(stat_name: String) -> int:
+  var total: int = 0
+  for slot in inventory.gear:
+    var item: Equipable = inventory.gear[slot]
+    if item != null:
+      var wear_attribute: WearAttribute = item.get(stat_name)
+      if wear_attribute != null:
+        var value = wear_attribute.value
+        var mastery_bonus = wear_attribute.ratio * get(wear_attribute.attribute_name)
+        total += int(value + mastery_bonus)
+  return total
+
 func has_resources(needs: Dictionary) -> bool:
   for resource in needs:
     if inventory.resources[resource] < needs[resource]:
@@ -201,6 +217,7 @@ func stop_harvesting() -> void:
 # puis augmente d'une fraction les compétences des équipements qui ameillorent aussi cette stat
 # ex: gain d'xp de def -> porte une armure légere qui augmente la def -> gain d'xp d'armure legere
 func gain_xp(attr, xp_value):
+  print(inventory.get_total_weight())
 #  print("+ %d xp for %s" % [xp_value, attr])
   # gain de base
   var new_xp = get(attr + "_xp") + xp_value

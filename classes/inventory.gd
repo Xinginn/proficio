@@ -31,3 +31,21 @@ var resources: Dictionary = {
   "wheat": 10,
   "wood": 10,
  }
+
+func get_total_weight() -> float:
+  var total: float = 0.0
+  # objets equipés
+  for slot in gear:
+    if gear[slot] != null:
+      total += gear[slot].weight
+  # objets dans le sac
+  for item in items:
+    var item_weight = item.weight
+    if "quantity" in item:
+      item_weight *= item.quantity
+    total += item_weight
+  # ressources
+  for res in resources:
+    total += resources[res] * Data.resource_weights[res]
+  return total
+  

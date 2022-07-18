@@ -103,7 +103,7 @@ func _physics_process(_delta):
       building_ghost.modulate = GREEN_HUE
       is_building_ghost_overlapped = false
       
-      
+     
 func _ready():
   GameManager.player_actor = player
   # dans ready car a faire après que le player soit instancié
@@ -121,5 +121,5 @@ func _ready():
   player.add_resource("wood", 4)
   player.add_resource("stone", 3)
   player.add_resource("leather", 8)
-  print(player.inventory.resources)
   player.gold += 4
+  print(player.get_max_weight())
