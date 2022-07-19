@@ -13,6 +13,7 @@ onready var right_ring_button: TextureButton = $Gear/RightRingButton
 onready var left_ring_button: TextureButton = $Gear/LeftRingButton
 
 onready var gold_label: Label = $GoldIcon/Label
+onready var weight_label: Label = $WeightIcon/Label
 onready var inventory_lines_container = $ScrollContainer/LinesContainer
 onready var items_grid = $ScrollContainer/MarginContainer/ItemsGrid
 onready var item_ghost = $ItemGhost
@@ -43,6 +44,13 @@ func toggle_visible():
 
 func _on_gold_changed(value) -> void:
   gold_label.text = str(value)
+  
+func _on_weight_changed(total, maxi) -> void:
+  weight_label.text = "%.2f / %.2f" % [total, maxi]
+  if total > maxi:
+    weight_label.add_color_override("font_color", Color(1,0,0,1))
+  else:
+    weight_label.add_color_override("font_color", Color(1,1,1,1))
 
 func _on_inventory_changed(_inventory: Inventory) -> void:
   for key in gear_buttons.keys():

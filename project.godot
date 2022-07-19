@@ -145,6 +145,11 @@ GameManager="*res://globals/game_manager.tscn"
 CraftTooltip="*res://globals/craft_tooltip/craft_tooltip.tscn"
 BuildingTooltip="*res://globals/building_tooltip/building_tooltip.tscn"
 
+[display]
+
+window/size/width=1600
+window/size/height=900
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

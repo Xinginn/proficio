@@ -71,10 +71,10 @@ z_as_relative = false
 current = true
 
 [node name="StartBuildButton" type="TextureButton" parent="World/Player/Camera2D"]
-margin_left = -502.863
-margin_top = 216.635
-margin_right = -432.863
-margin_bottom = 291.635
+margin_left = -772.501
+margin_top = 343.445
+margin_right = -702.501
+margin_bottom = 418.445
 texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -92,26 +92,21 @@ __meta__ = {
 }
 
 [node name="CraftPanel" type="Panel" parent="World/Player/Camera2D"]
-margin_left = 78.0
-margin_top = -295.0
-margin_right = 505.0
-margin_bottom = -46.0
+margin_left = 265.0
+margin_top = -418.0
+margin_right = 739.0
+margin_bottom = -114.0
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="World/Player/Camera2D/CraftPanel"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "CRAFT"
-
 [node name="CraftListScroll" type="ScrollContainer" parent="World/Player/Camera2D/CraftPanel"]
-margin_left = 4.0
-margin_top = 14.0
-margin_right = 203.0
-margin_bottom = 246.0
+margin_left = 11.1137
+margin_top = 6.15912
+margin_right = 214.114
+margin_bottom = 297.159
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -119,10 +114,10 @@ __meta__ = {
 [node name="RecipeContainer" type="VBoxContainer" parent="World/Player/Camera2D/CraftPanel/CraftListScroll"]
 
 [node name="CurrentCraftIcon" type="TextureRect" parent="World/Player/Camera2D/CraftPanel"]
-margin_left = 260.05
-margin_top = 3.33031
-margin_right = 356.05
-margin_bottom = 99.3303
+margin_left = 288.05
+margin_top = 23.3303
+margin_right = 384.05
+margin_bottom = 119.33
 rect_min_size = Vector2( 96, 96 )
 mouse_filter = 2
 texture = ExtResource( 7 )
@@ -141,35 +136,35 @@ __meta__ = {
 }
 
 [node name="TextureProgress" type="TextureProgress" parent="World/Player/Camera2D/CraftPanel/CurrentCraftIcon"]
-margin_left = 99.5255
-margin_top = -0.280617
-margin_right = 107.526
-margin_bottom = 94.7194
+margin_left = -35.0223
+margin_top = 103.523
+margin_right = 137.978
+margin_bottom = 115.523
 value = 25.0
 texture_under = ExtResource( 8 )
 texture_progress = ExtResource( 9 )
-fill_mode = 3
 nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="QueueContainer" type="GridContainer" parent="World/Player/Camera2D/CraftPanel"]
-margin_left = 206.0
-margin_top = 131.0
-margin_right = 425.0
-margin_bottom = 247.0
-custom_constants/hseparation = 7
+margin_left = 232.477
+margin_top = 170.272
+margin_right = 460.477
+margin_bottom = 286.272
+custom_constants/vseparation = 12
+custom_constants/hseparation = 12
 columns = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="InventoryPanel" type="Panel" parent="World/Player/Camera2D"]
-margin_left = -505.0
-margin_top = -295.0
-margin_right = 21.0
-margin_bottom = 64.0
+margin_left = -746.606
+margin_top = -420.475
+margin_right = -220.606
+margin_bottom = -61.4749
 mouse_filter = 2
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 15 )
@@ -326,10 +321,10 @@ visible = false
 [node name="GaugesManager" type="HBoxContainer" parent="World/Player/Camera2D"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -267.982
-margin_top = 237.04
-margin_right = 292.018
-margin_bottom = 267.04
+margin_left = -266.647
+margin_top = 379.868
+margin_right = 293.353
+margin_bottom = 409.868
 custom_constants/separation = 40
 script = ExtResource( 5 )
 __meta__ = {

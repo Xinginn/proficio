@@ -6,12 +6,12 @@ const MAX_BUILDINGS = 3
 const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
-const BASE_MAX_WEIGHT = 100.0
+const BASE_MAX_WEIGHT = 48.0
 const MAX_MOVE_SPEED = 9999
 
 const BASE_HEALTH_REGEN = 0.1
-const BASE_STAMINA_REGEN = 0.1
-const BASE_MANA_REGEN = 0.1
+const BASE_STAMINA_REGEN = 0.2
+const BASE_MANA_REGEN = 0.15
 
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var texture_progress: TextureProgress = $TextureProgress
@@ -100,6 +100,7 @@ var heavy_armors = 1
 var heavy_armors_xp = 0
 
 signal gold_changed(value)
+signal weight_changed(total, maxi)
 signal inventory_changed(inventory)
 signal resources_changed(resources)
 signal health_changed(current, maxi)
@@ -144,7 +145,8 @@ func compute_weight() -> void:
   var overweight = inventory.total_weight - max_weight
   if overweight > 0.0:
     var overweight_ratio = overweight * 100.0 / max_weight
-    weight_speed_malus = overweight_ratio
+    weight_speed_malus = overweight_ratio * 2.0
+  emit_signal('weight_changed', inventory.total_weight, max_weight)
         
 func get_gear_bonus(stat_name: String) -> int:
   var total: int = 0
