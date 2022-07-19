@@ -125,4 +125,3 @@ func _ready():
   player.add_resource("stone", 3)
   player.add_resource("leather", 8)
   player.gold += 4
-  print(player.get_max_weight())

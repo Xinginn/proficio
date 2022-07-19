@@ -7,6 +7,7 @@ const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
 const BASE_MAX_WEIGHT = 100.0
+const MAX_MOVE_SPEED = 9999
 
 const BASE_HEALTH_REGEN = 0.1
 const BASE_STAMINA_REGEN = 0.1
@@ -25,6 +26,8 @@ var mana = 15 setget _set_mana
 var max_mana = 15
 var move_speed: float = 200.0
 # var move_speed: float = 500.0 #pour test
+var max_weight: float = BASE_MAX_WEIGHT
+var weight_speed_malus: float = 0.0
 
 var total_xp
 var target_position = null
@@ -133,8 +136,15 @@ func _set_orientation(value):
   orientation = value
   animated_sprite.play("walk_%s" % orientation)
 
-func get_max_weight() -> float:
-  return BASE_MAX_WEIGHT + get_gear_bonus("max_weight")
+# methode pour calculer le poids porté, le poids max, et le malus move_speed eventuel
+# 1.0 de malus par %age de dépassement
+func compute_weight() -> void:
+  inventory.compute_total_weight()
+  max_weight = BASE_MAX_WEIGHT + get_gear_bonus("max_weight")
+  var overweight = inventory.total_weight - max_weight
+  if overweight > 0.0:
+    var overweight_ratio = overweight * 100.0 / max_weight
+    weight_speed_malus = overweight_ratio
         
 func get_gear_bonus(stat_name: String) -> int:
   var total: int = 0
@@ -157,14 +167,17 @@ func has_resources(needs: Dictionary) -> bool:
 func add_resource(resource: String, number: int) -> void:
   # TODO evaluer dépassement de poids
   inventory.resources[resource] += number
+  compute_weight()
   emit_signal('resources_changed', inventory.resources)
 
 func remove_resource(resource: String, number: int) -> void:
-  inventory.resources[resource] -= number 
+  inventory.resources[resource] -= number
+  compute_weight()
   emit_signal('resources_changed', inventory.resources)
 
 func add_item(item):
   inventory.items.append(item)
+  compute_weight()
   emit_signal('inventory_changed', inventory)
 
 func swap_inventory_items(slot_a, slot_b):
@@ -182,11 +195,13 @@ func swap_gear_and_inventory_item(gear_slot, item_slot):
     var temp = inventory.items[item_slot]
     inventory.items[item_slot] = inventory.gear[gear_slot]
     inventory.gear[gear_slot] = temp
+  compute_weight()
   emit_signal('inventory_changed', inventory)
 
 func unequip(gear_slot):
   inventory.items.append(inventory.gear[gear_slot])
   inventory.gear[gear_slot] = null
+  compute_weight()
   emit_signal('inventory_changed', inventory)
 
 func move_to(coords: Vector2) -> void:
@@ -267,7 +282,8 @@ func _physics_process(delta):
   self.stamina += delta * BASE_STAMINA_REGEN 
   self.mana += delta * BASE_MANA_REGEN 
   if target_position != null:
-    velocity = global_position.direction_to(target_position) * move_speed
+    var final_move_speed = clamp(move_speed - weight_speed_malus, 0, MAX_MOVE_SPEED)
+    velocity = global_position.direction_to(target_position) * final_move_speed
     if global_position.distance_to(target_position) > 5:
       velocity = move_and_slide(velocity)
     else:

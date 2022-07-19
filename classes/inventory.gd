@@ -32,7 +32,7 @@ var resources: Dictionary = {
   "wood": 10,
  }
 
-func get_total_weight() -> float:
+func compute_total_weight() -> void:
   var total: float = 0.0
   # objets equipés
   for slot in gear:
@@ -47,5 +47,5 @@ func get_total_weight() -> float:
   # ressources
   for res in resources:
     total += resources[res] * Data.resource_weights[res]
-  return total
+  total_weight = total
   
