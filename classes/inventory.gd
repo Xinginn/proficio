@@ -46,6 +46,6 @@ func compute_total_weight() -> void:
     total += item_weight
   # ressources
   for res in resources:
-    total += resources[res] * Data.resource_weights[res]
+    total += resources[res] * Dictionaries.resource_weights[res]
   total_weight = total
   

@@ -4,7 +4,7 @@ class_name Actor
 
 const MAX_BUILDINGS = 3
 const HARVEST_GAIN_PER_SECOND = 50
-const BASE_XP_NEED = 100
+const BASE_XP_NEED = 8
 const XP_NEED_GROWTH = 1.2
 const BASE_MAX_WEIGHT = 48.0
 const MAX_MOVE_SPEED = 9999
@@ -106,6 +106,7 @@ signal resources_changed(resources)
 signal health_changed(current, maxi)
 signal stamina_changed(current, maxi)
 signal mana_changed(current, maxi)
+signal experience_changed()
 
 func _set_health(value) -> void:
   health = clamp(value, 0, max_health)
@@ -263,15 +264,20 @@ func gain_xp(attr, xp_value):
     # on applique le gain d'xp
     set(attribute.attribute_name + "_xp", total_xp)
 #    print("new_xp de " + attribute.attribute_name + ": " + str(get(attribute.attribute_name + "_xp")))
+  emit_signal('experience_changed')
 
 func check_for_lvl_up(attribute_name: String):
   var attribute_level = get(attribute_name)
   var current_xp = get(attribute_name + "_xp")
-  var needed_xp = int(BASE_XP_NEED * pow(XP_NEED_GROWTH, attribute_level - 1))
+  var needed_xp = get_needed_xp_for_level_up(attribute_name)
   if current_xp > needed_xp:
     set(attribute_name, attribute_level + 1)
     set(attribute_name + "_xp", current_xp - needed_xp)
     print('%s level up!' % attribute_name)
+
+func get_needed_xp_for_level_up(attribute_name) -> int:
+  var attribute_level = get(attribute_name)
+  return int(BASE_XP_NEED * pow(XP_NEED_GROWTH, attribute_level - 1))
 
 func _ready() -> void:
   texture_progress.hide()

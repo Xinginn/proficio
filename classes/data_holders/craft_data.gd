@@ -28,7 +28,7 @@ func _get_resources_text() -> String:
   var text = ""
   var i = 0
   for resource_name in resources.keys():
-    text += "%s x%d" % [Data.resource_dictionary[resource_name], resources[resource_name]]
+    text += "%s x%d" % [Dictionaries.resource_names[resource_name], resources[resource_name]]
     i += 1
     if i < resources.size():
       text += ", "

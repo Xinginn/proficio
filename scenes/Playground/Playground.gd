@@ -9,6 +9,7 @@ const RED_HUE = Color('99ff0000')
 onready var player = $World/Player
 onready var buildings_holder = $World/BuildingsHolder
 onready var inventory_panel = $World/Player/Camera2D/InventoryPanel
+onready var status_panel = $World/Player/Camera2D/StatusPanel
 onready var gauges_manager = $World/Player/Camera2D/GaugesManager
 onready var building_buttons_container = $World/Player/Camera2D/StartBuildButton/BuildingButtonsContainer
 
@@ -111,8 +112,10 @@ func _physics_process(_delta):
      
 func _ready():
   GameManager.player_actor = player
+  print(GameManager.player_actor)
   # dans ready car a faire après que le player soit instancié
   craft_panel = $World/Player/Camera2D/CraftPanel
+  status_panel.initialize()
   
   player.connect('gold_changed', inventory_panel, "_on_gold_changed")
   player.connect('weight_changed', inventory_panel, "_on_weight_changed")
@@ -121,6 +124,7 @@ func _ready():
   player.connect('health_changed', gauges_manager, '_on_player_health_changed')
   player.connect('stamina_changed', gauges_manager, '_on_player_stamina_changed')
   player.connect('mana_changed', gauges_manager, '_on_player_mana_changed')
+  player.connect('experience_changed', status_panel, '_on_player_experience_changed')
   
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/texture_back.png" type="Texture" id=8]
 [ext_resource path="res://assets/texture_front.png" type="Texture" id=9]
 [ext_resource path="res://scenes/playground/craft_panel.gd" type="Script" id=10]
+[ext_resource path="res://scenes/playground/status_panel.gd" type="Script" id=11]
 [ext_resource path="res://styles/panel.tres" type="StyleBox" id=14]
 [ext_resource path="res://scenes/playground/inventory_panel.gd" type="Script" id=15]
 [ext_resource path="res://assets/inventory_gear.png" type="Texture" id=16]
@@ -317,6 +318,77 @@ text = "12.4/40.0"
 
 [node name="ItemGhost" type="Sprite" parent="World/Player/Camera2D/InventoryPanel"]
 visible = false
+
+[node name="StatusPanel" type="Panel" parent="World/Player/Camera2D"]
+margin_left = 376.719
+margin_top = -100.449
+margin_right = 740.719
+margin_bottom = 427.551
+custom_styles/panel = ExtResource( 14 )
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="World/Player/Camera2D/StatusPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="World/Player/Camera2D/StatusPanel/ScrollContainer"]
+margin_right = 346.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 346, 300 )
+
+[node name="Stats" type="Label" parent="World/Player/Camera2D/StatusPanel/ScrollContainer/VBoxContainer"]
+margin_right = 346.0
+margin_bottom = 14.0
+text = "Caractéristiques"
+
+[node name="CaracsContainer" type="VBoxContainer" parent="World/Player/Camera2D/StatusPanel/ScrollContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 346.0
+margin_bottom = 18.0
+
+[node name="Line1" type="Panel" parent="World/Player/Camera2D/StatusPanel/ScrollContainer/VBoxContainer"]
+margin_top = 22.0
+margin_right = 346.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 0, 1 )
+
+[node name="Skill" type="Label" parent="World/Player/Camera2D/StatusPanel/ScrollContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 346.0
+margin_bottom = 41.0
+text = "Compétences"
+
+[node name="SkillsContainer" type="VBoxContainer" parent="World/Player/Camera2D/StatusPanel/ScrollContainer/VBoxContainer"]
+margin_top = 45.0
+margin_right = 346.0
+margin_bottom = 45.0
+
+[node name="Line2" type="Panel" parent="World/Player/Camera2D/StatusPanel/ScrollContainer/VBoxContainer"]
+margin_top = 49.0
+margin_right = 346.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 1 )
+
+[node name="Label3" type="Label" parent="World/Player/Camera2D/StatusPanel/ScrollContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 346.0
+margin_bottom = 68.0
+text = "Maîtrises"
+
+[node name="MasteriesContainer" type="VBoxContainer" parent="World/Player/Camera2D/StatusPanel/ScrollContainer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 346.0
+margin_bottom = 72.0
 
 [node name="GaugesManager" type="HBoxContainer" parent="World/Player/Camera2D"]
 anchor_right = 1.0

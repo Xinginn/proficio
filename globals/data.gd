@@ -1,31 +1,5 @@
 extends Node
 
-var resource_dictionary: Dictionary = {
-  "cristal" : "Cristaux",
-  "fiber": "Fibres",
-  "herb": "Herbes",
-  "leather": "Cuir",
-  "ore": "Minerai",
-  "skin": "Peaux",
-  "stone": "Pierres",
-  "wheat": "Blé",
-  "wood": "Bois",
-  "iron": "Fer"
- }
-
-var resource_weights: Dictionary = {
-  "cristal" : 0.1,
-  "fiber": 0.1,
-  "herb": 0.15,
-  "leather": 0.2,
-  "ore": 0.5,
-  "skin": 0.3,
-  "stone": 1.0,
-  "wheat": 0.5,
-  "wood": 1.0,
-  "iron": 0.4
- }
-
 var lands = []
 var crafts = []
 var buildings = []

@@ -118,7 +118,7 @@ func _ready():
     gear_buttons[key].slot = key
     gear_buttons[key].connect('inventory_item_pressed', self, '_on_inventory_item_pressed')
   var resources_container = $ResourcesContainer
-  for key in Data.resource_dictionary.keys():
+  for key in Dictionaries.resource_names.keys():
     var new_resource = resource_stock_scene.instance()
     resources_container.add_child(new_resource)
     new_resource.texture = load('res://assets/icons/resource_%s.png' % key)

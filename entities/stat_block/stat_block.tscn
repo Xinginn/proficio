@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://entities/stat_block/stat_block.gd" type="Script" id=1]
+
+[node name="StatBlock" type="HBoxContainer"]
+margin_right = 196.0
+margin_bottom = 14.0
+custom_constants/separation = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="."]
+margin_right = 150.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 150, 16 )
+text = "Travail du Cuir"
+valign = 1
+
+[node name="SeparatorPanel1" type="Panel" parent="."]
+margin_left = 152.0
+margin_right = 153.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 1, 0 )
+size_flags_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelLabel" type="Label" parent="."]
+margin_left = 155.0
+margin_right = 171.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+text = "4"
+align = 1
+valign = 1
+
+[node name="SeparatorPanel2" type="Panel" parent="."]
+margin_left = 173.0
+margin_right = 174.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 1, 0 )
+size_flags_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressLabel" type="Label" parent="."]
+margin_left = 176.0
+margin_right = 216.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 40, 16 )
+text = "86%"
+align = 2
+valign = 1
