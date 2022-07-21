@@ -28,3 +28,10 @@ func _init(crafter = null):
 # override du getter
 func _get_stats_text() -> String:
   return "Bûcheron %+d \nAttaque %+d" % [lumberjack.value, atk.value]
+
+func _get_final_stats_text() -> String:
+  var atk_value: int
+  atk_value = atk.value * (1.0 + (GameManager.player_actor.get(atk.attribute_name) - 1) * atk.ratio)
+  var lumberjack_value: int
+  lumberjack_value = lumberjack.value * (1.0 + (GameManager.player_actor.get(lumberjack.attribute_name) - 1) * lumberjack.ratio)
+  return "Bûcheron %+d \nAttaque %+d" % [lumberjack_value, atk_value]

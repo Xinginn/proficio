@@ -32,10 +32,14 @@ var toolmaking: WearAttribute
 # probablement pas de masteries en wearAttribute, parce qu'on pourrait avoir un bénéfice cyclique à la skyrim
 
 var stats_text setget ,_get_stats_text
+var final_stats_text setget ,_get_final_stats_text
 
 var slots: Array = []
 
 func _get_stats_text() -> String:
+  return "No stats"
+  
+func _get_final_stats_text() -> String:
   return "No stats"
 
 # retrait des WeatAttributes de la mémoire 

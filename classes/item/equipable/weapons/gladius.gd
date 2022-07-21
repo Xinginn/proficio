@@ -28,3 +28,10 @@ func _init(crafter = null):
 # override du getter
 func _get_stats_text() -> String:
   return "Attaque %+d \nDéfense %+d" % [atk.value, def.value]
+
+func _get_final_stats_text() -> String:
+  var atk_value: int
+  atk_value = atk.value * (1.0 + (GameManager.player_actor.get(atk.attribute_name) - 1) * atk.ratio)
+  var def_value: int
+  def_value = def.value * (1.0 + (GameManager.player_actor.get(def.attribute_name) - 1) * def.ratio)
+  return "Attaque %+d \nDéfense %+d" % [atk_value, def_value]

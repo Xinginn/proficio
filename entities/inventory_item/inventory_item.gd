@@ -24,3 +24,17 @@ func _initialize(_slot):
     
 func _on_pressed():
   emit_signal('inventory_item_pressed', slot)
+
+func _on_mouse_entered():
+  var item
+  if slot is String: 
+    # dans ce cas, c'est un slot de l'equipement
+    item = GameManager.player_actor.inventory.gear[slot]   
+  elif slot is int: 
+    # sinon, c'est un slot des objets en inventaire
+    item = GameManager.player_actor.inventory.items[slot]
+  if !!item:
+    ItemTooltip.display(item)
+
+func _on_mouse_exited():
+  ItemTooltip.hide()

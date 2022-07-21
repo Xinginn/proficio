@@ -112,7 +112,6 @@ func _physics_process(_delta):
      
 func _ready():
   GameManager.player_actor = player
-  print(GameManager.player_actor)
   # dans ready car a faire après que le player soit instancié
   craft_panel = $World/Player/Camera2D/CraftPanel
   status_panel.initialize()

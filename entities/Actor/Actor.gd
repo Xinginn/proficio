@@ -82,21 +82,21 @@ var shoemaking_xp = 0
 var toolmaking = 1
 var toolmaking_xp = 0
 # masteries
-var tools = 1
+var tools = 15
 var tools_xp = 0
 var knives = 1
 var knives_xp = 0
-var swords = 1
+var swords = 15
 var swords_xp = 0
 var masses = 1
 var masses_xp = 0
 var clothes = 1
 var clothes_xp = 0
-var shoes = 1
+var shoes = 13
 var shoes_xp = 0
-var light_armors = 1
+var light_armors = 8
 var light_armors_xp = 0
-var heavy_armors = 1
+var heavy_armors = 16
 var heavy_armors_xp = 0
 
 signal gold_changed(value)

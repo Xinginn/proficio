@@ -28,3 +28,10 @@ func _init(crafter = null):
 # override du getter
 func _get_stats_text() -> String:
   return "Attaque %+d \nDépeçage %+d" % [atk.value, skinning.value]
+  
+func _get_final_stats_text() -> String:
+  var atk_value: int
+  atk_value = atk.value * (1.0 + (GameManager.player_actor.get(atk.attribute_name) - 1) * atk.ratio)
+  var skinning_value: int
+  skinning_value = skinning.value * (1.0 + (GameManager.player_actor.get(skinning.attribute_name) - 1) * skinning.ratio)
+  return "Attaque %+d \nDépeçage %+d" % [atk_value, skinning_value]

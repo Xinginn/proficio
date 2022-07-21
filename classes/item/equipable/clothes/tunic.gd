@@ -24,3 +24,9 @@ func _init(crafter = null):
 # override du getter
 func _get_stats_text() -> String:
   return "Endurance %+d" % [max_stamina.value]
+
+func _get_final_stats_text() -> String:
+  var max_stamina_value: int
+  max_stamina_value = max_stamina.value * (1.0 + (GameManager.player_actor.get(max_stamina.attribute_name) - 1) * max_stamina.ratio)
+  return "Endurance %+d" % [max_stamina_value]
+

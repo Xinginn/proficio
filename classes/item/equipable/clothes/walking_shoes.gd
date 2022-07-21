@@ -29,3 +29,11 @@ func _init(crafter = null):
 # override du getter
 func _get_stats_text() -> String:
   return "Vitesse: %+d \nEndurance %+d" % [move_speed.value, max_stamina.value]
+
+func _get_final_stats_text() -> String:
+  var move_speed_value: int
+  move_speed_value = move_speed.value * (1.0 + (GameManager.player_actor.get(move_speed.attribute_name) - 1) * move_speed.ratio)
+  var max_stamina_value: int
+  max_stamina_value = max_stamina.value * (1.0 + (GameManager.player_actor.get(max_stamina.attribute_name) - 1) * max_stamina.ratio)
+  return "Vitesse: %+d \nEndurance %+d" % [move_speed_value, max_stamina_value]
+
