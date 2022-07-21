@@ -6,10 +6,6 @@ onready var caracs_container: VBoxContainer = $ScrollContainer/VBoxContainer/Car
 onready var skills_container: VBoxContainer = $ScrollContainer/VBoxContainer/SkillsContainer
 onready var masteries_container: VBoxContainer = $ScrollContainer/VBoxContainer/MasteriesContainer
 
-func update_display():
-  for i in Dictionaries.attribute_names.size():
-    pass
-
 func initialize():
   for key in Dictionaries.attribute_names.keys():
     var new_block = stat_block_scene.instance()
@@ -30,3 +26,17 @@ func _on_player_experience_changed():
     skills_container.get_child(i).update_display(Dictionaries.skills[i])
   for i in range(Dictionaries.masteries.size()):
     masteries_container.get_child(i).update_display(Dictionaries.masteries[i])
+
+func toggle_visible():
+  if visible:
+    hide()
+  else:
+    show()
+
+func _ready():
+  hide()
+
+func _unhandled_input(event):
+  if event is InputEventKey:
+    if !event.pressed and event.scancode == KEY_K:
+      toggle_visible()
