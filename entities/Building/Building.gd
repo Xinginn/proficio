@@ -66,7 +66,7 @@ func _initialize(_owner, data, pos) -> void:
   building_data = data
   texture = load("res://assets/buildings/%s.png" % data._name)
   global_position = pos
-  max_health = building_data.max_health + 5 * _owner.construction
+  max_health = int(building_data.max_health * (1.0 + 0.05 * (_owner.construction-1)))
   health_bar.max_value = max_health
   self.health = 1
   # TODO set position et largeur health_bar
@@ -119,7 +119,7 @@ func _on_cancel_requested(index) -> void:
 
 func _process(delta):
   if is_building:
-    var health_gain = HEALTH_GAIN_SPEED * (1 + (building_owner.construction / 20.0)) * delta
+    var health_gain = HEALTH_GAIN_SPEED * (1.0 + (building_owner.construction - 1) * 0.05) * delta
     self.health += health_gain
     building_owner.stamina -= delta * STAMINA_LOSS_WHILE_BUILDING
     if building_owner.stamina == 0.0:
@@ -129,7 +129,7 @@ func _process(delta):
       self.is_crafting = false
       return
     var skill_level = building_owner.get(craft_queue[0].skill)
-    var craft_gain = CRAFT_GAIN_SPEED * (1 + (skill_level / 20.0)) * delta
+    var craft_gain = CRAFT_GAIN_SPEED * (1.0 + (skill_level - 1) * 0.05) * delta
     self.craft_progress += craft_gain 
     building_owner.stamina -= delta * STAMINA_LOSS_WHILE_CRAFTING
     if building_owner.stamina == 0.0:

@@ -5,10 +5,10 @@ var crafts = []
 var buildings = []
 
 func _ready():
-  lands.append(LandData.new(0, "center", 3, {"herbs": 4, "pebble": 2}))
-  lands.append(LandData.new(1, "crown", 3, {"herbs": 4, "pebble": 2}))
-  lands.append(LandData.new(2, "plain", 3, {"herbs": 4, "pebble": 2}))
-  lands.append(LandData.new(3, "forest", 3, {"herbs": 4, "pebble": 2}))
+  lands.append(LandData.new(0, "center", 3, {"herbs": 3, "pebble": 2, "wood": 2, "tree": 1}))
+  lands.append(LandData.new(1, "crown", 3, {"herbs": 3, "pebble": 2, "wood": 2, "tree": 1}))
+  lands.append(LandData.new(2, "plain", 3, {"herbs": 4, "pebble": 2, "wood": 2, "tree": 3}))
+  lands.append(LandData.new(3, "forest", 6, {"herbs": 2, "pebble": 1, "wood": 3, "tree": 5}))
   
   # id, product, name, stamina, skill, xp, resources, ?needed_progress = 1000
   crafts.append(CraftData.new(0, HideArmor, "hide_armor", 4, "leatherwork", 8, {"skin": 3}, 1000))  

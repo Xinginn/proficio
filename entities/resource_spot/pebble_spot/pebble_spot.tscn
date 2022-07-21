@@ -1,9 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/resource_spots/resource_spot_pebble_0.png" type="Texture" id=1]
 [ext_resource path="res://entities/resource_spot/pebble_spot/pebble_spot.gd" type="Script" id=2]
 [ext_resource path="res://entities/resource_spot/resource_spot.tscn" type="PackedScene" id=3]
 
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3.97826, 4.32016 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32.2941, 32.1644 )
+
 [node name="PebbleSpot" instance=ExtResource( 3 )]
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="CollectTriggerArea" index="0"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="OccupiedSpaceArea" index="0"]
+shape = SubResource( 2 )

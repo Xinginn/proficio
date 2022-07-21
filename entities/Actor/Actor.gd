@@ -270,7 +270,7 @@ func check_for_lvl_up(attribute_name: String):
   var attribute_level = get(attribute_name)
   var current_xp = get(attribute_name + "_xp")
   var needed_xp = get_needed_xp_for_level_up(attribute_name)
-  if current_xp > needed_xp:
+  if current_xp >= needed_xp:
     set(attribute_name, attribute_level + 1)
     set(attribute_name + "_xp", current_xp - needed_xp)
     print('%s level up!' % attribute_name)
@@ -298,7 +298,7 @@ func _physics_process(delta):
       global_position = target_position
       stop_moving()
   if !!current_resource_spot:
-    var harvest_gain = get(current_resource_spot.skill) * HARVEST_GAIN_PER_SECOND * delta
+    var harvest_gain = (1.0 + (get(current_resource_spot.skill) - 1) * 0.05) * HARVEST_GAIN_PER_SECOND * delta
     self.harvest_progress += harvest_gain
     self.stamina -= current_resource_spot.stamina_loss_while_harvesting * delta
     if stamina == 0.0:
