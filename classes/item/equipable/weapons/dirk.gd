@@ -15,7 +15,7 @@ func _init(crafter = null):
   
   # calcul des values de base + bonus du au skill de crafta
   if crafter != null:
-    bonus_atk = int(crafter.weaponsmith * 0.06)
+    bonus_atk = int(crafter.get_total_attribute("weaponsmith") * 0.06)
   
   # declaration des wear attribute: valeur inhérente à l'objet crafté, mastery l'augmentant 
   # et ratio de boost et gain d'xp en l'utilisant
@@ -27,5 +27,5 @@ func _get_stats_text() -> String:
 
 func _get_final_stats_text() -> String:
   var atk_value: int
-  atk_value = atk.value * (1.0 + (GameManager.player_actor.get(atk.attribute_name) - 1) * atk.ratio)
+  atk_value = atk.value * (1.0 + (GameManager.player_actor.get_total_attribute(atk.attribute_name) - 1) * atk.ratio)
   return "Attaque %+d" % [atk_value]

@@ -17,8 +17,8 @@ func _init(crafter = null):
   
   # calcul des values de base + bonus du au skill de craft
   if crafter != null:
-    bonus_lumberjack = int(crafter.toolmaking * 0.2)
-    bonus_atk = int(crafter.toolmaking * 0.1)
+    bonus_lumberjack = int(crafter.get_total_attribute("toolmaking") * 0.2)
+    bonus_atk = int(crafter.get_total_attribute("toolmaking") * 0.1)
   
   # attributions des wear attribute de l'objet crafté, et déclaration des mastery les augmentant 
   # et ratio de boost et gain d'xp en l'utilisant
@@ -31,7 +31,7 @@ func _get_stats_text() -> String:
 
 func _get_final_stats_text() -> String:
   var atk_value: int
-  atk_value = atk.value * (1.0 + (GameManager.player_actor.get(atk.attribute_name) - 1) * atk.ratio)
+  atk_value = atk.value * (1.0 + (GameManager.player_actor.get_total_attribute(atk.attribute_name) - 1) * atk.ratio)
   var lumberjack_value: int
-  lumberjack_value = lumberjack.value * (1.0 + (GameManager.player_actor.get(lumberjack.attribute_name) - 1) * lumberjack.ratio)
+  lumberjack_value = lumberjack.value * (1.0 + (GameManager.player_actor.get_total_attribute(lumberjack.attribute_name) - 1) * lumberjack.ratio)
   return "Bûcheron %+d \nAttaque %+d" % [lumberjack_value, atk_value]

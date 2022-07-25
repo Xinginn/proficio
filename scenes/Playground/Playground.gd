@@ -108,8 +108,7 @@ func _physics_process(_delta):
       is_building_ghost_overlapped = true
     else:
       building_ghost.modulate = GREEN_HUE
-      is_building_ghost_overlapped = false
-      
+      is_building_ghost_overlapped = false    
      
 func _ready():
   GameManager.player_actor = player
@@ -134,4 +133,6 @@ func _ready():
   player.add_resource("wood", 4)
   player.add_resource("stone", 3)
   player.add_resource("leather", 8)
+#  player.gain_xp("light_armors", 200)
+#  player.gain_xp("leatherwork", 200)
   player.gold += 4

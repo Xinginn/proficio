@@ -4,7 +4,7 @@ class_name Actor
 
 const MAX_BUILDINGS = 3
 const HARVEST_GAIN_PER_SECOND = 50
-const BASE_XP_NEED = 8
+const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
 const BASE_MAX_WEIGHT = 100.0
 const MAX_MOVE_SPEED = 9999
@@ -43,61 +43,37 @@ var active_buildings: Array = []
 var is_player: bool = false
 
 # --------- LEVELS AND XP ---------
-# stats
-var atk_lvl = 1
-var atk_lvl_xp = 0
-var def_lvl = 1
-var def_lvl_xp = 0
-var max_health_lvl = 10
-var max_health_lvl_xp = 0
-var max_stamina_lvl = 10
-var max_stamina_lvl_xp = 0
-var max_mana_lvl = 10
-var max_mana_lvl_xp = 0
-var critical = 1
-var critical_xp = 0
-# skills
-var construction = 1
-var construction_xp = 0
-var gathering = 1
-var gathering_xp = 0
-var lumberjack = 1
-var lumberjack_xp = 0
-var smelting = 1
-var smelting_xp = 0
-var skinning = 1
-var skinning_xp = 0
-var leatherwork = 1
-var leatherwork_xp = 0
-var weaponsmith = 1
-var weaponsmith_xp = 0
-var armorsmith = 1
-var armorsmith_xp = 0
-var weaving = 1
-var weaving_xp = 0
-var woodcarving = 1
-var woodcarving_xp = 0
-var shoemaking = 1
-var shoemaking_xp = 0
-var toolmaking = 1
-var toolmaking_xp = 0
-# masteries
-var tools = 15
-var tools_xp = 0
-var knives = 1
-var knives_xp = 0
-var swords = 15
-var swords_xp = 0
-var masses = 1
-var masses_xp = 0
-var clothes = 1
-var clothes_xp = 0
-var shoes = 13
-var shoes_xp = 0
-var light_armors = 8
-var light_armors_xp = 0
-var heavy_armors = 16
-var heavy_armors_xp = 0
+var attributes: Dictionary = {
+  # caracs
+  "atk_lvl": Attribute.new("atk_lvl", "caracs"),
+  "def_lvl": Attribute.new("def_lvl", "caracs"),
+  "max_health_lvl": Attribute.new("max_health_lvl", "caracs"),
+  "max_stamina_lvl": Attribute.new("max_stamina_lvl", "caracs"),
+  "max_mana_lvl": Attribute.new("max_mana_lvl", "caracs"),
+  "critical": Attribute.new("critical", "caracs"),
+  #skills
+  "construction": Attribute.new("construction", "skills"),
+  "gathering": Attribute.new("gathering", "skills"),
+  "lumberjack": Attribute.new("lumberjack", "skills"),
+  "smelting": Attribute.new("smelting", "skills"),
+  "skinning": Attribute.new("skinning", "skills"),
+  "leatherwork": Attribute.new("leatherwork", "skills"),
+  "weaponsmith": Attribute.new("weaponsmith", "skills"),
+  "armorsmith": Attribute.new("armorsmith", "skills"),
+  "weaving": Attribute.new("weaving", "skills"),
+  "woodcarving": Attribute.new("woodcarving", "skills"),
+  "shoemaking": Attribute.new("shoemaking", "skills"),
+  "toolmaking": Attribute.new("toolmaking", "skills"),
+  #masteries
+  "tools": Attribute.new("tools", "masteries"),
+  "knives": Attribute.new("knives", "masteries"),
+  "swords": Attribute.new("swords", "masteries"),
+  "masses": Attribute.new("masses", "masteries"),
+  "clothes": Attribute.new("clothes", "masteries"),
+  "shoes": Attribute.new("shoes", "masteries"),
+  "light_armors": Attribute.new("light_armors", "masteries"),
+  "heavy_armors": Attribute.new("heavy_armors", "masteries"),
+ }
 
 signal gold_changed(value)
 signal weight_changed(total, maxi)
@@ -148,13 +124,19 @@ func compute_weight() -> void:
     var overweight_ratio = overweight * 100.0 / max_weight
     weight_speed_malus = overweight_ratio * 2.0
   emit_signal('weight_changed', inventory.total_weight, max_weight)
-        
-func get_gear_bonus(stat_name: String) -> int:
+
+func get_total_attribute(attribute_name: String) -> int:
+  return(get_attribute_level(attribute_name) + get_gear_bonus(attribute_name))
+
+func get_attribute_level(attribute_name: String) -> int:
+  return attributes[attribute_name].level
+  
+func get_gear_bonus(attribute_name: String) -> int:
   var total: int = 0
   for slot in inventory.gear:
     var item: Equipable = inventory.gear[slot]
     if item != null:
-      var wear_attribute: WearAttribute = item.get(stat_name)
+      var wear_attribute: WearAttribute = item.get(attribute_name)
       if wear_attribute != null:
         var value = wear_attribute.value
         var mastery_bonus = wear_attribute.ratio * get(wear_attribute.attribute_name)
@@ -241,44 +223,22 @@ func stop_harvesting() -> void:
 # cette methode fait gagner de l'xp à la stat envoyée en argument,
 # puis augmente d'une fraction les compétences des équipements qui ameillorent aussi cette stat
 # ex: gain d'xp de def -> porte une armure légere qui augmente la def -> gain d'xp d'armure legere
-func gain_xp(attr, xp_value): 
-#  print("+ %d xp for %s" % [xp_value, attr])
+func gain_xp(main_attribute, xp_value): 
   # gain de base
-  var new_xp = get(attr + "_xp") + xp_value
-  set(attr + "_xp", new_xp)
-  check_for_lvl_up(attr)
-#  print("new_xp de " + attr + ": " + str(get(attr + "_xp")))
+  attributes[main_attribute].xp += xp_value
   # gain bonus selon equipement boostant la stat
   for item in inventory.gear.values():   
     if item == null:
       continue
     # on récupère la stat utilisée par l'equipement
-    var attribute = item.get(attr)
-    if attribute == null:
+    var boost_attribute = item.get(main_attribute)
+    if boost_attribute == null:
       continue
-    if attribute.value == 0:
+    if boost_attribute.value == 0:
       continue
-    # on calcule le gain d'xp
-#    print("trouvé %s boostant la %s" % [item.label, attr])
-    var xp_gain = xp_value * attribute.ratio
-    var total_xp = get(attribute.attribute_name + "_xp") + xp_gain
-    # on applique le gain d'xp
-    set(attribute.attribute_name + "_xp", total_xp)
-#    print("new_xp de " + attribute.attribute_name + ": " + str(get(attribute.attribute_name + "_xp")))
+    # on calcule le gain d'xp a partir du ratio et la valeur de base d'xp
+    attributes[boost_attribute.attribute_name].xp += xp_value * boost_attribute.ratio
   emit_signal('experience_changed')
-
-func check_for_lvl_up(attribute_name: String):
-  var attribute_level = get(attribute_name)
-  var current_xp = get(attribute_name + "_xp")
-  var needed_xp = get_needed_xp_for_level_up(attribute_name)
-  if current_xp >= needed_xp:
-    set(attribute_name, attribute_level + 1)
-    set(attribute_name + "_xp", current_xp - needed_xp)
-    print('%s level up!' % attribute_name)
-
-func get_needed_xp_for_level_up(attribute_name) -> int:
-  var attribute_level = get(attribute_name)
-  return int(BASE_XP_NEED * pow(XP_NEED_GROWTH, attribute_level - 1))
 
 func _ready() -> void:
   texture_progress.hide()
@@ -314,7 +274,8 @@ func _physics_process(delta):
       global_position = target_position
       stop_moving()
   if !!current_resource_spot:
-    var harvest_gain = (1.0 + (get(current_resource_spot.skill) - 1) * 0.05) * HARVEST_GAIN_PER_SECOND * delta
+    var level = get_total_attribute(current_resource_spot.skill)
+    var harvest_gain = (1.0 + (level - 1) * 0.05) * HARVEST_GAIN_PER_SECOND * delta
     self.harvest_progress += harvest_gain
     self.stamina -= current_resource_spot.stamina_loss_while_harvesting * delta
     if stamina == 0.0:
