@@ -6,7 +6,7 @@ const MAX_BUILDINGS = 3
 const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 8
 const XP_NEED_GROWTH = 1.2
-const BASE_MAX_WEIGHT = 48.0
+const BASE_MAX_WEIGHT = 100.0
 const MAX_MOVE_SPEED = 9999
 
 const BASE_HEALTH_REGEN = 0.1
@@ -40,7 +40,7 @@ var current_resource_spot = null
 var gold: int = 0 setget _set_gold
 var inventory: Inventory = Inventory.new()
 var active_buildings: Array = []
-
+var is_player: bool = false
 
 # --------- LEVELS AND XP ---------
 # stats
@@ -211,11 +211,12 @@ func move_to(coords: Vector2) -> void:
   animated_sprite.playing = true
   target_position = coords
   var dir = global_position.direction_to(target_position).angle_to(Vector2(0,1))
-  if dir < -3.0/4 * PI || dir > 3.0/4 * PI:
+  # offsets de 0.01 pour regler les flickers sur les valeurs egales aux diagonales
+  if dir < -3.0/4 * PI + 0.01 || dir >= 3.0/4 * PI -0.01:
     self.orientation = "up"
-  elif dir > 1.0/4 * PI:
+  elif dir > 1.0/4 * PI + 0.01:
     self.orientation = "right"
-  elif dir > -1.0/4 * PI:
+  elif dir > -1.0/4 * PI - 0.01:
     self.orientation = "down"
   else:
     self.orientation = "left"
@@ -288,7 +289,22 @@ func _physics_process(delta):
     return
   self.health += delta * BASE_HEALTH_REGEN 
   self.stamina += delta * BASE_STAMINA_REGEN 
-  self.mana += delta * BASE_MANA_REGEN 
+  self.mana += delta * BASE_MANA_REGEN
+  
+  if is_player:
+    # movement clavier pour player
+    var key_target: Vector2 = Vector2(0.0, 0.0)
+    if Input.is_action_pressed("ui_left"):
+      key_target.x -= 10.0
+    if Input.is_action_pressed("ui_right"):
+      key_target.x += 10.0
+    if Input.is_action_pressed("ui_up"):
+      key_target.y -= 10.0
+    if Input.is_action_pressed("ui_down"):
+      key_target.y += 10.0
+    if key_target != Vector2(0.0, 0.0):
+      move_to(global_position + key_target)
+  
   if target_position != null:
     var final_move_speed = clamp(move_speed - weight_speed_malus, 0, MAX_MOVE_SPEED)
     velocity = global_position.direction_to(target_position) * final_move_speed

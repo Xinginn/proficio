@@ -96,6 +96,7 @@ func _unhandled_input(event):
         player.move_to(pos)
     if event.button_index == BUTTON_RIGHT and event.pressed:
       build_mode_off()
+          
       
 func _physics_process(_delta):
   if !is_placing_building:
@@ -112,6 +113,7 @@ func _physics_process(_delta):
      
 func _ready():
   GameManager.player_actor = player
+  player.is_player = true
   # dans ready car a faire après que le player soit instancié
   craft_panel = $World/Player/Camera2D/CraftPanel
   status_panel.initialize()
