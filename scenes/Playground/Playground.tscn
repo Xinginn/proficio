@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://entities/actor/actor.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/playground/craft_panel.gd" type="Script" id=10]
 [ext_resource path="res://scenes/playground/status_panel.gd" type="Script" id=11]
 [ext_resource path="res://entities/actor/player.gd" type="Script" id=12]
+[ext_resource path="res://entities/actor/npc.tscn" type="PackedScene" id=13]
 [ext_resource path="res://styles/panel.tres" type="StyleBox" id=14]
 [ext_resource path="res://scenes/playground/inventory_panel.gd" type="Script" id=15]
 [ext_resource path="res://assets/inventory_gear.png" type="Texture" id=16]
@@ -63,6 +64,9 @@ script = ExtResource( 1 )
 [node name="LandsHolder" type="Node2D" parent="World"]
 
 [node name="BuildingsHolder" type="Node2D" parent="World"]
+
+[node name="Npc" parent="World" instance=ExtResource( 13 )]
+position = Vector2( 101.823, 206.475 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( -13.589, 22.5758 )

@@ -11,9 +11,7 @@ extents = Vector2( 3.97826, 4.32016 )
 extents = Vector2( 32.2941, 32.1644 )
 
 [node name="PebbleSpot" groups=[
-"cristal",
-"ore",
-"stone",
+"pebble",
 ] instance=ExtResource( 3 )]
 texture = ExtResource( 1 )
 script = ExtResource( 2 )

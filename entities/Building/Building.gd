@@ -9,6 +9,7 @@ const MAX_QUEUE_SIZE = 8
 const STAMINA_LOSS_WHILE_BUILDING = 2.0
 const STAMINA_LOSS_WHILE_CRAFTING = 2.0
 
+onready var occupied_space = $OccupiedSpaceArea
 onready var health_bar = $HealthBar
 onready var health_bar_label = $HealthBar/Label
 
@@ -18,8 +19,10 @@ var building_owner = null
 var building_data: BuildingData = null
 var is_building: bool = false
 var is_crafting: bool = false setget _set_is_crafting
+var is_spawning: bool = false
 var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
+var frames_since_no_overlap: int = 0
 
 signal building_destroyed(building)
 signal building_constructed(building)
@@ -28,6 +31,8 @@ signal player_entered_building(building)
 signal player_entered_owned_building(data)
 signal player_exited_owned_building
 signal craft_queue_changed(queue)
+signal occupied_space_overlapped(building)
+signal ended_spawning(building)
 
 func _set_is_crafting(value: bool) -> void:
   is_crafting = value
@@ -138,3 +143,17 @@ func _process(delta):
       is_crafting = false
   else:
     pass
+
+# necessaire pour la gestion des overlap au spawn
+# la methode get_overlapping_areas ne donne des résultats cohérents qu'après
+# qu'une frame physique ait été calculée
+func _physics_process(_delta):
+  if !is_spawning:
+    pass
+  else:
+    if occupied_space.get_overlapping_areas():
+      emit_signal('occupied_space_overlapped', self)
+    else:
+      frames_since_no_overlap += 1
+      if frames_since_no_overlap >= 3:
+        emit_signal('ended_spawning', self)

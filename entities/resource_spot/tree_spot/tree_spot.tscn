@@ -7,7 +7,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 36.341, 49.1929 )
 
-[node name="TreeSpot" instance=ExtResource( 1 )]
+[node name="TreeSpot" groups=[
+"tree",
+] instance=ExtResource( 1 )]
 texture = ExtResource( 3 )
 script = ExtResource( 2 )
 
