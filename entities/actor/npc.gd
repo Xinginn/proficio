@@ -1,16 +1,19 @@
 extends Actor
 
-func _physics_process(delta):
+const IA_DECISION_INTERVAL = 16.0
+
+var ia_clock = 15.0
+
+func take_decision():
+  ia_clock -= IA_DECISION_INTERVAL
+  if !!target_position:
+    print ('already doing something')
+    return
+  go_to_nearest_resource('herb')
   
-  var key_target: Vector2 = Vector2(0.0, 0.0)
-  if Input.is_action_pressed("ui_left"):
-    key_target.x -= 10.0
-  if Input.is_action_pressed("ui_right"):
-    key_target.x += 10.0
-  if Input.is_action_pressed("ui_up"):
-    key_target.y -= 10.0
-  if Input.is_action_pressed("ui_down"):
-    key_target.y += 10.0
-  if key_target != Vector2(0.0, 0.0):
-    move_to(global_position + key_target)
-  
+func _process(delta):
+  ia_clock += delta
+  if ia_clock >= IA_DECISION_INTERVAL:
+    take_decision()
+
+

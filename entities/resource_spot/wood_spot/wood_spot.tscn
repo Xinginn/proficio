@@ -10,7 +10,9 @@ extents = Vector2( 3.97826, 4.32016 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32.2941, 32.1644 )
 
-[node name="WoodSpot" instance=ExtResource( 3 )]
+[node name="WoodSpot" groups=[
+"wood",
+] instance=ExtResource( 3 )]
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 

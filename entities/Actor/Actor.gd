@@ -154,6 +154,7 @@ func add_resource(resource: String, number: int) -> void:
   inventory.resources[resource] += number
   compute_weight()
   emit_signal('resources_changed', inventory.resources)
+  print('got resources', inventory.resources)
 
 func remove_resource(resource: String, number: int) -> void:
   inventory.resources[resource] -= number
@@ -218,6 +219,24 @@ func stop_harvesting() -> void:
   self.harvest_progress = 0.0
   current_resource_spot = null
   texture_progress.hide()
+
+# ------- fonctions de navigation et d'IA -------
+func go_to_nearest_resource(resource_name: String):
+  print("attempting to go to %s" % resource_name)
+  var spots = get_tree().get_nodes_in_group(resource_name)
+  if spots != []:
+    move_to(get_closest_in_array(spots).global_position)
+    
+func get_closest_in_array(arr):
+  var closest_dist = 9999999999 # distance_squared_to() a des résultats à 8 chiffres
+  var closest_item = null
+  for item in arr:
+    var dist = global_position.distance_squared_to(item.global_position)
+    if dist < closest_dist:
+      closest_dist = dist
+      closest_item = item
+  return closest_item
+
 
 # ------- gestion XP -------
 # cette methode fait gagner de l'xp à la stat envoyée en argument,
