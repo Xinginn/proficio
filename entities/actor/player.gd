@@ -14,3 +14,8 @@ func _physics_process(delta):
   if key_target != Vector2(0.0, 0.0):
     move_to(global_position + key_target)
   
+func _unhandled_input(event):
+  # gestion attack
+  if event is InputEventMouseButton:
+    if event.button_index == BUTTON_RIGHT and event.pressed:
+      launch_attack("attack")

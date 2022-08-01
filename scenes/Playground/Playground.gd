@@ -78,7 +78,6 @@ func _on_player_entered_building(building) -> void:
   craft_panel.connect('recipe_requested', building, '_on_recipe_requested')
   craft_panel.connect('cancel_requested', building, '_on_cancel_requested')
   last_building = building
-  
 
 func _unhandled_input(event):
   if event is InputEventMouseButton:

@@ -15,10 +15,13 @@ const BASE_MANA_REGEN = 0.15
 
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var texture_progress: TextureProgress = $TextureProgress
+onready var attack_holder: Node2D = $AttackHolder
 
 var _name: String = "Noname"
 var race: String = "human"
 var sprite_path: String = "test"
+
+var team: int = 0
 
 var atk = 10
 var def = 10
@@ -245,6 +248,13 @@ func stop_harvesting() -> void:
   self.harvest_progress = 0.0
   current_resource_spot = null
   texture_progress.hide()
+  
+func launch_attack(attack_name: String) -> void:
+  var attack_scene = load('res://entities/attack/%s.tscn' % attack_name)
+  var new_attack = attack_scene.instance()
+  attack_holder.add_child(new_attack)
+  new_attack.launch(self)
+  
 
 # ------- fonctions de navigation et d'IA -------
 func go_to_nearest_resource(resource_name: String):
