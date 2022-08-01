@@ -16,6 +16,10 @@ const BASE_MANA_REGEN = 0.15
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var texture_progress: TextureProgress = $TextureProgress
 
+var _name: String = "Noname"
+var race: String = "human"
+var sprite_path: String = "test"
+
 var atk = 10
 var def = 10
 var health = 15 setget _set_health
@@ -29,7 +33,6 @@ var move_speed: float = 200.0
 var max_weight: float = BASE_MAX_WEIGHT
 var weight_speed_malus: float = 0.0
 
-var total_xp
 var target_position = null
 var velocity = null
 var orientation: String = "down" setget _set_orientation
@@ -142,6 +145,29 @@ func get_gear_bonus(attribute_name: String) -> int:
         var mastery_bonus = wear_attribute.ratio * get(wear_attribute.attribute_name)
         total += int(value + mastery_bonus)
   return total
+
+func get_data() -> Dictionary:
+  var data = {
+    "_name": _name,
+    "race": race,
+    "sprite_path": sprite_path,
+  }
+  var attributes_data = {}
+  for attribute_name in attributes.keys():
+    attributes_data[attribute_name] = attributes[attribute_name].get_data()
+  data["attributes"] = attributes_data
+  return data
+  
+func load_data(data: Dictionary) -> void:
+  _name = data["_name"]
+  race = data["race"]
+  # TODO appliquer modification stats de base selon race
+  sprite_path = data["sprite_path"]
+  animated_sprite.frames = load('res://entities/actor/spriteframes/%s.tres' % sprite_path)
+  print(data["attributes"]["knives"])
+  for attribute_name in attributes.keys(): 
+    attributes[attribute_name].load_data(data["attributes"][attribute_name])
+  emit_signal('experience_changed')
 
 func has_resources(needs: Dictionary) -> bool:
   for resource in needs:
