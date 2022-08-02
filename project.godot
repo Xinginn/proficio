@@ -146,6 +146,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Utils="*res://globals/utils.gd"
 Dictionaries="*res://globals/dictionaries.gd"
 Data="*res://globals/data.gd"
 SaveManager="*res://globals/save_manager.gd"

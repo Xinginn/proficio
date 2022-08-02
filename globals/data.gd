@@ -3,6 +3,7 @@ extends Node
 var lands = []
 var crafts = []
 var buildings = []
+var races = []
 
 func _ready():
   lands.append(LandData.new(0, "center", 3, {"herbs": 3, "pebble": 2, "wood": 2, "tree": 1}))
@@ -31,3 +32,10 @@ func _ready():
   
   # building de test  TODO retirer en prod
   buildings.append(BuildingData.new(99, "building_01", "Test", 500, 4, {}, [0,1,2,3,4,5,6,7,8,9]))
+
+  
+  races = [
+  {"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"},
+  {"id": 1, "name": "dwarf", "label": "Nain", "description": "Description nain", "stats_text": "Santé: 18\nEnergie: 18\nMana: 9"},
+  {"id": 2, "name": "elfe", "label": "Elfe", "description": "Description elfe", "stats_text": "Santé: 12\nEnergie: 15\nMana: 18"},
+ ]

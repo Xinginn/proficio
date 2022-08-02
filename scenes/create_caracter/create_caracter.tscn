@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/create_caracter/create_caracter.gd" type="Script" id=1]
+
+[node name="CreateCaracter" type="Panel"]
+margin_right = 570.0
+margin_bottom = 527.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 49.7862
+margin_top = 50.8309
+margin_right = 89.7862
+margin_bottom = 64.8309
+text = "Nom:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameInput" type="LineEdit" parent="Label"]
+margin_left = 11.0
+margin_top = 17.0
+margin_right = 171.0
+margin_bottom = 41.0
+max_length = 25
+placeholder_text = "Einhart"
+placeholder_alpha = 0.33
+
+[node name="RaceChoiceLabel" type="Label" parent="."]
+margin_left = 55.0
+margin_top = 131.0
+margin_right = 105.0
+margin_bottom = 145.0
+text = "Race:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuButton" type="MenuButton" parent="RaceChoiceLabel"]
+margin_left = 5.56351
+margin_top = 18.0387
+margin_right = 164.564
+margin_bottom = 38.0387
+text = "Choisir"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescriptionText" type="Label" parent="."]
+margin_left = 45.0
+margin_top = 216.049
+margin_right = 239.0
+margin_bottom = 338.049
+
+[node name="StatsText" type="Label" parent="."]
+margin_left = 46.5874
+margin_top = 354.946
+margin_right = 240.587
+margin_bottom = 476.946
+
+[node name="ApparenceLabel" type="Label" parent="."]
+margin_left = 290.717
+margin_top = 47.9378
+margin_right = 340.717
+margin_bottom = 61.9378
+text = "Race:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuButton" type="MenuButton" parent="ApparenceLabel"]
+margin_left = 6.0
+margin_top = 18.0
+margin_right = 147.0
+margin_bottom = 38.0
+text = "Choisir"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="ApparenceLabel"]
+position = Vector2( 172.859, 4.48985 )
+animation = "walk_down"
