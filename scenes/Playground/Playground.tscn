@@ -476,5 +476,7 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EffectsHolder" type="Node2D" parent="."]
 [connection signal="pressed" from="World/Player/Camera2D/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="World/Player/Camera2D/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="World/Player/Camera2D/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]

@@ -10,13 +10,19 @@ var ia_clock = 15.0
 
 func take_decision():
   ia_clock -= IA_DECISION_INTERVAL
-  if !!target_position:
-    print ('already doing something')
-    return
-#  go_to_nearest_resource('herb')
-  place_building(0)
+#  if !!target_position:
+#    print ('already doing something')
+#    return
+##  go_to_nearest_resource('herb')
+#  if has_resources(Data.buildings[0].resources):
+#    place_building(0)
+#  else:
+#    print('not enough')
    
 func place_building(id):
+  var cost = Data.buildings[id].resources
+  for key in cost.keys():
+    remove_resource(key, cost[key])
   var new_building = building_scene.instance()
   new_building.connect('occupied_space_overlapped', self, '_on_building_overlap' )
   new_building.connect('ended_spawning', self, '_on_spawning_ended')

@@ -9,11 +9,12 @@ const XP_NEED_GROWTH = 1.2
 const BASE_MAX_WEIGHT = 100.0
 const MAX_MOVE_SPEED = 9999
 
-const BASE_HEALTH_REGEN = 0.1
+const BASE_HEALTH_REGEN = 0.5
 const BASE_STAMINA_REGEN = 0.2
 const BASE_MANA_REGEN = 0.15
 
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
+onready var health_bar: TextureProgress = $HealthBar
 onready var texture_progress: TextureProgress = $TextureProgress
 onready var attack_holder: Node2D = $AttackHolder
 
@@ -91,8 +92,15 @@ signal mana_changed(current, maxi)
 signal experience_changed()
 
 func _set_health(value) -> void:
-  health = clamp(value, 0, max_health)
-  emit_signal('health_changed', health, max_health)
+  var max_h = max_health + get_total_attribute("max_health_lvl")
+  health = clamp(value, 0, max_h)
+  health_bar.value = health
+  health_bar.max_value = max_h
+  if health < max_h:
+    health_bar.show()
+  else:
+    health_bar.hide()
+  emit_signal('health_changed', health, max_h)
   
 func _set_stamina(value) -> void:
   stamina = clamp(value, 0, max_stamina)
@@ -183,7 +191,6 @@ func add_resource(resource: String, number: int) -> void:
   inventory.resources[resource] += number
   compute_weight()
   emit_signal('resources_changed', inventory.resources)
-  print('got resources', inventory.resources)
 
 func remove_resource(resource: String, number: int) -> void:
   inventory.resources[resource] -= number
@@ -249,10 +256,15 @@ func stop_harvesting() -> void:
   current_resource_spot = null
   texture_progress.hide()
   
-func launch_attack(attack_name: String) -> void:
+func launch_attack(attack_name: String, attack_direction) -> void:
   var attack_scene = load('res://entities/attack/%s.tscn' % attack_name)
   var new_attack = attack_scene.instance()
-  attack_holder.add_child(new_attack)
+  get_tree().get_root().get_node('Playground/EffectsHolder').add_child(new_attack)
+  var attack_range = 60
+  var attack_pos = global_position + attack_direction * attack_range
+  new_attack.global_position = attack_pos
+  var rota = global_position.direction_to(attack_pos).angle_to(Vector2(1,0)) * 180 / -PI
+  new_attack.rotation_degrees = rota
   new_attack.launch(self)
   
 

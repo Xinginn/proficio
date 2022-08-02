@@ -27,8 +27,8 @@ func _set_level(value):
 func _set_xp(value):
   xp = value
   while(xp >= needed_xp):
-    self.level += 1
     xp -= needed_xp
+    self.level += 1
 
 func compute_needed_xp():
   needed_xp = XP_NEEDS[type] * pow(XP_NEED_GROWTHS[type], level -1)

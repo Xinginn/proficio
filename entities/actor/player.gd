@@ -18,4 +18,5 @@ func _unhandled_input(event):
   # gestion attack
   if event is InputEventMouseButton:
     if event.button_index == BUTTON_RIGHT and event.pressed:
-      launch_attack("attack")
+      var attack_direction = Vector2(get_global_mouse_position() - global_position).normalized()
+      launch_attack("attack", attack_direction)
