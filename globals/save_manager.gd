@@ -11,21 +11,17 @@ func load_json(file_name: String):
   file.close()
   return data
   
-func load_player_data(_name: String) -> void:
+func load_actor_data(_name: String) -> void:
   var save_name: String = "save_%s" % _name
-  var player_data: Dictionary = load_json(save_name)
-  if player_data == null:
+  var actor_data: Dictionary = load_json(save_name)
+  if actor_data == null:
     return
-  GameManager.player_actor.load_data(player_data)
+  GameManager.player_actor.load_data(actor_data)
   
-func save_player_data() -> void:
-  var player = GameManager.player_actor
-  var player_data = player.get_data()
-  
-  print(player_data)
-  
-  var save_path: String = "user://save_%s.json" % player._name
+func save_actor_data(actor: Actor) -> void:
+  var actor_data = actor.get_data()
+  var save_path: String = "user://save_%s.json" % actor._name
   var file = File.new()
   file.open(save_path, File.WRITE)
-  file.store_line(to_json(player_data))
+  file.store_line(to_json(actor_data))
   file.close()

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/create_caracter/create_caracter.gd" type="Script" id=1]
 
-[node name="CreateCaracter" type="Panel"]
+[node name="CreateCharacter" type="Panel"]
 margin_right = 570.0
 margin_bottom = 527.0
 script = ExtResource( 1 )
@@ -66,7 +66,7 @@ margin_left = 290.717
 margin_top = 47.9378
 margin_right = 340.717
 margin_bottom = 61.9378
-text = "Race:"
+text = "Apparence:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -83,4 +83,15 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="ApparenceLabel"]
 position = Vector2( 172.859, 4.48985 )
-animation = "walk_down"
+
+[node name="ConfirmButton" type="Button" parent="."]
+margin_left = 368.935
+margin_top = 446.422
+margin_right = 528.935
+margin_bottom = 501.422
+text = "Confirmer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="text_changed" from="Label/NameInput" to="." method="_on_name_text_changed"]
+[connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_pressed"]

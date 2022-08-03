@@ -7,9 +7,9 @@ onready var description_text = $DescriptionText
 onready var stats_text = $StatsText
 onready var animated_sprite = $ApparenceLabel/AnimatedSprite
 
-
+var character_name = ""
 var selected_race = null setget _set_race
-var selected_sprite_name = null
+var selected_sprite_name = null setget _set_sprite
 var sprites = []
 
 func _set_race(value) -> void:
@@ -17,14 +17,23 @@ func _set_race(value) -> void:
     selected_race = value
     # TODO load des images pour la race
 
+func _set_sprite(value) -> void:
+  selected_sprite_name = value
+  animated_sprite.frames = load('res://tres/spriteframes/actors/%s.tres' % value)
+  animated_sprite.animation = "walk_down"
+  animated_sprite.frame = 0
+  animated_sprite.playing = true
+
 func get_race_sprites() -> Array:
   var sprite_names = []
   var files = Utils.get_files_in_directory('res://tres/spriteframes/actors')
   for file in files:
     if file.begins_with(Data.races[selected_race]["name"]):
       sprite_names.append(file.replace('.tres', ''))
-  print(sprite_names)
   return sprite_names
+
+func _on_name_text_changed(new_text):
+  character_name = new_text
 
 func _on_race_selected(id):
   self.selected_race = id
@@ -32,19 +41,38 @@ func _on_race_selected(id):
   race_choice_label.text = "Race: %s" % race["label"]
   description_text.text = race["description"]
   stats_text.text = race["stats_text"]
+  sprite_menu.disabled = false
   var sprite_popup = sprite_menu.get_popup()
+  sprite_popup.clear()
   sprites = get_race_sprites()
   for sprite in sprites:
     sprite_popup.add_item(sprite)
+  self.selected_sprite_name = sprites[0]
 
 func _on_sprite_selected(id):
-  print(sprites[id])
-  animated_sprite.frames = load('res://tres/spriteframes/actors/%s.tres' % sprites[id])
-  animated_sprite.animation = "walk_down"
-  animated_sprite.frame = 0
-  animated_sprite.playing = true
+  self.selected_sprite_name = sprites[id]
   
-
+func _on_confirm_pressed():
+  if character_name == "":
+    return
+  if selected_race == null: 
+    return
+  var new_chara = load('res://entities/actor/actor.tscn').instance()
+  new_chara._name = character_name
+  new_chara.race = selected_race
+  new_chara.sprite_path = selected_sprite_name
+  add_child(new_chara)
+  match selected_race:
+    1:
+      new_chara.max_health = 18
+      new_chara.max_stamina = 18
+      new_chara.max_mana = 9
+    2:
+      new_chara.max_health = 12
+      new_chara.max_stamina = 15
+      new_chara.max_mana = 18
+  SaveManager.save_actor_data(new_chara)
+  
 func _ready():
   var race_popup = race_menu.get_popup()
   for race in Data.races:
@@ -52,4 +80,5 @@ func _ready():
   race_popup.connect('id_pressed', self, "_on_race_selected")
   var sprite_popup = sprite_menu.get_popup()
   sprite_popup.connect('id_pressed', self, "_on_sprite_selected")
+  sprite_menu.disabled = true
 

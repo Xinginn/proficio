@@ -19,7 +19,7 @@ onready var texture_progress: TextureProgress = $TextureProgress
 onready var attack_holder: Node2D = $AttackHolder
 
 var _name: String = "Noname"
-var race: String = "human"
+var race: int = 0
 var sprite_path: String = "test"
 
 var team: int = 0
@@ -162,6 +162,9 @@ func get_data() -> Dictionary:
     "_name": _name,
     "race": race,
     "sprite_path": sprite_path,
+    "max_health": max_health,
+    "max_stamina": max_stamina,
+    "max_mana": max_mana,
   }
   var attributes_data = {}
   for attribute_name in attributes.keys():
@@ -175,7 +178,9 @@ func load_data(data: Dictionary) -> void:
   # TODO appliquer modification stats de base selon race
   sprite_path = data["sprite_path"]
   animated_sprite.frames = load('res://entities/actor/spriteframes/%s.tres' % sprite_path)
-  print(data["attributes"]["knives"])
+  max_health = data["max_health"]
+  max_stamina = data["max_stamina"]
+  max_mana = data["max_mana"]
   for attribute_name in attributes.keys(): 
     attributes[attribute_name].load_data(data["attributes"][attribute_name])
   emit_signal('experience_changed')

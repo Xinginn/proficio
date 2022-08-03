@@ -37,5 +37,5 @@ func _ready():
   races = [
   {"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"},
   {"id": 1, "name": "dwarf", "label": "Nain", "description": "Description nain", "stats_text": "Santé: 18\nEnergie: 18\nMana: 9"},
-  {"id": 2, "name": "elfe", "label": "Elfe", "description": "Description elfe", "stats_text": "Santé: 12\nEnergie: 15\nMana: 18"},
+  {"id": 2, "name": "elf", "label": "Elfe", "description": "Description elfe", "stats_text": "Santé: 12\nEnergie: 15\nMana: 18"},
  ]
