@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/main_screen/main_screen.gd" type="Script" id=1]
+[ext_resource path="res://scenes/main_screen/create_caracter.tscn" type="PackedScene" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.176471, 0.203922, 0.294118, 1 )
+
+[node name="MainScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1.5874
+margin_bottom = -1.5874
+
+[node name="PlayButton" type="Button" parent="."]
+margin_left = 668.524
+margin_top = 517.964
+margin_right = 932.524
+margin_bottom = 577.964
+text = "Jouer"
+
+[node name="QuitButton" type="Button" parent="."]
+margin_left = 666.937
+margin_top = 665.592
+margin_right = 930.937
+margin_bottom = 725.592
+text = "Quitter"
+
+[node name="NewGamePanel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="CharacterListMenu" type="MenuButton" parent="NewGamePanel"]
+margin_left = 73.2097
+margin_top = 161.215
+margin_right = 207.21
+margin_bottom = 198.215
+text = "Choisir personnage"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateCharacter" parent="NewGamePanel" instance=ExtResource( 2 )]
+visible = false
+margin_left = 28.9232
+margin_top = 29.9241
+margin_right = 598.923
+margin_bottom = 556.924
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 225.949, 341.302 )
+animation = "walk_down"
+
+[node name="NameLabel" type="Label" parent="."]
+margin_left = 52.0
+margin_top = 326.0
+margin_right = 180.0
+margin_bottom = 355.0
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
