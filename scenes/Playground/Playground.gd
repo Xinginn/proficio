@@ -2,29 +2,31 @@ extends Node2D
 
 const building_scene: PackedScene = preload('res://entities/building/building.tscn')
 const building_button_scene: PackedScene = preload('res://entities/building_button/building_button.tscn')
+const npc_scene = preload('res://entities/actor/npc.tscn')
 
 const GREEN_HUE = Color('a200ff00')
 const RED_HUE = Color('99ff0000')
 
-onready var player = $World/Player
+onready var world = $World
 onready var buildings_holder = $World/BuildingsHolder
-onready var inventory_panel = $World/Player/Camera2D/InventoryPanel
-onready var status_panel = $World/Player/Camera2D/StatusPanel
-onready var gauges_manager = $World/Player/Camera2D/GaugesManager
-onready var building_buttons_container = $World/Player/Camera2D/StartBuildButton/BuildingButtonsContainer
+onready var camera = $Camera
+onready var inventory_panel = $Camera/InventoryPanel
+onready var status_panel = $Camera/StatusPanel
+onready var craft_panel = $Camera/CraftPanel
+onready var gauges_manager = $Camera/GaugesManager
+onready var building_buttons_container = $Camera/StartBuildButton/BuildingButtonsContainer
 
 onready var building_ghost = $BuildingGhost
 onready var building_ghost_occupied_space = $BuildingGhost/OccupiedSpaceArea
 onready var building_ghost_occupied_collision = $BuildingGhost/OccupiedSpaceArea/CollisionShape2D
-
-# var est non onready car le GUI est (pour l'instant un child de la camera, child de player, non certain au départ
-var craft_panel
 
 var is_placing_building = false
 var is_selecting_building = false
 var type_to_build = null
 var is_building_ghost_overlapped = false
 var last_building = null
+
+var player = null
 
 func _on_start_build_button_pressed():
   for child in building_buttons_container.get_children():
@@ -110,11 +112,17 @@ func _physics_process(_delta):
       is_building_ghost_overlapped = false    
      
 func _ready():
+  # instanciation du player
+  player = load('res://entities/actor/player.tscn').instance()
+  world.add_child(player)
   GameManager.player_actor = player
-  player.is_player = true
+  SaveManager.load_actor_data(GameManager.player_name)
+  
   # dans ready car a faire après que le player soit instancié
-  craft_panel = $World/Player/Camera2D/CraftPanel
   status_panel.initialize()
+  
+  self.remove_child(camera)
+  player.add_child(camera)
   
   player.connect('gold_changed', inventory_panel, "_on_gold_changed")
   player.connect('weight_changed', inventory_panel, "_on_weight_changed")

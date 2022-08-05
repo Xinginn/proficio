@@ -47,7 +47,6 @@ var current_resource_spot = null
 var gold: int = 0 setget _set_gold
 var inventory: Inventory = Inventory.new()
 var active_buildings: Array = []
-var is_player: bool = false
 
 # --------- LEVELS AND XP ---------
 var attributes: Dictionary = {
@@ -173,17 +172,25 @@ func get_data() -> Dictionary:
   return data
   
 func load_data(data: Dictionary) -> void:
+  print(data["sprite_path"])
   _name = data["_name"]
   race = data["race"]
   # TODO appliquer modification stats de base selon race
   sprite_path = data["sprite_path"]
-  animated_sprite.frames = load('res://entities/actor/spriteframes/%s.tres' % sprite_path)
+  animated_sprite.frames = load('res://tres/spriteframes/actors/%s.tres' % sprite_path)
+  animated_sprite.animation = "walk_down"
   max_health = data["max_health"]
   max_stamina = data["max_stamina"]
   max_mana = data["max_mana"]
+  gauges_at_max()
   for attribute_name in attributes.keys(): 
     attributes[attribute_name].load_data(data["attributes"][attribute_name])
   emit_signal('experience_changed')
+
+func gauges_at_max():
+  self.health += 9999
+  self.stamina += 9999
+  self.mana += 9999
 
 func has_resources(needs: Dictionary) -> bool:
   for resource in needs:

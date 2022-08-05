@@ -33,11 +33,17 @@ margin_top = 665.592
 margin_right = 930.937
 margin_bottom = 725.592
 text = "Quitter"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NewGamePanel" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CharacterListMenu" type="MenuButton" parent="NewGamePanel"]
 margin_left = 73.2097
@@ -56,13 +62,38 @@ margin_top = 29.9241
 margin_right = 598.923
 margin_bottom = 556.924
 
+[node name="LaunchGameButton" type="Button" parent="NewGamePanel"]
+margin_left = 580.483
+margin_top = 786.247
+margin_right = 684.483
+margin_bottom = 817.247
+text = "Jouer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 225.949, 341.302 )
-animation = "walk_down"
+playing = true
 
 [node name="NameLabel" type="Label" parent="."]
 margin_left = 52.0
 margin_top = 326.0
 margin_right = 180.0
 margin_bottom = 355.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 55.0
+margin_top = 375.0
+margin_right = 342.0
+margin_bottom = 856.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsContainer" type="VBoxContainer" parent="ScrollContainer"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="NewGamePanel/LaunchGameButton" to="." method="_on_launch_game_button_pressed"]
