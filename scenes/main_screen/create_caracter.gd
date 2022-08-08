@@ -2,19 +2,24 @@ extends Panel
 
 onready var race_choice_label= $RaceChoiceLabel
 onready var race_menu: MenuButton = $RaceChoiceLabel/MenuButton
+onready var race_popup = race_menu.get_popup()
 onready var sprite_menu: MenuButton = $ApparenceLabel/MenuButton
+onready var sprite_popup = sprite_menu.get_popup()
 onready var description_text = $DescriptionText
 onready var stats_text = $StatsText
 onready var animated_sprite = $ApparenceLabel/AnimatedSprite
+onready var name_input = $Label/NameInput
 
 var character_name = ""
 var selected_race = null setget _set_race
 var selected_sprite_name = null setget _set_sprite
 var sprites = []
 
+signal character_created(_name)
+
 func _set_race(value) -> void:
   if value != selected_race:
-    selected_race = value
+    selected_race = value 
     # TODO load des images pour la race
 
 func _set_sprite(value) -> void:
@@ -31,7 +36,7 @@ func get_race_sprites() -> Array:
     if file.begins_with(Data.races[selected_race]["name"]):
       sprite_names.append(file.replace('.tres', ''))
   return sprite_names
-
+  
 func _on_name_text_changed(new_text):
   character_name = new_text
 
@@ -72,13 +77,11 @@ func _on_confirm_pressed():
       new_chara.max_stamina = 15
       new_chara.max_mana = 18
   SaveManager.save_actor_data(new_chara)
+  emit_signal('character_created', character_name)
   
 func _ready():
-  var race_popup = race_menu.get_popup()
   for race in Data.races:
     race_popup.add_item(race["label"])
   race_popup.connect('id_pressed', self, "_on_race_selected")
-  var sprite_popup = sprite_menu.get_popup()
   sprite_popup.connect('id_pressed', self, "_on_sprite_selected")
   sprite_menu.disabled = true
-

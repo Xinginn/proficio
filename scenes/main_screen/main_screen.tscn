@@ -20,12 +20,12 @@ anchor_bottom = 1.0
 margin_top = -1.5874
 margin_bottom = -1.5874
 
-[node name="PlayButton" type="Button" parent="."]
+[node name="NewGame" type="Button" parent="."]
 margin_left = 668.524
 margin_top = 517.964
 margin_right = 932.524
 margin_bottom = 577.964
-text = "Jouer"
+text = "Nouvelle Partie"
 
 [node name="QuitButton" type="Button" parent="."]
 margin_left = 666.937
@@ -45,6 +45,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="NameLabel" type="Label" parent="NewGamePanel"]
+margin_left = 52.0
+margin_top = 326.0
+margin_right = 180.0
+margin_bottom = 355.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="NewGamePanel"]
+position = Vector2( 225.949, 341.302 )
+playing = true
+
 [node name="CharacterListMenu" type="MenuButton" parent="NewGamePanel"]
 margin_left = 73.2097
 margin_top = 161.215
@@ -55,37 +68,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CreateCharacter" parent="NewGamePanel" instance=ExtResource( 2 )]
-visible = false
-margin_left = 28.9232
-margin_top = 29.9241
-margin_right = 598.923
-margin_bottom = 556.924
-
-[node name="LaunchGameButton" type="Button" parent="NewGamePanel"]
-margin_left = 580.483
-margin_top = 786.247
-margin_right = 684.483
-margin_bottom = 817.247
-text = "Jouer"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 225.949, 341.302 )
-playing = true
-
-[node name="NameLabel" type="Label" parent="."]
-margin_left = 52.0
-margin_top = 326.0
-margin_right = 180.0
-margin_bottom = 355.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="NewGamePanel"]
 margin_left = 55.0
 margin_top = 375.0
 margin_right = 342.0
@@ -94,6 +77,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsContainer" type="VBoxContainer" parent="ScrollContainer"]
-[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[node name="StatsContainer" type="VBoxContainer" parent="NewGamePanel/ScrollContainer"]
+
+[node name="LaunchGameButton" type="Button" parent="NewGamePanel"]
+margin_left = 730.468
+margin_top = 717.953
+margin_right = 944.468
+margin_bottom = 796.953
+disabled = true
+text = "Jouer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateCharacter" parent="NewGamePanel" instance=ExtResource( 2 )]
+visible = false
+margin_left = 28.9232
+margin_top = 29.9241
+margin_right = 598.923
+margin_bottom = 556.924
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="NewGamePanel/LaunchGameButton" to="." method="_on_launch_game_button_pressed"]

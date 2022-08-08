@@ -54,6 +54,9 @@ margin_left = 45.0
 margin_top = 216.049
 margin_right = 239.0
 margin_bottom = 338.049
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StatsText" type="Label" parent="."]
 margin_left = 46.5874
