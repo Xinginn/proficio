@@ -39,6 +39,7 @@ func toggle_visible():
   if visible:
     armed_slot = null
     hide()
+    ItemTooltip.hide()
   else:
     show()
 

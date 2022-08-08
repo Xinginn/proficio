@@ -40,7 +40,7 @@ func _on_start_build_button_pressed():
       building_buttons_container.add_child(new_button)
       new_button._initialize(data)
       new_button.connect("building_button_pressed", self, "_on_building_button_pressed")
-      new_button.connect("building_button_pright_pressed", self, "build_mode_off")
+      new_button.connect("building_button_right_pressed", self, "build_mode_off")
 
 func _on_building_button_pressed(data) -> void:
   is_placing_building = true
@@ -52,6 +52,7 @@ func _on_building_button_pressed(data) -> void:
   building_ghost.show()
 
 func build_mode_off() -> void:
+  BuildingTooltip.hide()
   is_placing_building = false
   building_ghost.hide()
   for child in building_buttons_container.get_children():

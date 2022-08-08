@@ -7,7 +7,7 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var player_name: String = "Mouette"
 var player_actor = null
 
-var world_size: int = 20
+var world_size: int = 1
 var forest_ratio: int = 1
 
 signal to_black_finished

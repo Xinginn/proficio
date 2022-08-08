@@ -5,7 +5,7 @@ const RED_HUE: Color = Color("cd1e1e")
 var building_data: BuildingData = null
 
 signal building_button_pressed(data)
-signal building_button_pright_pressed
+signal building_button_right_pressed
 
 func _initialize(data: BuildingData) -> void:
   building_data = data
@@ -27,4 +27,4 @@ func _on_pressed() -> void:
 func _on_BuildingButton_gui_input(event):
   if event is InputEventMouseButton:
     if event.button_index == BUTTON_RIGHT and event.pressed:
-      emit_signal("building_button_pright_pressed")
+      emit_signal("building_button_right_pressed")

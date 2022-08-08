@@ -28,6 +28,7 @@ func _on_player_exited_owned_building() -> void:
     child.disconnect('recipe_button_pressed', self, '_on_recipe_button_pressed')
     child.destroy()
   hide()
+  CraftTooltip.hide()
 
 func _on_craft_progress_changed(value) -> void:
   current_craft_progress_bar.value = value
