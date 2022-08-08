@@ -41,8 +41,8 @@ func compute_total_weight() -> void:
   # objets dans le sac
   for item in items:
     var item_weight = item.weight
-    if "quantity" in item:
-      item_weight *= item.quantity
+    if "stack" in item:
+      item_weight *= item.stack
     total += item_weight
   # ressources
   for res in resources:

@@ -24,6 +24,13 @@ func _initialize(_slot):
     
 func _on_pressed():
   emit_signal('inventory_item_pressed', slot)
+  
+func _on_gui_input(event):
+  if event is InputEventMouseButton:
+    if event.button_index == BUTTON_RIGHT and event.pressed:
+      if slot is int:
+        if GameManager.player_actor.inventory.items[slot] is Consumable:
+          GameManager.player_actor.consume_item(slot)
 
 func _on_mouse_entered():
   var item
@@ -38,3 +45,4 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
   ItemTooltip.hide()
+

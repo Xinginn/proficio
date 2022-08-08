@@ -14,9 +14,9 @@ var map = [
 
 func generate_blank_map(size):
   map = []
-  for y in range(size):
+  for _y in range(size):
     var line = []
-    for x in range(size):
+    for _x in range(size):
       line.append("20")
     map.append(line)
 

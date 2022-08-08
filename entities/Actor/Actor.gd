@@ -172,7 +172,6 @@ func get_data() -> Dictionary:
   return data
   
 func load_data(data: Dictionary) -> void:
-  print(data["sprite_path"])
   _name = data["_name"]
   race = data["race"]
   # TODO appliquer modification stats de base selon race
@@ -209,10 +208,40 @@ func remove_resource(resource: String, number: int) -> void:
   compute_weight()
   emit_signal('resources_changed', inventory.resources)
 
-func add_item(item):
-  inventory.items.append(item)
+func add_item(item_to_add, quantity = 1):
+  if item_to_add is Consumable:
+    var existing_item = null
+    for item in inventory.items:
+      if item._name == item_to_add._name:
+        existing_item = item
+    if !!existing_item:
+      existing_item.stack += quantity
+      item_to_add.queue_free() # necessaire puisqu'on avait envoyé une instance qui ne sera pas ajoutée
+    else:
+      item_to_add.stack = quantity
+      inventory.items.append(item_to_add)
+  if item_to_add is Equipable:   
+    inventory.items.append(item_to_add)
   compute_weight()
   emit_signal('inventory_changed', inventory)
+
+func remove_item(slot):
+  if slot is String:
+    inventory.gear[slot].destroy()
+    inventory.gear[slot] = null
+  if slot is int:
+    inventory.items[slot].destroy()
+    inventory.items.remove(slot)
+  compute_weight()
+  emit_signal('inventory_changed', inventory)
+      
+func consume_item(index: int):
+  var item: Consumable = inventory.items[index]
+  item.use(self)
+  compute_weight()
+  emit_signal('inventory_changed', inventory)
+  if item.stack == 0:
+    remove_item(index)
 
 func swap_inventory_items(slot_a, slot_b):
   var temp = inventory.items[slot_a]

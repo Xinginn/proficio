@@ -137,6 +137,9 @@ func _ready():
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()
   player.inventory.gear['body'] = new_armor
+  player.add_item(StaminaPotion.new())
+  player.add_item(StaminaPotion.new())
+  player.add_item(StaminaPotion.new())
   player.emit_signal('inventory_changed', player.inventory)
   player.add_resource("wood", 4)
   player.add_resource("stone", 3)
