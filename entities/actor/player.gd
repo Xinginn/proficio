@@ -1,6 +1,6 @@
 extends Actor
 
-func _physics_process(delta):
+func _physics_process(_delta):
   # movement clavier pour player
   var key_target: Vector2 = Vector2(0.0, 0.0)
   if Input.is_action_pressed("ui_left"):

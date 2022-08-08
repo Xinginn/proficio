@@ -12,7 +12,17 @@ var map = [
 #  ["20", "20", "20", "20", "20", "20", "20"],
 ]
 
+func generate_blank_map(size):
+  map = []
+  for y in range(size):
+    var line = []
+    for x in range(size):
+      line.append("20")
+    map.append(line)
+
 func _ready():
+  generate_blank_map(GameManager.world_size)
+  
   # generation du terrain
   for i in range(map.size()):
     for j in range(map[i].size()):

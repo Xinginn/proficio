@@ -1,7 +1,5 @@
 extends Control
 
-onready var HUD = $HUD
-
 onready var animation_player = $AnimationPlayer
 onready var black_panel = $CanvasLayer/BlackPanel
 
@@ -9,8 +7,8 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var player_name: String = "Mouette"
 var player_actor = null
 
-var world_width: int = 5
-var world_height: int = 3
+var world_size: int = 20
+var forest_ratio: int = 1
 
 signal to_black_finished
 signal from_black_finished

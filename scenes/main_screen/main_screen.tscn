@@ -45,7 +45,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameLabel" type="Label" parent="NewGamePanel"]
+[node name="CharacterMenu" type="Control" parent="NewGamePanel"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="NewGamePanel/CharacterMenu"]
 margin_left = 52.0
 margin_top = 326.0
 margin_right = 180.0
@@ -54,11 +59,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="NewGamePanel"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="NewGamePanel/CharacterMenu"]
 position = Vector2( 225.949, 341.302 )
 playing = true
 
-[node name="CharacterListMenu" type="MenuButton" parent="NewGamePanel"]
+[node name="CharacterListMenu" type="MenuButton" parent="NewGamePanel/CharacterMenu"]
 margin_left = 73.2097
 margin_top = 161.215
 margin_right = 207.21
@@ -68,7 +73,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="NewGamePanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="NewGamePanel/CharacterMenu"]
 margin_left = 55.0
 margin_top = 375.0
 margin_right = 342.0
@@ -77,7 +82,87 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsContainer" type="VBoxContainer" parent="NewGamePanel/ScrollContainer"]
+[node name="StatsContainer" type="VBoxContainer" parent="NewGamePanel/CharacterMenu/ScrollContainer"]
+
+[node name="MapMenu" type="Control" parent="NewGamePanel"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WorldSize" type="Label" parent="NewGamePanel/MapMenu"]
+margin_left = 1099.85
+margin_top = 217.251
+margin_right = 1214.85
+margin_bottom = 238.251
+text = "Taille du monde:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WorldSize" type="HSlider" parent="NewGamePanel/MapMenu/WorldSize"]
+margin_left = 229.491
+margin_top = -5.74915
+margin_right = 483.491
+margin_bottom = 26.2509
+min_value = 10.0
+max_value = 50.0
+step = 5.0
+value = 20.0
+scrollable = false
+tick_count = 9
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="NewGamePanel/MapMenu/WorldSize"]
+margin_left = 141.803
+margin_top = 3.0
+margin_right = 209.803
+margin_bottom = 17.0
+text = "20 x 20"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Forest" type="Label" parent="NewGamePanel/MapMenu"]
+margin_left = 1100.0
+margin_top = 263.0
+margin_right = 1215.0
+margin_bottom = 283.0
+text = "Forêts (wip):"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ForestSlider" type="HSlider" parent="NewGamePanel/MapMenu/Forest"]
+margin_left = 229.491
+margin_top = -5.74915
+margin_right = 483.491
+margin_bottom = 26.2509
+max_value = 4.0
+value = 1.0
+scrollable = false
+tick_count = 5
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="NewGamePanel/MapMenu/Forest"]
+margin_left = 129.068
+margin_top = 3.74915
+margin_right = 197.068
+margin_bottom = 17.7491
+grow_horizontal = 0
+text = "Rares"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="LaunchGameButton" type="Button" parent="NewGamePanel"]
 margin_left = 730.468
@@ -97,4 +182,6 @@ margin_top = 29.9241
 margin_right = 598.923
 margin_bottom = 556.924
 [connection signal="pressed" from="NewGame" to="." method="_on_new_game_button_pressed"]
+[connection signal="value_changed" from="NewGamePanel/MapMenu/WorldSize/WorldSize" to="." method="_on_world_size_slider_value_changed"]
+[connection signal="value_changed" from="NewGamePanel/MapMenu/Forest/ForestSlider" to="." method="_on_forest_slider_value_changed"]
 [connection signal="pressed" from="NewGamePanel/LaunchGameButton" to="." method="_on_launch_game_button_pressed"]

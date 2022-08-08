@@ -4,15 +4,28 @@ const stat_summary_scene = preload('res://scenes/main_screen/stat_summary_block/
 const create_character_scene = preload('res://scenes/main_screen/create_caracter.tscn')
 
 onready var new_game_panel: Panel = $NewGamePanel
-onready var character_list_menu = $NewGamePanel/CharacterListMenu
+onready var character_list_menu = $NewGamePanel/CharacterMenu/CharacterListMenu
 onready var character_list_popup = character_list_menu.get_popup()
-onready var name_label = $NewGamePanel/NameLabel
-onready var animated_sprite = $NewGamePanel/AnimatedSprite
-onready var stats_container = $NewGamePanel/ScrollContainer/StatsContainer
+onready var name_label = $NewGamePanel/CharacterMenu/NameLabel
+onready var animated_sprite = $NewGamePanel/CharacterMenu/AnimatedSprite
+onready var stats_container = $NewGamePanel/CharacterMenu/ScrollContainer/StatsContainer
 onready var create_character_panel = $NewGamePanel/CreateCharacter
+onready var world_size_label: Label = $NewGamePanel/MapMenu/WorldSize/Label
+onready var forest_label: Label = $NewGamePanel/MapMenu/Forest/Label
 
 var characters = []
 var selected_chara_name = null
+var world_size = 20 setget _set_world_size
+var forest = 1 setget _set_forest
+
+func _set_world_size(value):
+  world_size = clamp(value, 10, 50)
+  world_size_label.text = "%d x %d" % [world_size, world_size]
+  
+func _set_forest(value):
+  forest = clamp(value, 0, 4)
+  var forest_labels = ["Aucune", "Rares", "Eparses", "Nombreuses", "Omniprésentes"]
+  forest_label.text = forest_labels[forest]
 
 func check_for_game_launchable():
   # TODO mettre toutes les verifs
@@ -68,10 +81,14 @@ func _on_launch_game_button_pressed():
 func _on_new_game_button_pressed():
   new_game_panel.show()
 
+func _on_world_size_slider_value_changed(value):
+  self.world_size = value
+
+func _on_forest_slider_value_changed(value):
+  self.forest = value
+
 func _ready() -> void:
   load_characters_list()
   character_list_popup.connect('id_pressed', self, '_on_character_selected')
   new_game_panel.hide()
   create_character_panel.connect('character_created', self, '_on_character_created')
-
-
