@@ -2,7 +2,7 @@ extends Consumable
 
 class_name StaminaPotion
 
-func _init():
+func _init(_crafter = null):
   label = "Potion d'énergie"
   _name = "stamina_potion"
   weight = 0.1

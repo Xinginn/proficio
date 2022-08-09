@@ -49,6 +49,8 @@ var skills = [
   "woodcarving",
   "shoemaking",
   "toolmaking",
+  "apothecary",
+  "cooking",
 ]
 
 var masteries = [
@@ -83,6 +85,8 @@ var attribute_names = {
   "woodcarving": "Travail du bois",
   "shoemaking": "Cordonnerie",
   "toolmaking": "Bricolage",
+  "apothecary": "Apothicaire",
+  "cooking": "Cuisine",
   # masteries
   "tools": "Outils",
   "knives": "Dagues",

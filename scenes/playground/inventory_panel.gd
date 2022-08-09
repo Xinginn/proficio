@@ -47,7 +47,6 @@ func _on_gold_changed(value) -> void:
   gold_label.text = str(value)
   
 func _on_weight_changed(total, maxi) -> void:
-  print("weight change receive")
   weight_label.text = "%.2f / %.2f" % [total, maxi]
   if total > maxi:
     weight_label.add_color_override("font_color", Color(1,0,0,1))

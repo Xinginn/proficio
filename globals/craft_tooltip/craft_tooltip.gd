@@ -11,7 +11,8 @@ var neutral_offset: Vector2 = Vector2(20 ,-20)
 
 func display(craft_data: CraftData, expected_product):
   title_label.text = expected_product.label
-  stats_label.text = expected_product.stats_text
+  if "stats_text" in expected_product:
+    stats_label.text = expected_product.stats_text
   description_label.text = expected_product.description
   resources_label.text = "Coût: " + craft_data.resources_text
   panel.show()

@@ -70,6 +70,8 @@ var attributes: Dictionary = {
   "woodcarving": Attribute.new("woodcarving", "skills"),
   "shoemaking": Attribute.new("shoemaking", "skills"),
   "toolmaking": Attribute.new("toolmaking", "skills"),
+  "apothecary": Attribute.new("apothecary", "skills"),
+  "cooking": Attribute.new("cooking", "skills"),
   #masteries
   "tools": Attribute.new("tools", "masteries"),
   "knives": Attribute.new("knives", "masteries"),
@@ -241,7 +243,10 @@ func consume_item(index: int):
   compute_weight()
   emit_signal('inventory_changed', inventory)
   if item.stack == 0:
+    if GameManager.player_actor == self:
+      ItemTooltip.hide()
     remove_item(index)
+    
 
 func swap_inventory_items(slot_a, slot_b):
   var temp = inventory.items[slot_a]
