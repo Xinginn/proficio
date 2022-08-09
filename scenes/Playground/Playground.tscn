@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
+[ext_resource path="res://tres/styles/gaugebar_back.tres" type="StyleBox" id=2]
 [ext_resource path="res://scenes/playground/playground.gd" type="Script" id=3]
 [ext_resource path="res://assets/buildings/building_01.png" type="Texture" id=4]
 [ext_resource path="res://scenes/playground/gauges_manager.gd" type="Script" id=5]
@@ -22,25 +23,28 @@
 extents = Vector2( 0, 0 )
 
 [sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.533333, 0.0705882, 0.0705882, 0.584314 )
+
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.533333, 0.0705882, 0.0705882, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.117647, 0.117647, 0.117647, 1 )
-expand_margin_left = 2.0
-expand_margin_right = 2.0
-expand_margin_top = 2.0
-expand_margin_bottom = 2.0
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.286275, 0.509804, 0.266667, 0.541176 )
+
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.286275, 0.509804, 0.266667, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.105882, 0.384314, 0.678431, 1 )
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.105882, 0.384314, 0.678431, 0.54902 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.105882, 0.384314, 0.678431, 0.815686 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [node name="Playground" type="Node2D"]
 script = ExtResource( 3 )
@@ -402,19 +406,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBar" type="ProgressBar" parent="Camera/GaugesManager"]
+[node name="HealthRegainBar" type="ProgressBar" parent="Camera/GaugesManager"]
 margin_right = 160.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
 custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
+custom_styles/bg = ExtResource( 2 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="ProgressBar" parent="Camera/GaugesManager/HealthRegainBar"]
+margin_right = 160.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 160, 30 )
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 8 )
 value = 40.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Camera/GaugesManager/HealthBar"]
+[node name="Label" type="Label" parent="Camera/GaugesManager/HealthRegainBar/HealthBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "40 / 40"
@@ -424,43 +440,64 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StaminaBar" type="ProgressBar" parent="Camera/GaugesManager"]
+[node name="StaminaRegainBar" type="ProgressBar" parent="Camera/GaugesManager"]
 margin_left = 200.0
 margin_right = 360.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
-custom_styles/fg = SubResource( 4 )
-custom_styles/bg = SubResource( 3 )
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = ExtResource( 2 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaminaBar" type="ProgressBar" parent="Camera/GaugesManager/StaminaRegainBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 160, 30 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 8 )
 value = 40.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Camera/GaugesManager/StaminaBar"]
+[node name="Label" type="Label" parent="Camera/GaugesManager/StaminaRegainBar/StaminaBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "40 / 40"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ManaBar" type="ProgressBar" parent="Camera/GaugesManager"]
+[node name="ManaRegainBar" type="ProgressBar" parent="Camera/GaugesManager"]
 margin_left = 400.0
 margin_right = 560.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
-custom_styles/fg = SubResource( 5 )
-custom_styles/bg = SubResource( 3 )
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = ExtResource( 2 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaBar" type="ProgressBar" parent="Camera/GaugesManager/ManaRegainBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 160, 30 )
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 13 )
 value = 40.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Camera/GaugesManager/ManaBar"]
+[node name="Label" type="Label" parent="Camera/GaugesManager/ManaRegainBar/ManaBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "40 / 40"

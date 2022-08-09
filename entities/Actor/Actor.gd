@@ -47,6 +47,9 @@ var current_resource_spot = null
 var gold: int = 0 setget _set_gold
 var inventory: Inventory = Inventory.new()
 var active_buildings: Array = []
+var health_regain :float = 0.0
+var stamina_regain :float = 0.0
+var mana_regain :float = 0.0
 
 # --------- LEVELS AND XP ---------
 var attributes: Dictionary = {
@@ -95,21 +98,23 @@ signal experience_changed()
 func _set_health(value) -> void:
   var max_h = max_health + get_total_attribute("max_health_lvl")
   health = clamp(value, 0, max_h)
+  # affichage de la mini barre de vie
   health_bar.value = health
   health_bar.max_value = max_h
   if health < max_h:
     health_bar.show()
   else:
     health_bar.hide()
-  emit_signal('health_changed', health, max_h)
+  emit_signal('health_changed', health, max_h, health_regain)
   
 func _set_stamina(value) -> void:
+  var max_s = max_stamina + get_total_attribute("max_stamina_lvl")
   stamina = clamp(value, 0, max_stamina)
-  emit_signal('stamina_changed', stamina, max_stamina)
+  emit_signal('stamina_changed', stamina, max_stamina, stamina_regain)
 
 func _set_mana(value) -> void:
   mana = clamp(value, 0, max_mana)
-  emit_signal('mana_changed', mana, max_mana)
+  emit_signal('mana_changed', mana, max_mana, mana_regain)
 
 func _set_gold(value: int) -> void:
   gold = value
@@ -357,12 +362,21 @@ func _ready() -> void:
   texture_progress.hide()
 
 func _physics_process(delta):
-  # Regens
+
   if health < 0.0:
     return
-  self.health += delta * BASE_HEALTH_REGEN 
-  self.stamina += delta * BASE_STAMINA_REGEN 
-  self.mana += delta * BASE_MANA_REGEN
+
+  # Regens  
+  var gain = clamp(delta, 0.0, health_regain)
+
+  health_regain -= gain
+  self.health += delta * BASE_HEALTH_REGEN + gain
+  gain = clamp(delta, 0.0, stamina_regain)
+  stamina_regain -= gain
+  self.stamina += delta * BASE_STAMINA_REGEN + gain
+  gain = clamp(delta, 0.0, mana_regain)
+  mana_regain -= gain
+  self.mana += delta * BASE_MANA_REGEN + gain
   
   if target_position != null:
     var final_move_speed = clamp(move_speed - weight_speed_malus, 0, MAX_MOVE_SPEED)

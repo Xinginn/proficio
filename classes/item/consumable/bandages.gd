@@ -9,5 +9,5 @@ func _init(_crafter = null):
   description = "Des fibres végétales tissées. Restaure graduellement 5 santé."
 
 func use(actor):
-  actor.health += 5
+  actor.health_regain += 5
   stack -= 1

@@ -9,5 +9,5 @@ func _init(_crafter = null):
   description = "Une potion au léger gout de pommes. Restaure graduellement 5 énergie"
 
 func use(actor):
-  actor.stamina += 5
+  actor.stamina_regain += 5
   stack -= 1

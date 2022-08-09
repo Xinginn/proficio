@@ -9,5 +9,5 @@ func _init(_crafter = null):
   description = "Un plat simple mais qui tient au ventre. Restaure graduellement 2 énergie."
 
 func use(actor):
-  actor.stamina += 2
+  actor.stamina_regain += 2
   stack -= 1

@@ -9,5 +9,5 @@ func _init(_crafter = null):
   description = "Des cristaux réduits en poudre. Restaures graduellement 5 mana."
 
 func use(actor):
-  actor.mana += 2
+  actor.mana_regain += 2
   stack -= 1
