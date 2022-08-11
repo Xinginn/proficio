@@ -197,7 +197,10 @@ func gauges_at_max():
   self.health += 9999
   self.stamina += 9999
   self.mana += 9999
-
+  
+func can_afford_skill(cost: Dictionary) -> bool:
+  return(health > cost["health"] && stamina > cost["stamina"] && mana > cost["mana"])
+    
 func has_resources(needs: Dictionary) -> bool:
   for resource in needs:
     if inventory.resources[resource] < needs[resource]:
@@ -307,16 +310,18 @@ func stop_harvesting() -> void:
   current_resource_spot = null
   texture_progress.hide()
   
-func launch_attack(attack_name: String, attack_direction) -> void:
-  var attack_scene = load('res://entities/attack/%s.tscn' % attack_name)
-  var new_attack = attack_scene.instance()
-  get_tree().get_root().get_node('Playground/EffectsHolder').add_child(new_attack)
-  var attack_range = 60
-  var attack_pos = global_position + attack_direction * attack_range
-  new_attack.global_position = attack_pos
-  var rota = global_position.direction_to(attack_pos).angle_to(Vector2(1,0)) * 180 / -PI
-  new_attack.rotation_degrees = rota
-  new_attack.launch(self)
+func launch_tech(id: int, attack_direction) -> void:
+  var data = Data.techs[id]
+  var tech_scene = load('res://entities/techs/%s.tscn' % data._name)
+  var new_tech = tech_scene.instance()
+  new_tech.tech_data = data
+  get_tree().get_root().get_node('Playground/EffectsHolder').add_child(new_tech)
+  if data is StrikeData:
+    var tech_pos = global_position + attack_direction * data.strike_range
+    new_tech.global_position = tech_pos
+    var rota = global_position.direction_to(tech_pos).angle_to(Vector2(1,0)) * 180 / -PI
+    new_tech.rotation_degrees = rota
+    new_tech.launch(self)
   
 
 # ------- fonctions de navigation et d'IA -------

@@ -3,6 +3,7 @@ extends Node
 var lands = []
 var crafts = []
 var buildings = []
+var techs = []
 var races = []
 
 func _ready():
@@ -39,6 +40,9 @@ func _ready():
   # building de test  TODO retirer en prod
   buildings.append(BuildingData.new(99, "building_01", "Test", 500, 4, {}, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]))
 
+  # id, _name, type, skill ('weapon' pour déduire de l'arme equipée, _xp_gain, _cost ( _range ou area)
+  techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))
+  
   
   races = [
   {"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"},

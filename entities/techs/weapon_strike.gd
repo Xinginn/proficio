@@ -1,6 +1,7 @@
 extends AnimatedSprite
 
 var caster: Actor
+var tech_data: TechData
 
 func _on_animation_finished():
   queue_free()
@@ -15,4 +16,8 @@ func launch(_caster: Actor) -> void:
   # initialisation 
   frame = 0
   playing = true
+  # paiement du coût:
+  caster.health -= tech_data.cost["health"]
+  caster.stamina -= tech_data.cost["stamina"]
+  caster.mana -= tech_data.cost["mana"]
   
