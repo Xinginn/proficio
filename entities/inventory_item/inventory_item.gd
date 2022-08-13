@@ -19,6 +19,7 @@ func _initialize(_slot):
     print('ERROR! Unexpected slot type for inventory_item')
   if !!item:
     texture_normal = load("res://assets/icons/%s.png" % item._name)
+    $MarginContainer/StackLabel.text = str(item.stack) if item is Consumable else ""
   else:
     texture_normal = empty_texture
     

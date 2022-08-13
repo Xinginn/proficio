@@ -12,6 +12,24 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+mouse_filter = 2
+custom_constants/margin_right = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StackLabel" type="Label" parent="MarginContainer"]
+margin_right = 45.0
+margin_bottom = 14.0
+grow_horizontal = 0
+text = "0"
+align = 2
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
