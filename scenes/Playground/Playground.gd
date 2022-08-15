@@ -12,7 +12,8 @@ onready var buildings_holder = $World/BuildingsHolder
 onready var camera = $Camera
 onready var inventory_panel = $Camera/InventoryPanel
 onready var status_panel = $Camera/StatusPanel
-onready var craft_panel = $Camera/CraftPanel
+onready var building_window = $Camera/BuildingWindow
+onready var craft_panel = $Camera/BuildingWindow/CraftTab/CraftPanel
 onready var gauges_manager = $Camera/GaugesManager
 onready var building_buttons_container = $Camera/StartBuildButton/BuildingButtonsContainer
 
@@ -61,17 +62,17 @@ func build_mode_off() -> void:
 func place_building() -> void:
   var new_building = building_scene.instance()
   buildings_holder.add_child(new_building)
-
   new_building._initialize(player, type_to_build, get_global_mouse_position())
   new_building.connect('player_entered_building', self, "_on_player_entered_building")
+  new_building.connect('player_entered_building', building_window, "_on_player_entered_building")
+  new_building.connect('player_exited_building', building_window, "_on_player_exited_building")
   new_building.connect('player_entered_owned_building', craft_panel, "_on_player_entered_owned_building")
-  new_building.connect('player_exited_owned_building', craft_panel, "_on_player_exited_owned_building")
-  # deconnexion des signaux entre le craft panel et le precedent building
+  new_building.connect('player_exited_building', craft_panel, "_on_player_exited_building")
   build_mode_off()
-
 
 func _on_player_entered_building(building) -> void:
   if !!last_building:
+    # deconnexion des signaux entre le craft panel et le precedent building
     last_building.disconnect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
     last_building.disconnect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
     craft_panel.disconnect('recipe_requested', last_building, '_on_recipe_requested')

@@ -29,7 +29,7 @@ signal building_constructed(building)
 signal craft_progress_changed(value)
 signal player_entered_building(building)
 signal player_entered_owned_building(data)
-signal player_exited_owned_building
+signal player_exited_building
 signal craft_queue_changed(queue)
 signal occupied_space_overlapped(building)
 signal ended_spawning(building)
@@ -97,7 +97,7 @@ func _on_body_exited(body):
     is_building = false
     is_crafting = false
     emit_signal('craft_queue_changed', [])
-    emit_signal('player_exited_owned_building')
+  emit_signal('player_exited_building')
 
 # signaux: recipe_button -> craft panel -> ici
 func _on_recipe_requested(craft_data) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://tres/styles/gaugebar_back.tres" type="StyleBox" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/texture_front.png" type="Texture" id=9]
 [ext_resource path="res://scenes/playground/craft_panel.gd" type="Script" id=10]
 [ext_resource path="res://scenes/playground/status_panel.gd" type="Script" id=11]
+[ext_resource path="res://scenes/playground/building_window.gd" type="Script" id=12]
 [ext_resource path="res://tres/styles/panel.tres" type="StyleBox" id=14]
 [ext_resource path="res://scenes/playground/inventory_panel.gd" type="Script" id=15]
 [ext_resource path="res://assets/inventory_gear.png" type="Texture" id=16]
@@ -95,42 +96,60 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CraftPanel" type="Panel" parent="Camera"]
-margin_left = 265.0
-margin_top = -418.0
-margin_right = 739.0
-margin_bottom = -114.0
+[node name="BuildingWindow" type="TabContainer" parent="Camera"]
+margin_left = 253.301
+margin_top = -440.007
+margin_right = 739.301
+margin_bottom = -84.0066
+tab_align = 0
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CraftTab" type="Tabs" parent="Camera/BuildingWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="CraftPanel" type="Panel" parent="Camera/BuildingWindow/CraftTab"]
+margin_right = 474.0
+margin_bottom = 318.0
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CraftListScroll" type="ScrollContainer" parent="Camera/CraftPanel"]
-margin_left = 11.1137
-margin_top = 6.15912
-margin_right = 214.114
-margin_bottom = 297.159
+[node name="CraftListScroll" type="ScrollContainer" parent="Camera/BuildingWindow/CraftTab/CraftPanel"]
+margin_left = 11.0
+margin_top = 28.0
+margin_right = 214.0
+margin_bottom = 297.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RecipeContainer" type="VBoxContainer" parent="Camera/CraftPanel/CraftListScroll"]
+[node name="RecipeContainer" type="VBoxContainer" parent="Camera/BuildingWindow/CraftTab/CraftPanel/CraftListScroll"]
 
-[node name="CurrentCraftIcon" type="TextureRect" parent="Camera/CraftPanel"]
+[node name="CurrentCraftIcon" type="TextureRect" parent="Camera/BuildingWindow/CraftTab/CraftPanel"]
 margin_left = 288.05
-margin_top = 23.3303
+margin_top = 35.9437
 margin_right = 384.05
-margin_bottom = 119.33
+margin_bottom = 131.944
 rect_min_size = Vector2( 96, 96 )
 mouse_filter = 2
 texture = ExtResource( 7 )
 expand = true
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="CurrentCraftButton" type="TextureButton" parent="Camera/CraftPanel/CurrentCraftIcon"]
+[node name="CurrentCraftButton" type="TextureButton" parent="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture_hover = ExtResource( 6 )
@@ -139,11 +158,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureProgress" type="TextureProgress" parent="Camera/CraftPanel/CurrentCraftIcon"]
+[node name="TextureProgress" type="TextureProgress" parent="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon"]
 margin_left = -35.0223
-margin_top = 103.523
+margin_top = 105.205
 margin_right = 137.978
-margin_bottom = 115.523
+margin_bottom = 117.205
 value = 25.0
 texture_under = ExtResource( 8 )
 texture_progress = ExtResource( 9 )
@@ -152,7 +171,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QueueContainer" type="GridContainer" parent="Camera/CraftPanel"]
+[node name="QueueContainer" type="GridContainer" parent="Camera/BuildingWindow/CraftTab/CraftPanel"]
 margin_left = 232.477
 margin_top = 170.272
 margin_right = 460.477
@@ -163,6 +182,15 @@ columns = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="StorageTab" type="Tabs" parent="Camera/BuildingWindow"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="InventoryPanel" type="Panel" parent="Camera"]
 margin_left = -746.606
@@ -323,10 +351,10 @@ text = "12.4/40.0"
 visible = false
 
 [node name="StatusPanel" type="Panel" parent="Camera"]
-margin_left = 376.719
-margin_top = -100.449
-margin_right = 740.719
-margin_bottom = 427.551
+margin_left = 377.0
+margin_top = -70.0
+margin_right = 741.0
+margin_bottom = 427.0
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 11 )
 __meta__ = {
@@ -507,4 +535,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
-[connection signal="pressed" from="Camera/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]

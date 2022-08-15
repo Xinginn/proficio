@@ -20,15 +20,12 @@ func _on_player_entered_owned_building(building_data) -> void:
     recipe_container.add_child(new_button)
     new_button._initialize(Data.crafts[id])
     new_button.connect('recipe_button_pressed', self, '_on_recipe_button_pressed')
-  show()
     
-func _on_player_exited_owned_building() -> void:
+func _on_player_exited_building() -> void:
   # cleanup
   for child in recipe_container.get_children():
     child.disconnect('recipe_button_pressed', self, '_on_recipe_button_pressed')
     child.destroy()
-  hide()
-  CraftTooltip.hide()
 
 func _on_craft_progress_changed(value) -> void:
   current_craft_progress_bar.value = value
@@ -66,7 +63,6 @@ func _on_recipe_button_pressed(craft_data) -> void:
   emit_signal('recipe_requested', craft_data)
 
 func _ready() -> void:
-  hide()
   for i in range(1, 9):
     current_craft_progress_bar.hide()
     current_craft_button.disabled = true
