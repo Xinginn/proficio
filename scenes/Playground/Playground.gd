@@ -74,19 +74,23 @@ func place_building() -> void:
 func _on_player_entered_building(building) -> void:
   storage_panel._initialize(building)
   if !!last_building:
-    # deconnexion des signaux entre le craft panel et le precedent building
+    # deconnexion des signaux entre le craft et storage panel et le precedent building
     last_building.disconnect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
     last_building.disconnect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
+    last_building.disconnect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
     craft_panel.disconnect('recipe_requested', last_building, '_on_recipe_requested')
     craft_panel.disconnect('cancel_requested', last_building, '_on_cancel_requested')
+    storage_panel.disconnect('stackable_storage_requested', last_building, '_on_stackable_storage_requested')
+    storage_panel.disconnect('stackable_withdrawal_requested', last_building, '_on_stackable_withdrawal_requested')
   building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
   building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
+  building.connect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
   craft_panel.connect('recipe_requested', building, '_on_recipe_requested')
   craft_panel.connect('cancel_requested', building, '_on_cancel_requested')
+  storage_panel.connect('stackable_storage_requested', building, '_on_stackable_storage_requested')
+  storage_panel.connect('stackable_withdrawal_requested', building, '_on_stackable_withdrawal_requested')
   
-
   last_building = building
-
 
 func _unhandled_input(event):
   if event is InputEventMouseButton:
@@ -133,12 +137,12 @@ func _ready():
   
   player.connect('gold_changed', inventory_panel, "_on_gold_changed")
   player.connect('weight_changed', inventory_panel, "_on_weight_changed")
-  player.connect('resources_changed', inventory_panel, "_on_resources_changed")
   player.connect('inventory_changed', inventory_panel, "_on_inventory_changed")
   player.connect('health_changed', gauges_manager, '_on_player_health_changed')
   player.connect('stamina_changed', gauges_manager, '_on_player_stamina_changed')
   player.connect('mana_changed', gauges_manager, '_on_player_mana_changed')
   player.connect('experience_changed', status_panel, '_on_player_experience_changed')
+  player.connect('inventory_changed', storage_panel, "_on_inventory_changed")
   
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()

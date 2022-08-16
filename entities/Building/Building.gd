@@ -37,6 +37,7 @@ signal player_exited_building
 signal craft_queue_changed(queue)
 signal occupied_space_overlapped(building)
 signal ended_spawning(building)
+signal stackable_storage_changed(storage)
 
 func _set_is_crafting(value: bool) -> void:
   is_crafting = value
@@ -79,6 +80,9 @@ func _initialize(_owner, data, pos) -> void:
   max_health = int(building_data.max_health * (1.0 + (level - 1) * 0.05 ))
   health_bar.max_value = max_health
   self.health = 1
+  for item_name in building_data.storable_stackables:
+    stackable_storage[item_name] = 0
+  # TODO gerer storage possible d'equipable
   # TODO set position et largeur health_bar
 
 func display_buidling_window(_visible: bool):
@@ -126,7 +130,26 @@ func _on_cancel_requested(index) -> void:
   emit_signal('craft_queue_changed', craft_queue)
   if craft_queue.size() == 0:
     self.craft_progress = 0
-
+    
+func _on_stackable_storage_requested(item_name) -> void:
+  if item_name in building_owner.inventory.resources.keys():
+    building_owner.remove_resource(item_name, 1)
+  else:
+    var item_names = GameManager.player_actor.inventory.get_item_names()
+    var index = item_names.find(item_name)
+    building_owner.remove_item(index)
+  stackable_storage[item_name] += 1
+  emit_signal("stackable_storage_changed", stackable_storage)
+  
+func _on_stackable_withdrawal_requested(item_name) -> void:
+  if item_name in building_owner.inventory.resources.keys():
+    building_owner.add_resource(item_name, 1)
+  else:
+    var new_item = load('res://classes/item/consumable/%s.gd' % item_name).new()
+    building_owner.add_item(new_item)
+  stackable_storage[item_name] -= 1
+  emit_signal("stackable_storage_changed", stackable_storage)
+  
 func _process(delta):
   if is_building:
     var level = building_owner.get_total_attribute("construction")

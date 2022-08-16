@@ -10,4 +10,3 @@ func _init(_crafter = null):
 
 func use(actor):
   actor.health_regain += 5
-  stack -= 1

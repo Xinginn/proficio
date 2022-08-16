@@ -48,4 +48,9 @@ func compute_total_weight() -> void:
   for res in resources:
     total += resources[res] * Dictionaries.resource_weights[res]
   total_weight = total
-  
+
+func get_item_names() -> Array:
+  var names = []
+  for item in items:
+    names.append(item._name)
+  return names

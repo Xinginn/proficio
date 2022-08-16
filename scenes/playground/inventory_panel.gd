@@ -72,10 +72,12 @@ func _on_inventory_changed(_inventory: Inventory) -> void:
     items_grid.add_child(new_item)
     new_item._initialize(i)
     new_item.connect('inventory_item_pressed', self, '_on_inventory_item_pressed')
+  for key in _inventory.resources.keys():
+    resource_stock_displays[key].stock = _inventory.resources[key]
 
-func _on_resources_changed(_resources: Dictionary):
-  for key in _resources.keys():
-    resource_stock_displays[key].stock = _resources[key]
+#func _on_resources_changed(_resources: Dictionary):
+#  for key in _resources.keys():
+#    resource_stock_displays[key].stock = _resources[key]
   
 func _on_inventory_item_pressed(_slot):
   if str(_slot) == str(armed_slot): 

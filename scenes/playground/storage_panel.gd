@@ -9,6 +9,10 @@ onready var equipable_items_grid: GridContainer = $EquipablesContainer/MarginCon
 
 var stackable_items = {}
 
+signal equipable_storage_requested(_name)
+signal stackable_storage_requested(_name)
+signal stackable_withdrawal_requested(_name)
+
 
 func _initialize(building):
   for child in stackables_container.get_children():
@@ -17,6 +21,34 @@ func _initialize(building):
     var new_stackable_item = stackable_item_scene.instance()
     stackables_container.add_child(new_stackable_item)
     new_stackable_item._initialize(item_name, building)
+    new_stackable_item.connect('storage_requested', self, '_on_store_request_from_stackable_item')
+    new_stackable_item.connect('withdraw_requested', self, '_on_withdraw_request_from_stackable_item')
+    stackable_items[item_name] = new_stackable_item
 
-func _ready():
-  pass # Replace with function body.
+func _on_inventory_changed(_inventory):
+  var resource_names = Dictionaries.resource_names.keys()
+  var item_names = _inventory.get_item_names()
+  
+  for item_name in stackable_items.keys():
+    var quantity = 0
+    if item_name in resource_names:
+      quantity = _inventory.resources[item_name]
+    else:
+      var index = item_names.find(item_name)
+      if index != -1:
+        quantity = _inventory.items[index].stack
+    stackable_items[item_name].store_button.disabled = (quantity == 0)
+
+func _on_store_request_from_equipable_item(item_name):
+  emit_signal("equipable_storage_requested", item_name)
+
+func _on_store_request_from_stackable_item(item_name):
+  emit_signal("stackable_storage_requested", item_name)
+
+func _on_withdraw_request_from_stackable_item(item_name):
+  emit_signal("stackable_withdrawal_requested", item_name)
+
+func _on_stackable_storage_changed(stackable_storage):
+  for item_name in stackable_storage.keys():
+    stackable_items[item_name].quantity = stackable_storage[item_name]
+
