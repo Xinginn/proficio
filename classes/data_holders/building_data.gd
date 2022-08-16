@@ -9,10 +9,12 @@ var max_health
 var stamina
 var resources
 var craft_ids
+var storable_stackables
+var storable_equipables
 
 var resources_text setget ,_get_resources_text
 
-func _init(_id, _building_name, _label, _max_health, _stamina, _resources, _craft_ids = []):
+func _init(_id, _building_name, _label, _max_health, _stamina, _resources, _craft_ids = [], _stackables = [], _equipables = []):
   id = _id
   _name = _building_name
   label = _label
@@ -20,6 +22,8 @@ func _init(_id, _building_name, _label, _max_health, _stamina, _resources, _craf
   stamina = _stamina
   resources = _resources
   craft_ids = _craft_ids
+  storable_stackables = _stackables
+  storable_equipables = _equipables
 
 # TODO creer une classe-mère pour ne pas dupliquer ce code avec CraftData ?
 func _get_resources_text() -> String:

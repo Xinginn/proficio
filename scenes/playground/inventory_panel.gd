@@ -122,7 +122,7 @@ func _ready():
   for key in Dictionaries.resource_names.keys():
     var new_resource = resource_stock_scene.instance()
     resources_container.add_child(new_resource)
-    new_resource.texture = load('res://assets/icons/resource_%s.png' % key)
+    new_resource.texture = load('res://assets/icons/%s.png' % key)
     resource_stock_displays[key] = new_resource
 
 func _process(_delta):

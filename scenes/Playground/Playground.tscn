@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://tres/styles/gaugebar_back.tres" type="StyleBox" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://tres/styles/panel.tres" type="StyleBox" id=14]
 [ext_resource path="res://scenes/playground/inventory_panel.gd" type="Script" id=15]
 [ext_resource path="res://assets/inventory_gear.png" type="Texture" id=16]
+[ext_resource path="res://scenes/playground/storage_panel.gd" type="Script" id=17]
 [ext_resource path="res://assets/weight.png" type="Texture" id=19]
 [ext_resource path="res://assets/gold.png" type="Texture" id=20]
 [ext_resource path="res://entities/inventory_item/inventory_item.tscn" type="PackedScene" id=21]
@@ -116,8 +117,8 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="CraftPanel" type="Panel" parent="Camera/BuildingWindow/CraftTab"]
-margin_right = 474.0
-margin_bottom = 318.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 10 )
 __meta__ = {
@@ -191,6 +192,77 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+
+[node name="StoragePanel" type="Panel" parent="Camera/BuildingWindow/StorageTab"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 14 )
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoldIcon" type="TextureRect" parent="Camera/BuildingWindow/StorageTab/StoragePanel"]
+margin_left = 10.0
+margin_top = 6.0
+margin_right = 42.0
+margin_bottom = 38.0
+texture = ExtResource( 20 )
+
+[node name="GoldLabel" type="Label" parent="Camera/BuildingWindow/StorageTab/StoragePanel/GoldIcon"]
+margin_left = 41.5
+margin_top = 6.5
+margin_right = 68.5
+margin_bottom = 26.5
+text = "45"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StackablesContainer" type="GridContainer" parent="Camera/BuildingWindow/StorageTab/StoragePanel"]
+margin_left = 31.0
+margin_top = 52.0
+margin_right = 437.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EquipablesContainer" type="ScrollContainer" parent="Camera/BuildingWindow/StorageTab/StoragePanel"]
+margin_left = 2.0
+margin_top = 199.0
+margin_right = 476.0
+margin_bottom = 318.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LinesContainer" type="VBoxContainer" parent="Camera/BuildingWindow/StorageTab/StoragePanel/EquipablesContainer"]
+custom_constants/separation = -1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera/BuildingWindow/StorageTab/StoragePanel/EquipablesContainer"]
+margin_right = 2.0
+margin_bottom = 2.0
+mouse_filter = 1
+custom_constants/margin_top = 2
+custom_constants/margin_left = 2
+
+[node name="ItemsGrid" type="GridContainer" parent="Camera/BuildingWindow/StorageTab/StoragePanel/EquipablesContainer/MarginContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 2.0
+margin_bottom = 2.0
+custom_constants/vseparation = 3
+custom_constants/hseparation = 3
+columns = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="InventoryPanel" type="Panel" parent="Camera"]
 margin_left = -746.606

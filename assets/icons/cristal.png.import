@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/resource_leather.png-e5df903ed6ba5ac8b9a254d65c8a2c29.stex"
+path="res://.import/cristal.png-3cf6a6c1b287b1df1a9d9904587fbfa6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/resource_leather.png"
-dest_files=[ "res://.import/resource_leather.png-e5df903ed6ba5ac8b9a254d65c8a2c29.stex" ]
+source_file="res://assets/icons/cristal.png"
+dest_files=[ "res://.import/cristal.png-3cf6a6c1b287b1df1a9d9904587fbfa6.stex" ]
 
 [params]
 

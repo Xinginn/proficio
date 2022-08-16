@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/resource_ore.png-5047337b0a90c201cd807fddcbd6c82b.stex"
+path="res://.import/skin.png-6532e01a35d1c201141c54b80c018733.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/resource_ore.png"
-dest_files=[ "res://.import/resource_ore.png-5047337b0a90c201cd807fddcbd6c82b.stex" ]
+source_file="res://assets/icons/skin.png"
+dest_files=[ "res://.import/skin.png-6532e01a35d1c201141c54b80c018733.stex" ]
 
 [params]
 

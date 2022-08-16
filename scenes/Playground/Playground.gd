@@ -14,6 +14,7 @@ onready var inventory_panel = $Camera/InventoryPanel
 onready var status_panel = $Camera/StatusPanel
 onready var building_window = $Camera/BuildingWindow
 onready var craft_panel = $Camera/BuildingWindow/CraftTab/CraftPanel
+onready var storage_panel = $Camera/BuildingWindow/StorageTab/StoragePanel
 onready var gauges_manager = $Camera/GaugesManager
 onready var building_buttons_container = $Camera/StartBuildButton/BuildingButtonsContainer
 
@@ -71,6 +72,7 @@ func place_building() -> void:
   build_mode_off()
 
 func _on_player_entered_building(building) -> void:
+  storage_panel._initialize(building)
   if !!last_building:
     # deconnexion des signaux entre le craft panel et le precedent building
     last_building.disconnect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
@@ -81,7 +83,10 @@ func _on_player_entered_building(building) -> void:
   building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
   craft_panel.connect('recipe_requested', building, '_on_recipe_requested')
   craft_panel.connect('cancel_requested', building, '_on_cancel_requested')
+  
+
   last_building = building
+
 
 func _unhandled_input(event):
   if event is InputEventMouseButton:

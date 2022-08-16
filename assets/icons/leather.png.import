@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/resource_wheat.png-ef0bcfd42aa95f7a255daccf85b559c3.stex"
+path="res://.import/leather.png-561a5a5a96ec97aa048fa78c2f016fa5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/resource_wheat.png"
-dest_files=[ "res://.import/resource_wheat.png-ef0bcfd42aa95f7a255daccf85b559c3.stex" ]
+source_file="res://assets/icons/leather.png"
+dest_files=[ "res://.import/leather.png-561a5a5a96ec97aa048fa78c2f016fa5.stex" ]
 
 [params]
 

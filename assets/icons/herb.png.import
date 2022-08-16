@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/resource_herb.png-b72850d5130134791f5472d662716f2b.stex"
+path="res://.import/herb.png-72fd57a5bd88029ca798ca68533885e2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/resource_herb.png"
-dest_files=[ "res://.import/resource_herb.png-b72850d5130134791f5472d662716f2b.stex" ]
+source_file="res://assets/icons/herb.png"
+dest_files=[ "res://.import/herb.png-72fd57a5bd88029ca798ca68533885e2.stex" ]
 
 [params]
 

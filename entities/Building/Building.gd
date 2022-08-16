@@ -24,6 +24,10 @@ var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
 var frames_since_no_overlap: int = 0
 
+var gold_storage: int = 0
+var stackable_storage = {}
+var equipable_storage = []
+
 signal building_destroyed(building)
 signal building_constructed(building)
 signal craft_progress_changed(value)

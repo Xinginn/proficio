@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/resource_cristal.png-8b208878fb9573f26897a8ba982a7161.stex"
+path="res://.import/fiber.png-fd837d5c726c78adf00a03ca9758e600.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/resource_cristal.png"
-dest_files=[ "res://.import/resource_cristal.png-8b208878fb9573f26897a8ba982a7161.stex" ]
+source_file="res://assets/icons/fiber.png"
+dest_files=[ "res://.import/fiber.png-fd837d5c726c78adf00a03ca9758e600.stex" ]
 
 [params]
 
