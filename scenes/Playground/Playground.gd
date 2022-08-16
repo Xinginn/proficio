@@ -64,14 +64,19 @@ func place_building() -> void:
   var new_building = building_scene.instance()
   buildings_holder.add_child(new_building)
   new_building._initialize(player, type_to_build, get_global_mouse_position())
-  new_building.connect('player_entered_building', self, "_on_player_entered_building")
-  new_building.connect('player_entered_building', building_window, "_on_player_entered_building")
-  new_building.connect('player_exited_building', building_window, "_on_player_exited_building")
-  new_building.connect('player_entered_owned_building', craft_panel, "_on_player_entered_owned_building")
-  new_building.connect('player_exited_building', craft_panel, "_on_player_exited_building")
+  connect_building(new_building)
   build_mode_off()
 
+# methode pour raccorder les signaux d'un nouveau building
+func connect_building(building):
+  building.connect('player_entered_building', self, "_on_player_entered_building")
+  building.connect('player_entered_building', building_window, "_on_player_entered_building")
+  building.connect('player_exited_building', building_window, "_on_player_exited_building")
+  building.connect('player_entered_owned_building', craft_panel, "_on_player_entered_owned_building")
+  building.connect('player_exited_building', craft_panel, "_on_player_exited_building")
+
 func _on_player_entered_building(building) -> void:
+  print(building.stackable_storage)
   storage_panel._initialize(building)
   if !!last_building:
     # deconnexion des signaux entre le craft et storage panel et le precedent building
@@ -82,6 +87,7 @@ func _on_player_entered_building(building) -> void:
     craft_panel.disconnect('cancel_requested', last_building, '_on_cancel_requested')
     storage_panel.disconnect('stackable_storage_requested', last_building, '_on_stackable_storage_requested')
     storage_panel.disconnect('stackable_withdrawal_requested', last_building, '_on_stackable_withdrawal_requested')
+    storage_panel.disconnect('stackable_buy_requested', building, '_on_stackable_buy_requested')
   building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
   building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
   building.connect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
@@ -89,6 +95,7 @@ func _on_player_entered_building(building) -> void:
   craft_panel.connect('cancel_requested', building, '_on_cancel_requested')
   storage_panel.connect('stackable_storage_requested', building, '_on_stackable_storage_requested')
   storage_panel.connect('stackable_withdrawal_requested', building, '_on_stackable_withdrawal_requested')
+  storage_panel.connect('stackable_buy_requested', building, '_on_stackable_buy_requested')
   
   last_building = building
 

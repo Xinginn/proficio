@@ -14,10 +14,10 @@ func take_decision():
 #    print ('already doing something')
 #    return
 ##  go_to_nearest_resource('herb')
-#  if has_resources(Data.buildings[0].resources):
-#    place_building(0)
-#  else:
-#    print('not enough')
+  if has_resources(Data.buildings[0].resources):
+    place_building(0)
+  else:
+    print('not enough')
    
 func place_building(id):
   var cost = Data.buildings[id].resources
@@ -30,6 +30,8 @@ func place_building(id):
   var random_pos = get_random_building_position()
   new_building._initialize(self, Data.buildings[id], random_pos)
   new_building.is_spawning = true
+  get_tree().get_root().get_node('Playground').connect_building(new_building)
+  new_building.stackable_storage["herb"] = 15 # pour test
 
 func _on_building_overlap(building):
   building.frames_since_no_overlap = 0

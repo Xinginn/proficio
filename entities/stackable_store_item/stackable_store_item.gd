@@ -30,6 +30,7 @@ func _initialize(_item_name: String, _building):
     buy_button.hide()
   else:
     store_button.hide()
+    withdraw_button.hide()
 
 func _on_store_button_pressed():
   emit_signal('storage_requested', item_name)

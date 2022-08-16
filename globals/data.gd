@@ -30,7 +30,7 @@ func _ready():
   crafts.append(CraftData.new(13, CristalPowder, "cristal_powder", 4, "apothecary", 6, {"cristal": 4,}, 1000))
   
   # id, label, max_health, resources, ?craft_ids = []
-  buildings.append(BuildingData.new(0, "workshop", "Atelier", 500, 4, {"wood": 5}, [2, 3, 5, 8, 9]))
+  buildings.append(BuildingData.new(0, "workshop", "Atelier", 500, 4, {"wood": 5}, [2, 3, 5, 8, 9], ["herb"]))
   buildings.append(BuildingData.new(1, "hunting_lodge", "Loge de chasseur", 500, 4, {"wood": 24}, [0, 1, 2]))
   buildings.append(BuildingData.new(2, "armory", "Armurerie", 500, 4, {"wood": 4, "stone": 3}, [0, 1, 6]))
   buildings.append(BuildingData.new(3, "foundry", "Fonderie", 500, 4, {"stone": 8}, []))

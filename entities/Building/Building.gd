@@ -91,7 +91,8 @@ func display_buidling_window(_visible: bool):
 func _on_body_entered(body):
   if body is Actor:
     body.stop_moving()
-    emit_signal('player_entered_building', self)
+    if body == GameManager.player_actor:
+      emit_signal('player_entered_building', self)
     if body == building_owner:
       if health < max_health:
         is_building = true
@@ -149,6 +150,17 @@ func _on_stackable_withdrawal_requested(item_name) -> void:
     building_owner.add_item(new_item)
   stackable_storage[item_name] -= 1
   emit_signal("stackable_storage_changed", stackable_storage)
+  
+func _on_stackable_buy_requested(item_name, customer) -> void:
+  # TODO gerer les prix
+  var price = 4
+  if item_name in customer.resources.keys():
+    customer.add_resource(item_name, 1)
+  else:
+    var new_item = load('res://classes/item/consumable/%s.gd' % item_name).new()
+    customer.add_item(new_item)
+  stackable_storage[item_name] -= 1
+  customer.gold -= price
   
 func _process(delta):
   if is_building:
