@@ -149,6 +149,7 @@ func _ready():
   player.connect('stamina_changed', gauges_manager, '_on_player_stamina_changed')
   player.connect('mana_changed', gauges_manager, '_on_player_mana_changed')
   player.connect('experience_changed', status_panel, '_on_player_experience_changed')
+  player.connect('gold_changed', storage_panel, "_on_gold_changed")
   player.connect('inventory_changed', storage_panel, "_on_inventory_changed")
   
   # zone de seed pour test

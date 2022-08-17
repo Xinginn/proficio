@@ -8,6 +8,7 @@ func _init(crafter = null):
   _name = "walking_shoes"
   weight = 0.6
   description = "Des chaussures confortables à porter."
+  base_price = 30
   slots = ["feet"]
   # calcul des valeur selon niveau de crafteur
 

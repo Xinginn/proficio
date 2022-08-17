@@ -75,6 +75,7 @@ var attributes: Dictionary = {
   "toolmaking": Attribute.new("toolmaking", "skills"),
   "apothecary": Attribute.new("apothecary", "skills"),
   "cooking": Attribute.new("cooking", "skills"),
+  "bartering": Attribute.new("bartering", "skills"),
   #masteries
   "tools": Attribute.new("tools", "masteries"),
   "knives": Attribute.new("knives", "masteries"),

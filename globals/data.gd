@@ -5,6 +5,7 @@ var crafts = []
 var buildings = []
 var techs = []
 var races = []
+var resource_prices = {}
 
 func _ready():
   lands.append(LandData.new(0, "center", 3, {"herbs": 3, "pebble": 2, "wood": 2, "tree": 1}))

@@ -8,6 +8,7 @@ func _init(crafter = null):
   _name = "lumbering_axe"
   weight = 2.0
   description = "Un outil idéal pour couper du bois. Peut également servir d'arme."
+  base_price = 40
   slots = ["main_hand"]
   # calcul des valeur selon niveau de crafteur
   var base_lumberjack = 3

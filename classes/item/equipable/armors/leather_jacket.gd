@@ -8,6 +8,7 @@ func _init(crafter = null):
   _name = "leather_jacket"
   weight = 4.0
   description = "Une armure légère faite en cuir d'animaux."
+  base_price = 50
   slots = ["body"]
   # calcul des valeur selon niveau de crafteur
   var base_def = 6

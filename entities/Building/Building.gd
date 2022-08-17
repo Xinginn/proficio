@@ -152,15 +152,21 @@ func _on_stackable_withdrawal_requested(item_name) -> void:
   emit_signal("stackable_storage_changed", stackable_storage)
   
 func _on_stackable_buy_requested(item_name, customer) -> void:
-  # TODO gerer les prix
-  var price = 4
-  if item_name in customer.resources.keys():
+  var base_price = 0
+  if item_name in customer.inventory.resources.keys():
+    base_price = Dictionaries.resource_prices[item_name]
     customer.add_resource(item_name, 1)
   else:
     var new_item = load('res://classes/item/consumable/%s.gd' % item_name).new()
+    base_price = new_item.base_price
     customer.add_item(new_item)
+  
   stackable_storage[item_name] -= 1
-  customer.gold -= price
+  emit_signal("stackable_storage_changed", stackable_storage)
+  # gestion niveau de trade dans le prix
+  gold_storage += base_price
+  customer.gold -= int(round(base_price / (0.99 + 0.01 * customer.get_total_attribute("bartering"))))
+  customer.gain_xp("bartering", base_price)
   
 func _process(delta):
   if is_building:

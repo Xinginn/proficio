@@ -8,6 +8,7 @@ func _init(crafter = null):
   _name = "hunting_knife"
   weight = 0.5
   description = "Un couteau utilitaire qui facilite le dépeçage."
+  base_price = 30
   slots = ["main_hand"]
   # calcul des valeur selon niveau de crafteur
   var base_atk = 4

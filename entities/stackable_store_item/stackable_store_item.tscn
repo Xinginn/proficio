@@ -15,7 +15,9 @@ __meta__ = {
 [node name="Icon" type="TextureRect" parent="."]
 margin_right = 32.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 texture = ExtResource( 2 )
+expand = true
 
 [node name="QuantityLabel" type="Label" parent="."]
 margin_left = 36.0

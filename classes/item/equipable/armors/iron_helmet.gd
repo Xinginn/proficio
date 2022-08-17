@@ -8,6 +8,7 @@ func _init(crafter = null):
   _name = "iron_helmet"
   weight = 1.5
   description = "Une pièce de metal protègeant le crâne."
+  base_price = 65
   slots = ["head"]
   # calcul des valeur selon niveau de crafteur
   var base_def = 3

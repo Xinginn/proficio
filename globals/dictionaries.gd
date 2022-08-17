@@ -26,6 +26,19 @@ var resource_weights: Dictionary = {
   "iron": 0.4
  }
 
+var resource_prices: Dictionary = {
+  "cristal" : 5,
+  "fiber": 2,
+  "herb": 3,
+  "leather": 6,
+  "ore": 4,
+  "skin": 3,
+  "stone": 2,
+  "wheat": 2,
+  "wood": 2,
+  "iron": 8,
+ }
+
 var caracs = [
   #caracs
   "atk_lvl",
@@ -51,6 +64,7 @@ var skills = [
   "toolmaking",
   "apothecary",
   "cooking",
+  "bartering",
 ]
 
 var masteries = [
@@ -87,6 +101,7 @@ var attribute_names = {
   "toolmaking": "Bricolage",
   "apothecary": "Apothicaire",
   "cooking": "Cuisine",
+  "bartering": "Marchandage",
   # masteries
   "tools": "Outils",
   "knives": "Dagues",
