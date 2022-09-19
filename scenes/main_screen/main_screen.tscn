@@ -181,6 +181,7 @@ margin_left = 28.9232
 margin_top = 29.9241
 margin_right = 598.923
 margin_bottom = 556.924
+
 [connection signal="pressed" from="NewGame" to="." method="_on_new_game_button_pressed"]
 [connection signal="value_changed" from="NewGamePanel/MapMenu/WorldSize/WorldSize" to="." method="_on_world_size_slider_value_changed"]
 [connection signal="value_changed" from="NewGamePanel/MapMenu/Forest/ForestSlider" to="." method="_on_forest_slider_value_changed"]

@@ -96,5 +96,6 @@ text = "Confirmer"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="text_changed" from="Label/NameInput" to="." method="_on_name_text_changed"]
 [connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_pressed"]
