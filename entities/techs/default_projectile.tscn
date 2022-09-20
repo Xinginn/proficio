@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://entities/techs/bullet.gd" type="Script" id=1]
+[ext_resource path="res://entities/techs/default_projectile.gd" type="Script" id=1]
 [ext_resource path="res://tres/spriteframes/skills/slash.tres" type="SpriteFrames" id=2]
 
-[node name="WeaponStrike" type="AnimatedSprite"]
+[node name="DefaultProjectile" type="AnimatedSprite"]
 frames = ExtResource( 2 )
 script = ExtResource( 1 )
 

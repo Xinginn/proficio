@@ -42,6 +42,8 @@ func _ready():
   buildings.append(BuildingData.new(99, "building_01", "Test", 500, 4, {}, [0,1,2,3,4,5,6,7,8,9,10,11,12,13], ["ore", "wood", "stamina_potion"], []))
   # id, _name, type, skill ('weapon' pour déduire de l'arme equipée, _xp_gain, _cost ( _range ou area)
   techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))
+  # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _velocity, _lifespan
+  techs.append(ProjectileData.new(1, "default_projectile", "projectile", "armorsmith", 4, {"stamina": 1}, 1.0, 200, 1))
   
   
   races = [

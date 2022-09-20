@@ -327,7 +327,12 @@ func launch_tech(id: int, attack_direction) -> void:
     var rota = global_position.direction_to(tech_pos).angle_to(Vector2(1,0)) * 180 / -PI
     new_tech.rotation_degrees = rota
     new_tech.launch(self)
-  
+  if data is ProjectileData:
+    new_tech.global_position = global_position
+    new_tech.normalized_direction = attack_direction
+    var rota = global_position.direction_to(global_position + attack_direction).angle_to(Vector2(1,0)) * 180 / -PI
+    new_tech.rotation_degrees = rota
+    new_tech.launch(self)
 
 # ------- fonctions de navigation et d'IA -------
 func go_to_nearest_resource(resource_name: String):
