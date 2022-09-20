@@ -2,6 +2,8 @@ extends TechData
 
 class_name ProjectileData
 
+var velocity: int
+var lifespan: int
 
 func _init(_id: int, _tech_name: String, _type: String, _skill: String, _xp_gain: int, _cooldown: float, _cost: Dictionary):
   id = _id
