@@ -43,7 +43,7 @@ func _ready():
   # id, _name, type, skill ('weapon' pour déduire de l'arme equipée, _xp_gain, _cost ( _range ou area)
   techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))
   # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _velocity, _lifespan
-  techs.append(ProjectileData.new(1, "default_projectile", "projectile", "armorsmith", 4, {"stamina": 1}, 1.0, 200, 1))
+  techs.append(ProjectileData.new(1, "default_projectile", "projectile", "armorsmith", 4, {"stamina": 1}, 1.0, 200, 20))
   
   
   races = [
