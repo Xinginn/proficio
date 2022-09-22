@@ -51,6 +51,9 @@ var health_regain :float = 0.0
 var stamina_regain :float = 0.0
 var mana_regain :float = 0.0
 
+var techs = []
+var cooldowns = []
+
 # --------- LEVELS AND XP ---------
 var attributes: Dictionary = {
   # caracs
@@ -94,6 +97,8 @@ signal health_changed(current, maxi)
 signal stamina_changed(current, maxi)
 signal mana_changed(current, maxi)
 signal experience_changed()
+signal tech_list_changed(techs)
+signal cooldowns_changed(cooldowns)
 
 func _set_health(value) -> void:
   var max_h = max_health + get_total_attribute("max_health_lvl")
@@ -316,7 +321,7 @@ func stop_harvesting() -> void:
   texture_progress.hide()
   
 func launch_tech(id: int, attack_direction) -> void:
-  var data: TechData = Data.techs[id]
+  var data = techs[id]
   var tech_scene = load('res://entities/techs/%s.tscn' % data._name)
   var new_tech = tech_scene.instance()
   new_tech.tech_data = data
@@ -327,13 +332,17 @@ func launch_tech(id: int, attack_direction) -> void:
     var rota = global_position.direction_to(tech_pos).angle_to(Vector2(1,0)) * 180 / -PI
     new_tech.rotation_degrees = rota
     new_tech.launch(self)
+    # TODO gain_xp
   if data is ProjectileData:
     new_tech.global_position = global_position
     new_tech.normalized_direction = attack_direction
     var rota = global_position.direction_to(global_position + attack_direction).angle_to(Vector2(1,0)) * 180 / -PI
     new_tech.rotation_degrees = rota
     new_tech.launch(self)
-  gain_xp(data.skill, data.xp_gain)
+    gain_xp(data.skill, data.xp_gain)
+    
+  cooldowns[id] = data.cooldown
+  emit_signal("cooldowns_changed", cooldowns)
 
 # ------- fonctions de navigation et d'IA -------
 func go_to_nearest_resource(resource_name: String):
@@ -376,6 +385,11 @@ func gain_xp(main_attribute, xp_value):
 
 func _ready() -> void:
   texture_progress.hide()
+  techs = [Data.techs[0], Data.techs[1]]
+  for tech in techs:
+    cooldowns.append(0.0)
+  yield(get_tree(), "idle_frame")
+  emit_signal("tech_list_changed", techs)
 
 func _physics_process(delta):
 
@@ -409,3 +423,12 @@ func _physics_process(delta):
     self.stamina -= current_resource_spot.stamina_loss_while_harvesting * delta
     if stamina == 0.0:
       stop_harvesting()
+      
+  var cooldown_changed = false
+  for key in techs.size():
+    if cooldowns[key] > 0.0:
+      cooldowns[key] = max(0.0, cooldowns[key] - delta)
+      cooldown_changed = true
+  if cooldown_changed:
+    emit_signal("cooldowns_changed", cooldowns)
+      

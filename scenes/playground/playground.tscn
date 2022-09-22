@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://tres/styles/gaugebar_back.tres" type="StyleBox" id=2]
@@ -17,10 +17,12 @@
 [ext_resource path="res://scenes/playground/inventory_panel.gd" type="Script" id=15]
 [ext_resource path="res://assets/inventory_gear.png" type="Texture" id=16]
 [ext_resource path="res://scenes/playground/storage_panel.gd" type="Script" id=17]
+[ext_resource path="res://scenes/playground/cooldowns_manager.gd" type="Script" id=18]
 [ext_resource path="res://assets/weight.png" type="Texture" id=19]
 [ext_resource path="res://assets/gold.png" type="Texture" id=20]
 [ext_resource path="res://entities/inventory_item/inventory_item.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/empty_48.png" type="Texture" id=22]
+[ext_resource path="res://entities/cooldown_display/cooldown_display.tscn" type="PackedScene" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 0, 0 )
@@ -81,10 +83,10 @@ z_as_relative = false
 current = true
 
 [node name="StartBuildButton" type="TextureButton" parent="Camera"]
-margin_left = -772.501
-margin_top = 343.445
-margin_right = -702.501
-margin_bottom = 418.445
+margin_left = -781.41
+margin_top = 188.429
+margin_right = -711.41
+margin_bottom = 263.429
 texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -610,6 +612,18 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CooldownsManager" type="HBoxContainer" parent="Camera"]
+margin_left = -780.427
+margin_top = 363.487
+margin_right = -740.427
+margin_bottom = 403.487
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CooldownDisplay" parent="Camera/CooldownsManager" instance=ExtResource( 23 )]
 
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]

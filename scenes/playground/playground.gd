@@ -17,6 +17,7 @@ onready var craft_panel = $Camera/BuildingWindow/CraftTab/CraftPanel
 onready var storage_panel = $Camera/BuildingWindow/StorageTab/StoragePanel
 onready var gauges_manager = $Camera/GaugesManager
 onready var building_buttons_container = $Camera/StartBuildButton/BuildingButtonsContainer
+onready var cooldowns_manager = $Camera/CooldownsManager
 
 onready var building_ghost = $BuildingGhost
 onready var building_ghost_occupied_space = $BuildingGhost/OccupiedSpaceArea
@@ -151,6 +152,8 @@ func _ready():
   player.connect('experience_changed', status_panel, '_on_player_experience_changed')
   player.connect('gold_changed', storage_panel, "_on_gold_changed")
   player.connect('inventory_changed', storage_panel, "_on_inventory_changed")
+  player.connect('tech_list_changed', cooldowns_manager, "_on_tech_list_changed")
+  player.connect('cooldowns_changed', cooldowns_manager, "_on_player_cooldowns_changed")
   
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()
