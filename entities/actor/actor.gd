@@ -316,7 +316,7 @@ func stop_harvesting() -> void:
   texture_progress.hide()
   
 func launch_tech(id: int, attack_direction) -> void:
-  var data = Data.techs[id]
+  var data: TechData = Data.techs[id]
   var tech_scene = load('res://entities/techs/%s.tscn' % data._name)
   var new_tech = tech_scene.instance()
   new_tech.tech_data = data
@@ -333,6 +333,7 @@ func launch_tech(id: int, attack_direction) -> void:
     var rota = global_position.direction_to(global_position + attack_direction).angle_to(Vector2(1,0)) * 180 / -PI
     new_tech.rotation_degrees = rota
     new_tech.launch(self)
+  gain_xp(data.skill, data.xp_gain)
 
 # ------- fonctions de navigation et d'IA -------
 func go_to_nearest_resource(resource_name: String):
