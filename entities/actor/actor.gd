@@ -79,6 +79,7 @@ var attributes: Dictionary = {
   "apothecary": Attribute.new("apothecary", "skills"),
   "cooking": Attribute.new("cooking", "skills"),
   "bartering": Attribute.new("bartering", "skills"),
+  "pyromancy": Attribute.new("pyromancy", "skills"),
   #masteries
   "tools": Attribute.new("tools", "masteries"),
   "knives": Attribute.new("knives", "masteries"),
@@ -331,6 +332,11 @@ func launch_tech(id: int, attack_direction) -> void:
     new_tech.global_position = tech_pos
     var rota = global_position.direction_to(tech_pos).angle_to(Vector2(1,0)) * 180 / -PI
     new_tech.rotation_degrees = rota
+    var main_hand = inventory.gear['main_hand']
+    if !!main_hand:
+      var mastery_name = inventory.gear['main_hand'].atk.attribute_name
+      gain_xp(mastery_name, data.xp_gain)
+    else: print('no weapon equipped')
     new_tech.launch(self)
     # TODO gain_xp
   if data is ProjectileData:

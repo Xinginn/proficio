@@ -65,6 +65,7 @@ var skills = [
   "apothecary",
   "cooking",
   "bartering",
+  "pyromancy",
 ]
 
 var masteries = [
@@ -102,6 +103,7 @@ var attribute_names = {
   "apothecary": "Apothicaire",
   "cooking": "Cuisine",
   "bartering": "Marchandage",
+  "pyromancy": "Pyromancie",
   # masteries
   "tools": "Outils",
   "knives": "Dagues",
