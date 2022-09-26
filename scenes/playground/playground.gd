@@ -170,3 +170,4 @@ func _ready():
 #  player.gain_xp("light_armors", 200)
 #  player.gain_xp("leatherwork", 200)
   player.gold += 120
+  player.health -= 6

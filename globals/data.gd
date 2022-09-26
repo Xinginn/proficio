@@ -45,6 +45,8 @@ func _ready():
   techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))
   # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _velocity, _lifespan
   techs.append(ProjectileData.new(1, "default_projectile", "projectile", "pyromancy", 1, {"mana": 1}, 0.5, 200, 20))
+    # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _area_multiplier
+  techs.append(SelfCenteredData.new(2, "default_self_centered", "self_centered", "pyromancy", 1, {"mana": 1}, 1.0, 1.0))
   
   
   races = [

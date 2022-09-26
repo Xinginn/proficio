@@ -346,6 +346,10 @@ func launch_tech(id: int, attack_direction) -> void:
     new_tech.rotation_degrees = rota
     new_tech.launch(self)
     gain_xp(data.skill, data.xp_gain)
+  if data is SelfCenteredData:
+    new_tech.global_position = global_position
+    new_tech.launch(self)
+    gain_xp(data.skill, data.xp_gain)
     
   cooldowns[id] = data.cooldown
   emit_signal("cooldowns_changed", cooldowns)
@@ -391,7 +395,7 @@ func gain_xp(main_attribute, xp_value):
 
 func _ready() -> void:
   texture_progress.hide()
-  techs = [Data.techs[0], Data.techs[1]]
+  techs = [Data.techs[0], Data.techs[1], Data.techs[2]]
   for tech in techs:
     cooldowns.append(0.0)
   yield(get_tree(), "idle_frame")
