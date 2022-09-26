@@ -3,7 +3,6 @@ extends AnimatedSprite
 var caster: Actor
 var tech_data: SelfCenteredData
 
-
 func _on_animation_finished():
   queue_free()
 
@@ -12,6 +11,7 @@ func _on_body_entered(body):
     body.health += 5.0
 
 func launch(_caster: Actor) -> void:
+  scale *= tech_data.area_multiplier
   caster = _caster
   # initialisation 
   frame = 0
