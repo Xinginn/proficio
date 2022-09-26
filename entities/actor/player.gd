@@ -1,4 +1,6 @@
 extends Actor
+class_name Player
+
 
 func _physics_process(_delta):
   # movement clavier pour player

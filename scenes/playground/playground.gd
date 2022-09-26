@@ -84,14 +84,16 @@ func _on_player_entered_building(building) -> void:
     last_building.disconnect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
     last_building.disconnect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
     last_building.disconnect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
+    last_building.disconnect('gold_storage_changed', storage_panel, "_on_building_gold_changed")
     craft_panel.disconnect('recipe_requested', last_building, '_on_recipe_requested')
     craft_panel.disconnect('cancel_requested', last_building, '_on_cancel_requested')
     storage_panel.disconnect('stackable_storage_requested', last_building, '_on_stackable_storage_requested')
     storage_panel.disconnect('stackable_withdrawal_requested', last_building, '_on_stackable_withdrawal_requested')
-    storage_panel.disconnect('stackable_buy_requested', building, '_on_stackable_buy_requested')
+    storage_panel.disconnect('stackable_buy_requested', last_building, '_on_stackable_buy_requested')
   building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
   building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
   building.connect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
+  building.connect('gold_storage_changed', storage_panel, "_on_building_gold_changed")
   craft_panel.connect('recipe_requested', building, '_on_recipe_requested')
   craft_panel.connect('cancel_requested', building, '_on_cancel_requested')
   storage_panel.connect('stackable_storage_requested', building, '_on_stackable_storage_requested')
@@ -167,4 +169,4 @@ func _ready():
   player.add_resource("leather", 8)
 #  player.gain_xp("light_armors", 200)
 #  player.gain_xp("leatherwork", 200)
-  player.gold += 4
+  player.gold += 120

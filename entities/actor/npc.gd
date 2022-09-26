@@ -2,11 +2,11 @@ extends Actor
 
 const building_scene: PackedScene = preload('res://entities/building/building.tscn')
 
-const IA_DECISION_INTERVAL = 16.0
+const IA_DECISION_INTERVAL = 8.0
 
 onready var buildings_holder = get_node('../BuildingsHolder')
 
-var ia_clock = 15.0
+var ia_clock = 0.0
 
 func take_decision():
   ia_clock -= IA_DECISION_INTERVAL

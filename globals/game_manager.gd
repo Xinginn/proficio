@@ -4,7 +4,7 @@ onready var animation_player = $AnimationPlayer
 onready var black_panel = $CanvasLayer/BlackPanel
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-var player_name: String = "Mouette"
+var player_name: String = "mouette"
 var player_actor = null
 
 var world_size: int = 1

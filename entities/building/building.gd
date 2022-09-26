@@ -24,7 +24,7 @@ var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
 var frames_since_no_overlap: int = 0
 
-var gold_storage: int = 0
+var gold_storage: int = 0 setget _set_gold_storage
 var stackable_storage = {}
 var equipable_storage = []
 
@@ -38,6 +38,7 @@ signal craft_queue_changed(queue)
 signal occupied_space_overlapped(building)
 signal ended_spawning(building)
 signal stackable_storage_changed(storage)
+signal gold_storage_changed(gold)
 
 func _set_is_crafting(value: bool) -> void:
   is_crafting = value
@@ -70,10 +71,15 @@ func _set_craft_progress(value) -> void:
       if craft_queue.size() == 0:
         is_crafting = false
       craft_progress = 0
+  
+func _set_gold_storage(value) -> void:
+  gold_storage = value
+  emit_signal("gold_storage_changed", gold_storage)
 
 func _initialize(_owner, data, pos) -> void:
   building_owner = _owner
   building_data = data
+  self.gold_storage = 0
   texture = load("res://assets/buildings/%s.png" % data._name)
   global_position = pos
   var level = building_owner.get_total_attribute("construction")
@@ -106,7 +112,8 @@ func _on_body_exited(body):
     is_building = false
     is_crafting = false
     emit_signal('craft_queue_changed', [])
-  emit_signal('player_exited_building')
+  if body is Player:
+    emit_signal('player_exited_building')
 
 # signaux: recipe_button -> craft panel -> ici
 func _on_recipe_requested(craft_data) -> void:
@@ -160,11 +167,10 @@ func _on_stackable_buy_requested(item_name, customer) -> void:
     var new_item = load('res://classes/item/consumable/%s.gd' % item_name).new()
     base_price = new_item.base_price
     customer.add_item(new_item)
-  
   stackable_storage[item_name] -= 1
   emit_signal("stackable_storage_changed", stackable_storage)
   # gestion niveau de trade dans le prix
-  gold_storage += base_price
+  self.gold_storage += base_price
   customer.gold -= int(round(base_price / (0.99 + 0.01 * customer.get_total_attribute("bartering"))))
   customer.gain_xp("bartering", base_price)
   

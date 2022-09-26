@@ -16,6 +16,7 @@ signal stackable_buy_requested(_name, customer)
 
 
 func _initialize(building):
+  gold_label.text = "%s" % building.gold_storage
   for child in stackables_container.get_children():
     child.queue_free()
   for item_name in building.building_data.storable_stackables:
@@ -57,6 +58,9 @@ func _on_inventory_changed(_inventory):
 # TODO checker aussi lors du changement de bartering_level
 func _on_gold_changed(player_gold):
   check_for_affordable_items(player_gold)
+  
+func _on_building_gold_changed(building_gold):
+  gold_label.text = str(building_gold)
       
 func _on_stackable_storage_changed(stackable_storage):
   for item_name in stackable_storage.keys():
