@@ -321,7 +321,8 @@ func stop_harvesting() -> void:
   current_resource_spot = null
   texture_progress.hide()
   
-func launch_tech(id: int, attack_direction) -> void:
+func launch_tech(id: int, target_position) -> void:
+  var attack_direction = Vector2(target_position - global_position).normalized()
   var data = techs[id]
   var tech_scene = load('res://entities/techs/%s.tscn' % data._name)
   var new_tech = tech_scene.instance()
@@ -348,6 +349,10 @@ func launch_tech(id: int, attack_direction) -> void:
     gain_xp(data.skill, data.xp_gain)
   if data is SelfCenteredData:
     new_tech.global_position = global_position
+    new_tech.launch(self)
+    gain_xp(data.skill, data.xp_gain)
+  if data is SpotTargetedData:
+    new_tech.global_position = target_position
     new_tech.launch(self)
     gain_xp(data.skill, data.xp_gain)
     
@@ -395,7 +400,7 @@ func gain_xp(main_attribute, xp_value):
 
 func _ready() -> void:
   texture_progress.hide()
-  techs = [Data.techs[0], Data.techs[1], Data.techs[2]]
+  techs = [Data.techs[0], Data.techs[1], Data.techs[2], Data.techs[3]]
   for tech in techs:
     cooldowns.append(0.0)
   yield(get_tree(), "idle_frame")

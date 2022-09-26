@@ -22,17 +22,18 @@ func _unhandled_input(event):
     if event.button_index == BUTTON_RIGHT and event.pressed:
       if can_afford_skill(techs[0].cost):  # gestion temporaire couts
         if cooldowns[0] == 0.0: # TODO gestion cooldonw
-          var attack_direction = Vector2(get_global_mouse_position() - global_position).normalized()
-          launch_tech(0, attack_direction)
+          launch_tech(0, get_global_mouse_position())
   if event is InputEventKey:
     if Input.is_action_just_pressed("action_1"):
       if can_afford_skill(techs[1].cost):  # gestion temporaire couts
         if cooldowns[1] == 0.0: # TODO gestion cooldonw
-          var attack_direction = Vector2(get_global_mouse_position() - global_position).normalized()
-          launch_tech(1, attack_direction)
+          launch_tech(1, get_global_mouse_position())
     if Input.is_action_just_pressed("action_2"):
       if can_afford_skill(techs[2].cost):  # gestion temporaire couts
         if cooldowns[2] == 0.0: # TODO gestion cooldonw
-          var attack_direction = Vector2(get_global_mouse_position() - global_position).normalized()
-          launch_tech(2, attack_direction)
+          launch_tech(2, get_global_mouse_position())
+    if Input.is_action_just_pressed("action_3"):
+      if can_afford_skill(techs[2].cost):  # gestion temporaire couts
+        if cooldowns[3] == 0.0: # TODO gestion cooldonw
+          launch_tech(3, get_global_mouse_position())
 
