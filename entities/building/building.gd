@@ -5,6 +5,7 @@ class_name Building
 #const CRAFT_GAIN_SPEED = 100
 const HEALTH_GAIN_SPEED = 1000 # valeur boostée pour simplicité de test
 const CRAFT_GAIN_SPEED = 1000
+const REFINE_GAIN_SPEED = 1
 const MAX_QUEUE_SIZE = 8
 const STAMINA_LOSS_WHILE_BUILDING = 2.0
 const STAMINA_LOSS_WHILE_CRAFTING = 2.0
@@ -24,7 +25,7 @@ var is_spawning: bool = false
 var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
 var refine_progress: float = 0.0 setget _set_refine_progress
-var current_refine_data: RefineData = null 
+var current_refine_data: RefineData = null setget _set_current_refine_data
 var frames_since_no_overlap: int = 0
 
 var gold_storage: int = 0 setget _set_gold_storage
@@ -77,6 +78,11 @@ func _set_craft_progress(value) -> void:
       if craft_queue.size() == 0:
         is_crafting = false
       craft_progress = 0
+      
+func _set_current_refine_data(data) -> void:
+  current_refine_data = data
+  is_refining = !!data
+  emit_signal("current_refine_changed", data)      
       
 func _set_refine_progress(value) -> void:
   refine_progress = value
@@ -140,6 +146,11 @@ func _on_recipe_requested(craft_data) -> void:
       self.is_crafting = true
   else:
     pass
+ 
+func _on_refine_requested(refine_data) -> void:
+  # TODO ajouter verifs de couts
+  self.current_refine_data = refine_data
+
 
 func _on_cancel_requested(index) -> void:
   var refund = craft_queue[index].resources
@@ -184,7 +195,7 @@ func _on_stackable_buy_requested(item_name, customer) -> void:
   self.gold_storage += base_price
   customer.gold -= int(round(base_price / (0.99 + 0.01 * customer.get_total_attribute("bartering"))))
   customer.gain_xp("bartering", base_price)
-  
+
 func _process(delta):
   if is_building:
     var level = building_owner.get_total_attribute("construction")
@@ -203,6 +214,11 @@ func _process(delta):
     building_owner.stamina -= delta * STAMINA_LOSS_WHILE_CRAFTING
     if building_owner.stamina == 0.0:
       is_crafting = false
+  elif is_refining:
+    var level = building_owner.get_total_attribute(current_refine_data.skill_name)
+    var refine_gain = REFINE_GAIN_SPEED * (1.0 + (level - 1) * 0.05) * delta
+    self.refine_progress += delta
+    print(refine_progress)
   else:
     pass
 

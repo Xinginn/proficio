@@ -8,7 +8,6 @@ func _on_tech_list_changed(techs):
   for child in get_children():
     child.queue_free()
   for tech in techs:
-    print(tech._name)
     var new_display = cooldown_display_scene.instance()
     add_child(new_display)
 

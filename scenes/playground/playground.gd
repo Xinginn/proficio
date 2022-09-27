@@ -15,6 +15,7 @@ onready var status_panel = $Camera/StatusPanel
 onready var building_window = $Camera/BuildingWindow
 onready var craft_panel = $Camera/BuildingWindow/CraftTab/CraftPanel
 onready var storage_panel = $Camera/BuildingWindow/StorageTab/StoragePanel
+onready var refine_panel = $Camera/BuildingWindow/RefineTab/RefinePanel
 onready var gauges_manager = $Camera/GaugesManager
 onready var building_buttons_container = $Camera/StartBuildButton/BuildingButtonsContainer
 onready var cooldowns_manager = $Camera/CooldownsManager
@@ -77,14 +78,15 @@ func connect_building(building):
   building.connect('player_exited_building', craft_panel, "_on_player_exited_building")
 
 func _on_player_entered_building(building) -> void:
-  print(building.stackable_storage)
   storage_panel._initialize(building)
+  refine_panel._initialize(building)
   if !!last_building:
     # deconnexion des signaux entre le craft et storage panel et le precedent building
     last_building.disconnect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
     last_building.disconnect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
     last_building.disconnect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
     last_building.disconnect('gold_storage_changed', storage_panel, "_on_building_gold_changed")
+    last_building.disconnect('current_refine_changed', refine_panel, "_on_current_refine_changed")
     craft_panel.disconnect('recipe_requested', last_building, '_on_recipe_requested')
     craft_panel.disconnect('cancel_requested', last_building, '_on_cancel_requested')
     storage_panel.disconnect('stackable_storage_requested', last_building, '_on_stackable_storage_requested')
@@ -94,11 +96,14 @@ func _on_player_entered_building(building) -> void:
   building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
   building.connect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
   building.connect('gold_storage_changed', storage_panel, "_on_building_gold_changed")
+  building.connect('current_refine_changed', refine_panel, "_on_current_refine_changed")
+  
   craft_panel.connect('recipe_requested', building, '_on_recipe_requested')
   craft_panel.connect('cancel_requested', building, '_on_cancel_requested')
   storage_panel.connect('stackable_storage_requested', building, '_on_stackable_storage_requested')
   storage_panel.connect('stackable_withdrawal_requested', building, '_on_stackable_withdrawal_requested')
   storage_panel.connect('stackable_buy_requested', building, '_on_stackable_buy_requested')
+  refine_panel.connect('refine_requested', building, '_on_refine_requested')
   
   last_building = building
 
