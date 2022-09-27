@@ -19,9 +19,12 @@ var building_owner = null
 var building_data: BuildingData = null
 var is_building: bool = false
 var is_crafting: bool = false setget _set_is_crafting
+var is_refining: bool = false
 var is_spawning: bool = false
 var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
+var refine_progress: float = 0.0 setget _set_refine_progress
+var current_refine_data: RefineData = null 
 var frames_since_no_overlap: int = 0
 
 var gold_storage: int = 0 setget _set_gold_storage
@@ -31,10 +34,13 @@ var equipable_storage = []
 signal building_destroyed(building)
 signal building_constructed(building)
 signal craft_progress_changed(value)
+signal craft_queue_changed(queue)
+signal refine_progress_changed(value)
+signal current_refine_changed(value)
 signal player_entered_building(building)
 signal player_entered_owned_building(data)
 signal player_exited_building
-signal craft_queue_changed(queue)
+
 signal occupied_space_overlapped(building)
 signal ended_spawning(building)
 signal stackable_storage_changed(storage)
@@ -71,6 +77,10 @@ func _set_craft_progress(value) -> void:
       if craft_queue.size() == 0:
         is_crafting = false
       craft_progress = 0
+      
+func _set_refine_progress(value) -> void:
+  refine_progress = value
+  emit_signal('refine_progress_changed', refine_progress)
   
 func _set_gold_storage(value) -> void:
   gold_storage = value
@@ -111,6 +121,7 @@ func _on_body_exited(body):
   if body == building_owner:
     is_building = false
     is_crafting = false
+    is_refining = false
     emit_signal('craft_queue_changed', [])
   if body is Player:
     emit_signal('player_exited_building')

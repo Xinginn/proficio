@@ -124,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/data_holders/tech_data/projectile_data.gd"
 }, {
+"base": "Node",
+"class": "RefineData",
+"language": "GDScript",
+"path": "res://classes/data_holders/refine_data.gd"
+}, {
 "base": "Sprite",
 "class": "ResourceSpot",
 "language": "GDScript",
@@ -193,6 +198,7 @@ _global_script_class_icons={
 "LumberingAxe": "",
 "Player": "",
 "ProjectileData": "",
+"RefineData": "",
 "ResourceSpot": "",
 "SelfCenteredData": "",
 "SpotTargetedData": "",
