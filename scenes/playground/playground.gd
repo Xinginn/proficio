@@ -75,6 +75,7 @@ func connect_building(building):
   building.connect('player_entered_building', building_window, "_on_player_entered_building")
   building.connect('player_exited_building', building_window, "_on_player_exited_building")
   building.connect('player_entered_owned_building', craft_panel, "_on_player_entered_owned_building")
+  building.connect('player_entered_owned_building', refine_panel, "_on_player_entered_owned_building")
   building.connect('player_exited_building', craft_panel, "_on_player_exited_building")
 
 func _on_player_entered_building(building) -> void:
@@ -87,23 +88,27 @@ func _on_player_entered_building(building) -> void:
     last_building.disconnect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
     last_building.disconnect('gold_storage_changed', storage_panel, "_on_building_gold_changed")
     last_building.disconnect('current_refine_changed', refine_panel, "_on_current_refine_changed")
+    last_building.disconnect('refine_progress_changed', refine_panel, "_on_refine_progress_changed")
     craft_panel.disconnect('recipe_requested', last_building, '_on_recipe_requested')
     craft_panel.disconnect('cancel_requested', last_building, '_on_cancel_requested')
     storage_panel.disconnect('stackable_storage_requested', last_building, '_on_stackable_storage_requested')
     storage_panel.disconnect('stackable_withdrawal_requested', last_building, '_on_stackable_withdrawal_requested')
     storage_panel.disconnect('stackable_buy_requested', last_building, '_on_stackable_buy_requested')
+    refine_panel.disconnect('refine_requested', last_building, '_on_refine_requested')
+    refine_panel.disconnect('refine_loop_toggled', last_building, '_on_refine_loop_toggled')
   building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
   building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
   building.connect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
   building.connect('gold_storage_changed', storage_panel, "_on_building_gold_changed")
   building.connect('current_refine_changed', refine_panel, "_on_current_refine_changed")
-  
+  building.connect('refine_progress_changed', refine_panel, "_on_refine_progress_changed")
   craft_panel.connect('recipe_requested', building, '_on_recipe_requested')
   craft_panel.connect('cancel_requested', building, '_on_cancel_requested')
   storage_panel.connect('stackable_storage_requested', building, '_on_stackable_storage_requested')
   storage_panel.connect('stackable_withdrawal_requested', building, '_on_stackable_withdrawal_requested')
   storage_panel.connect('stackable_buy_requested', building, '_on_stackable_buy_requested')
   refine_panel.connect('refine_requested', building, '_on_refine_requested')
+  refine_panel.connect('refine_loop_toggled', building, '_on_refine_loop_toggled')
   
   last_building = building
 
@@ -170,7 +175,7 @@ func _ready():
   player.add_item(StaminaPotion.new())
   player.emit_signal('inventory_changed', player.inventory)
   player.add_resource("wood", 4)
-  player.add_resource("stone", 3)
+  player.add_resource("stone", 15)
   player.add_resource("leather", 8)
 #  player.gain_xp("light_armors", 200)
 #  player.gain_xp("leatherwork", 200)

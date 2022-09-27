@@ -7,7 +7,6 @@ signal refine_button_pressed(data)
 
 func _initialize(_data: RefineData):
   refine_data = _data
-  print(_data)
   $Label.text = refine_data._name
   # TODO $InputIcon.texture = load('res://assets/icons/%s.png' % refine_data.outputs)
 

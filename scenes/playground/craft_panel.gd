@@ -14,8 +14,8 @@ var queue_buttons: Array = []
 signal recipe_requested(data)
 signal cancel_requested(index)
 
-func _on_player_entered_owned_building(building_data) -> void:
-  for id in building_data.craft_ids:
+func _on_player_entered_owned_building(building) -> void:
+  for id in building.building_data.craft_ids:
     var new_button = recipe_button_scene.instance()
     recipe_container.add_child(new_button)
     new_button._initialize(Data.crafts[id])

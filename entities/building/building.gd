@@ -25,6 +25,7 @@ var is_spawning: bool = false
 var craft_progress: float = 0.0 setget _set_craft_progress
 var craft_queue: Array = []
 var refine_progress: float = 0.0 setget _set_refine_progress
+var is_refine_looping: bool = true
 var current_refine_data: RefineData = null setget _set_current_refine_data
 var frames_since_no_overlap: int = 0
 
@@ -62,7 +63,8 @@ func _set_health(value) -> void:
     building_owner.gain_xp("construction", 10)
     emit_signal('building_constructed', self)
     is_building = false
-    emit_signal("player_entered_owned_building", building_data)
+    if building_owner == GameManager.player_actor:
+      emit_signal("player_entered_owned_building", self)
 
 func _set_craft_progress(value) -> void:
   craft_progress = value
@@ -81,11 +83,26 @@ func _set_craft_progress(value) -> void:
       
 func _set_current_refine_data(data) -> void:
   current_refine_data = data
+  self.refine_progress = 0.0
   is_refining = !!data
   emit_signal("current_refine_changed", data)      
       
 func _set_refine_progress(value) -> void:
   refine_progress = value
+  if !current_refine_data:
+    return
+  elif refine_progress >= current_refine_data.time:
+    building_owner.gain_xp(current_refine_data.skill_name, current_refine_data.xp_gain)
+    for input_name in current_refine_data.inputs.keys():
+      building_owner.remove_resource(input_name, current_refine_data.inputs[input_name])
+    for output_name in current_refine_data.outputs.keys():
+      building_owner.add_resource(output_name, current_refine_data.outputs[output_name])
+    if is_refine_looping:
+      refine_progress -= current_refine_data.time
+    else:
+      refine_progress = 0.0
+      is_refining = false
+      self.current_refine_data = null
   emit_signal('refine_progress_changed', refine_progress)
   
 func _set_gold_storage(value) -> void:
@@ -119,7 +136,7 @@ func _on_body_entered(body):
       if health < max_health:
         is_building = true
       elif body == GameManager.player_actor:
-        emit_signal("player_entered_owned_building", building_data)
+        emit_signal("player_entered_owned_building", self)
         emit_signal('craft_queue_changed', craft_queue)
         is_crafting = true
     
@@ -150,8 +167,11 @@ func _on_recipe_requested(craft_data) -> void:
 func _on_refine_requested(refine_data) -> void:
   # TODO ajouter verifs de couts
   self.current_refine_data = refine_data
-
-
+  self.refine_progress = 0.0
+  
+func _on_refine_loop_toggled(value: bool) -> void:
+  is_refine_looping = value
+  
 func _on_cancel_requested(index) -> void:
   var refund = craft_queue[index].resources
   for res in refund.keys():
@@ -218,7 +238,6 @@ func _process(delta):
     var level = building_owner.get_total_attribute(current_refine_data.skill_name)
     var refine_gain = REFINE_GAIN_SPEED * (1.0 + (level - 1) * 0.05) * delta
     self.refine_progress += delta
-    print(refine_progress)
   else:
     pass
 
