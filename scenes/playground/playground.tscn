@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://tres/styles/gaugebar_back.tres" type="StyleBox" id=2]
@@ -23,6 +23,8 @@
 [ext_resource path="res://entities/inventory_item/inventory_item.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/empty_48.png" type="Texture" id=22]
 [ext_resource path="res://entities/cooldown_display/cooldown_display.tscn" type="PackedScene" id=23]
+[ext_resource path="res://assets/icons/cudgel.png" type="Texture" id=24]
+[ext_resource path="res://scenes/playground/refine_panel.gd" type="Script" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 0, 0 )
@@ -282,6 +284,7 @@ margin_bottom = -4.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = ExtResource( 14 )
+script = ExtResource( 25 )
 
 [node name="RefineRecipeContainer" type="VBoxContainer" parent="Camera/BuildingWindow/RefineTab/RefinePanel"]
 margin_left = 19.0
@@ -312,6 +315,15 @@ nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureButton" type="TextureButton" parent="Camera/BuildingWindow/RefineTab/RefinePanel"]
+margin_left = 194.457
+margin_top = 44.4472
+margin_right = 234.457
+margin_bottom = 84.4472
+toggle_mode = true
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 24 )
 
 [node name="InventoryPanel" type="Panel" parent="Camera"]
 margin_left = -746.606
