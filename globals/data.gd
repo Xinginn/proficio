@@ -16,6 +16,7 @@ func _ready():
   
   # id, _name, inputs, outputs, time, skill, xp_gain
   refines.append(RefineData.new(0, "Fondre du fer", {"ore": 3}, {"iron": 1}, 2.0, "smelting", 3))
+  refines.append(RefineData.new(1, "Rafiner des pierres", {"stone": 5}, {"cristal": 1}, 3.0, "alchemy", 3))
   
   # id, product, name, stamina, skill, xp, resources, ?needed_progress = 1000
   crafts.append(CraftData.new(0, HideArmor, "hide_armor", 4, "leatherwork", 8, {"skin": 3}, 1000))  
@@ -34,16 +35,16 @@ func _ready():
   crafts.append(CraftData.new(12, StaminaPotion, "stamina_potion", 4, "apothecary", 4, {"herb": 2, "cristal": 1}, 800))
   crafts.append(CraftData.new(13, CristalPowder, "cristal_powder", 4, "apothecary", 6, {"cristal": 4,}, 1000))
   
-  # id, label, max_health, resources, ?craft_ids = [], ?refine_ids = [],
-  buildings.append(BuildingData.new(0, "workshop", "Atelier", 500, 4, {"wood": 5}, [2, 3, 5, 8, 9], ["herb"]))
-  buildings.append(BuildingData.new(1, "hunting_lodge", "Loge de chasseur", 500, 4, {"wood": 24}, [0, 1, 2]))
-  buildings.append(BuildingData.new(2, "armory", "Armurerie", 500, 4, {"wood": 4, "stone": 3}, [0, 1, 6]))
-  buildings.append(BuildingData.new(3, "foundry", "Fonderie", 500, 4, {"stone": 8}, [], [0]))
-  buildings.append(BuildingData.new(4, "store", "Boutique", 500, 4, {"wood": 6, "stone": 4}, [4, 7]))
-  buildings.append(BuildingData.new(4, "apothecary_shop", "Boutique d'Apothicaire", 500, 4, {"wood": 6, "stone": 4}, [10, 12, 13]))
+  # id, label, max_health, resources, ?craft_ids = [], ?refine_ids = [], ?stackables = [], ?equipables = []
+  buildings.append(BuildingData.new(0, "workshop", "Atelier", 500, 4, {"wood": 5}, [2, 3, 5, 8, 9], [], ["herb"], []))
+  buildings.append(BuildingData.new(1, "hunting_lodge", "Loge de chasseur", 500, 4, {"wood": 24}, [0, 1, 2], [], []))
+  buildings.append(BuildingData.new(2, "armory", "Armurerie", 500, 4, {"wood": 4, "stone": 3}, [0, 1, 6], [], [], []))
+  buildings.append(BuildingData.new(3, "foundry", "Fonderie", 500, 4, {"stone": 8}, [], [0,1], [], []))
+  buildings.append(BuildingData.new(4, "store", "Boutique", 500, 4, {"wood": 6, "stone": 4}, [4, 7], [], [], []))
+  buildings.append(BuildingData.new(4, "apothecary_shop", "Boutique d'Apothicaire", 500, 4, {"wood": 6, "stone": 4}, [10, 12, 13], [], [], []))
   
   # building de test  TODO retirer en prod
-  buildings.append(BuildingData.new(99, "building_01", "Test", 500, 4, {}, [0,1,2,3,4,5,6,7,8,9,10,11,12,13], ["ore", "wood", "stamina_potion"], []))
+  buildings.append(BuildingData.new(99, "building_01", "Test", 500, 4, {}, [0,1,2,3,4,5,6,7,8,9,10,11,12,13], ["ore", "wood", "stamina_potion"], [], []))
   
   # id, _name, type, skill ('weapon' pour déduire de l'arme equipée, _xp_gain, _cost ( _range ou area)
   techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))

@@ -10,6 +10,7 @@ signal refine_requested(data)
 signal refine_loop_toggled(value)
 
 func _initialize(building):
+  progress_bar.value = 0.0
   for child in recipe_container.get_children():
     child.disconnect("refine_button_pressed", self, "_on_refine_button_pressed")
     child.queue_free()

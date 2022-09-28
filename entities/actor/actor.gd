@@ -80,6 +80,7 @@ var attributes: Dictionary = {
   "cooking": Attribute.new("cooking", "skills"),
   "bartering": Attribute.new("bartering", "skills"),
   "pyromancy": Attribute.new("pyromancy", "skills"),
+  "alchemy": Attribute.new("alchemy", "skills"),
   #masteries
   "tools": Attribute.new("tools", "masteries"),
   "knives": Attribute.new("knives", "masteries"),
