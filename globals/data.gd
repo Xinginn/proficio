@@ -6,7 +6,7 @@ var crafts = []
 var buildings = []
 var techs = []
 var races = []
-
+var npc_models = {}
 
 func _ready():
   lands.append(LandData.new(0, "center", 3, {"herbs": 3, "pebble": 2, "wood": 2, "tree": 1}))
@@ -55,8 +55,15 @@ func _ready():
   techs.append(SpotTargetedData.new(3, "default_spot_targeted", "spot_targeted", "pyromancy", 1, {"mana": 1}, 1.0, 1.0))
   
   
-  races = [
-  {"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"},
-  {"id": 1, "name": "dwarf", "label": "Nain", "description": "Description nain", "stats_text": "Santé: 18\nEnergie: 18\nMana: 9"},
-  {"id": 2, "name": "elf", "label": "Elfe", "description": "Description elfe", "stats_text": "Santé: 12\nEnergie: 15\nMana: 18"},
- ]
+  races.append({"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"})
+  races.append({"id": 1, "name": "dwarf", "label": "Nain", "description": "Description nain", "stats_text": "Santé: 18\nEnergie: 18\nMana: 9"})
+  races.append({"id": 2, "name": "elf", "label": "Elfe", "description": "Description elfe", "stats_text": "Santé: 12\nEnergie: 15\nMana: 18"})
+
+  npc_models["chicken"] = {
+    "max_health": 20,
+    "max_stamina": 8,
+    "max_mana": 6,
+    "move_speed": 250,
+    "attributes": { "gathering": 5 },
+   }
+  

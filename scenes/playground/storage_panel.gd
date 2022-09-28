@@ -16,6 +16,7 @@ signal stackable_buy_requested(_name, customer)
 
 
 func _initialize(building):
+  print('init')
   gold_label.text = "%s" % building.gold_storage
   for child in stackables_container.get_children():
     child.queue_free()
@@ -28,6 +29,7 @@ func _initialize(building):
     new_stackable_item.connect('buy_requested', self, '_on_buy_request_from_stackable_item')
     stackable_items[item_name] = new_stackable_item
   check_for_affordable_items(GameManager.player_actor.gold)
+  print(stackable_items)
     
 func check_for_affordable_items(player_gold):
   var resource_names = Dictionaries.resource_names.keys()

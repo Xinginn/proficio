@@ -20,7 +20,7 @@ onready var attack_holder: Node2D = $AttackHolder
 
 var _name: String = "Noname"
 var race: int = 0
-var sprite_path: String = "test"
+var sprite_path: String = "test" setget _set_sprite_path
 
 var team: int = 0
 
@@ -66,6 +66,10 @@ signal mana_changed(current, maxi)
 signal experience_changed()
 signal tech_list_changed(techs)
 signal cooldowns_changed(cooldowns)
+
+func _set_sprite_path(_name: String) -> void:
+  sprite_path = _name
+  animated_sprite.frames = load('res://tres/spriteframes/actors/%s.tres' % sprite_path)
 
 func _set_health(value) -> void:
   var max_h = max_health + get_total_attribute("max_health_lvl")
@@ -365,6 +369,10 @@ func gain_xp(main_attribute, xp_value):
   emit_signal('experience_changed')
 
 func _ready() -> void:
+  _on_ready()
+
+# appelée par _ready pour être overloadable
+func _on_ready() -> void:
   for attr in Dictionaries.caracs:
     var new_attribute = Attribute.new(attr, "caracs")
     attributes[attr] = new_attribute
@@ -374,7 +382,6 @@ func _ready() -> void:
   for attr in Dictionaries.masteries:
     var new_attribute = Attribute.new(attr, "masteries")
     attributes[attr] = new_attribute
-  
   texture_progress.hide()
   techs = [Data.techs[0], Data.techs[1], Data.techs[2], Data.techs[3]]
   for tech in techs:

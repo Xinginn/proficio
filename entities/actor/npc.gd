@@ -8,6 +8,17 @@ onready var buildings_holder = get_node('../BuildingsHolder')
 
 var ia_clock = 0.0
 
+func load_npc_model(model_name: String) -> void:
+
+  var model = Data.npc_models[model_name]
+  for attr_name in model["attributes"].keys():
+    attributes[attr_name].level = model["attributes"][attr_name]
+  self.sprite_path = model_name
+  max_health = model["max_health"]
+  max_mana = model["max_mana"]
+  max_stamina = model["max_stamina"]
+  move_speed = model["move_speed"]
+  
 func take_decision():
   ia_clock -= IA_DECISION_INTERVAL
 #  if !!target_position:
@@ -54,4 +65,6 @@ func _process(delta):
   if ia_clock >= IA_DECISION_INTERVAL:
     take_decision()
 
-
+func _on_ready():
+  ._on_ready()
+  load_npc_model("chicken")
