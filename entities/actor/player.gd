@@ -33,7 +33,7 @@ func _unhandled_input(event):
         if cooldowns[2] == 0.0: # TODO gestion cooldonw
           launch_tech(2, get_global_mouse_position())
     if Input.is_action_just_pressed("action_3"):
-      if can_afford_skill(techs[2].cost):  # gestion temporaire couts
-        if cooldowns[3] == 0.0: # TODO gestion cooldonw
-          launch_tech(3, get_global_mouse_position())
+      if can_afford_skill(techs[4].cost):  # gestion temporaire couts
+        if cooldowns[4] == 0.0: # TODO gestion cooldonw
+          launch_tech(4, get_global_mouse_position())
 

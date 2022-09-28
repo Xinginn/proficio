@@ -1,5 +1,7 @@
 extends Actor
 
+class_name Npc
+
 const building_scene: PackedScene = preload('res://entities/building/building.tscn')
 
 const IA_DECISION_INTERVAL = 8.0

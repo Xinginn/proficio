@@ -383,7 +383,7 @@ func _on_ready() -> void:
     var new_attribute = Attribute.new(attr, "masteries")
     attributes[attr] = new_attribute
   texture_progress.hide()
-  techs = [Data.techs[0], Data.techs[1], Data.techs[2], Data.techs[3]]
+  techs = [Data.techs[0], Data.techs[1], Data.techs[2], Data.techs[3], Data.techs[4]]
   for tech in techs:
     cooldowns.append(0.0)
   yield(get_tree(), "idle_frame")
