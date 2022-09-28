@@ -43,7 +43,6 @@ func check_for_affordable_items(player_gold):
     stackable_items[item_name].buy_button.disabled = (expected_price > player_gold)
 
 func _on_inventory_changed(_inventory):
-  print(stackable_items)
   var resource_names = Dictionaries.resource_names.keys()
   var item_names = _inventory.get_item_names()
   

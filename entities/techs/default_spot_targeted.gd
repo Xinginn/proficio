@@ -20,5 +20,3 @@ func launch(_caster: Actor) -> void:
   caster.health -= tech_data.cost["health"]
   caster.stamina -= tech_data.cost["stamina"]
   caster.mana -= tech_data.cost["mana"]
-
-  
