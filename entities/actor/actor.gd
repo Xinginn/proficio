@@ -55,42 +55,7 @@ var techs = []
 var cooldowns = []
 
 # --------- LEVELS AND XP ---------
-var attributes: Dictionary = {
-  # caracs
-  "atk_lvl": Attribute.new("atk_lvl", "caracs"),
-  "def_lvl": Attribute.new("def_lvl", "caracs"),
-  "max_health_lvl": Attribute.new("max_health_lvl", "caracs"),
-  "max_stamina_lvl": Attribute.new("max_stamina_lvl", "caracs"),
-  "max_mana_lvl": Attribute.new("max_mana_lvl", "caracs"),
-  "critical": Attribute.new("critical", "caracs"),
-  #skills
-  "construction": Attribute.new("construction", "skills"),
-  "gathering": Attribute.new("gathering", "skills"),
-  "lumberjack": Attribute.new("lumberjack", "skills"),
-  "smelting": Attribute.new("smelting", "skills"),
-  "skinning": Attribute.new("skinning", "skills"),
-  "leatherwork": Attribute.new("leatherwork", "skills"),
-  "weaponsmith": Attribute.new("weaponsmith", "skills"),
-  "armorsmith": Attribute.new("armorsmith", "skills"),
-  "weaving": Attribute.new("weaving", "skills"),
-  "woodcarving": Attribute.new("woodcarving", "skills"),
-  "shoemaking": Attribute.new("shoemaking", "skills"),
-  "toolmaking": Attribute.new("toolmaking", "skills"),
-  "apothecary": Attribute.new("apothecary", "skills"),
-  "cooking": Attribute.new("cooking", "skills"),
-  "bartering": Attribute.new("bartering", "skills"),
-  "pyromancy": Attribute.new("pyromancy", "skills"),
-  "alchemy": Attribute.new("alchemy", "skills"),
-  #masteries
-  "tools": Attribute.new("tools", "masteries"),
-  "knives": Attribute.new("knives", "masteries"),
-  "swords": Attribute.new("swords", "masteries"),
-  "masses": Attribute.new("masses", "masteries"),
-  "clothes": Attribute.new("clothes", "masteries"),
-  "shoes": Attribute.new("shoes", "masteries"),
-  "light_armors": Attribute.new("light_armors", "masteries"),
-  "heavy_armors": Attribute.new("heavy_armors", "masteries"),
- }
+var attributes: Dictionary = {}
 
 signal gold_changed(value)
 signal weight_changed(total, maxi)
@@ -400,6 +365,16 @@ func gain_xp(main_attribute, xp_value):
   emit_signal('experience_changed')
 
 func _ready() -> void:
+  for attr in Dictionaries.caracs:
+    var new_attribute = Attribute.new(attr, "caracs")
+    attributes[attr] = new_attribute
+  for attr in Dictionaries.skills:
+    var new_attribute = Attribute.new(attr, "skills")
+    attributes[attr] = new_attribute
+  for attr in Dictionaries.masteries:
+    var new_attribute = Attribute.new(attr, "masteries")
+    attributes[attr] = new_attribute
+  
   texture_progress.hide()
   techs = [Data.techs[0], Data.techs[1], Data.techs[2], Data.techs[3]]
   for tech in techs:
