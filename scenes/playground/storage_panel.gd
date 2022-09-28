@@ -16,6 +16,7 @@ signal stackable_buy_requested(_name, customer)
 
 
 func _initialize(building):
+  stackable_items = {}
   print('init')
   gold_label.text = "%s" % building.gold_storage
   for child in stackables_container.get_children():
@@ -28,6 +29,7 @@ func _initialize(building):
     new_stackable_item.connect('withdraw_requested', self, '_on_withdraw_request_from_stackable_item')
     new_stackable_item.connect('buy_requested', self, '_on_buy_request_from_stackable_item')
     stackable_items[item_name] = new_stackable_item
+    print('added stackable item')
   check_for_affordable_items(GameManager.player_actor.gold)
   print(stackable_items)
     
@@ -44,10 +46,12 @@ func check_for_affordable_items(player_gold):
     stackable_items[item_name].buy_button.disabled = (expected_price > player_gold)
 
 func _on_inventory_changed(_inventory):
+  print(stackable_items)
   var resource_names = Dictionaries.resource_names.keys()
   var item_names = _inventory.get_item_names()
   
   for item_name in stackable_items.keys():
+    print(item_name)
     var quantity = 0
     if item_name in resource_names:
       quantity = _inventory.resources[item_name]
