@@ -54,6 +54,8 @@ func _ready():
   techs.append(SelfCenteredData.new(2, "default_self_centered", "self_centered", "pyromancy", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(SpotTargetedData.new(3, "default_spot_targeted", "spot_targeted", "pyromancy", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(SpotTargetedData.new(4, "summon_chicken", "spot_targeted", "pyromancy", 1, {"mana": 1}, 0.5, 1.0))
+  techs.append(SpotTargetedData.new(5, "sinus_projectile", "projectile", "pyromancy", 1, {"mana": 1}, 0.5, 1.0))
+  
   
   
   races.append({"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"})
