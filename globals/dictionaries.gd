@@ -8,7 +8,7 @@ var resource_names: Dictionary = {
   "ore": "Minerai",
   "skin": "Peaux",
   "stone": "Pierres",
-  "wheat": "Blé",
+  "grain": "Blé",
   "wood": "Bois",
   "iron": "Fer"
  }
@@ -21,7 +21,7 @@ var resource_weights: Dictionary = {
   "ore": 0.5,
   "skin": 0.3,
   "stone": 1.0,
-  "wheat": 0.5,
+  "grain": 0.5,
   "wood": 1.0,
   "iron": 0.4
  }
@@ -34,7 +34,7 @@ var resource_prices: Dictionary = {
   "ore": 4,
   "skin": 3,
   "stone": 2,
-  "wheat": 2,
+  "grain": 2,
   "wood": 2,
   "iron": 8,
  }

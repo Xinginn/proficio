@@ -85,12 +85,13 @@ func _set_health(value) -> void:
   
 func _set_stamina(value) -> void:
   var max_s = max_stamina + get_total_attribute("max_stamina_lvl")
-  stamina = clamp(value, 0, max_stamina)
-  emit_signal('stamina_changed', stamina, max_stamina, stamina_regain)
+  stamina = clamp(value, 0, max_s)
+  emit_signal('stamina_changed', stamina, max_s, stamina_regain)
 
 func _set_mana(value) -> void:
-  mana = clamp(value, 0, max_mana)
-  emit_signal('mana_changed', mana, max_mana, mana_regain)
+  var max_m = max_mana + get_total_attribute("max_mana_lvl")
+  mana = clamp(value, 0, max_m)
+  emit_signal('mana_changed', mana, max_m, mana_regain)
 
 func _set_gold(value: int) -> void:
   gold = value

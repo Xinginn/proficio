@@ -5,5 +5,5 @@ class_name Consumable
 var stack
 var consume_cooldown
 
-func use(consumer) -> void:
+func use(_consumer) -> void:
   pass

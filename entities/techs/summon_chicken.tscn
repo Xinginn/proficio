@@ -18,5 +18,4 @@ shape = SubResource( 1 )
 self_modulate = Color( 1, 1, 1, 0.411765 )
 scale = Vector2( 4.8, 4.8 )
 
-[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

@@ -31,7 +31,7 @@ func _ready():
   crafts.append(CraftData.new(9, Dirk, "dirk", 4, "weaponsmith", 4, {"ore": 3}, 800))
   
   crafts.append(CraftData.new(10, Bandages, "bandages", 4, "apothecary", 4, {"fiber": 4, "herb": 1}, 600))
-  crafts.append(CraftData.new(11, Bread, "bread", 4, "cooking", 4, {"wheat": 4}, 600))
+  crafts.append(CraftData.new(11, Bread, "bread", 4, "cooking", 4, {"grain": 4}, 600))
   crafts.append(CraftData.new(12, StaminaPotion, "stamina_potion", 4, "apothecary", 4, {"herb": 2, "cristal": 1}, 800))
   crafts.append(CraftData.new(13, CristalPowder, "cristal_powder", 4, "apothecary", 6, {"cristal": 4,}, 1000))
   
@@ -49,14 +49,14 @@ func _ready():
   # id, _name, type, skill ('weapon' pour déduire de l'arme equipée, _xp_gain, _cost ( _range ou area)
   techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))
   # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _velocity, _lifespan
-  techs.append(ProjectileData.new(1, "default_projectile", "projectile", "pyromancy", 1, {"mana": 1}, 0.5, 200, 20))
+  techs.append(ProjectileData.new(1, "default_projectile", "projectile", "pyromancy", 1, {"mana": 1}, 0.5, 200.0, 1.0))
     # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _area_multiplier
   techs.append(SelfCenteredData.new(2, "default_self_centered", "self_centered", "pyromancy", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(SpotTargetedData.new(3, "default_spot_targeted", "spot_targeted", "pyromancy", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(SpotTargetedData.new(4, "summon_chicken", "spot_targeted", "pyromancy", 1, {"mana": 1}, 0.5, 1.0))
-  techs.append(SpotTargetedData.new(5, "sinus_projectile", "projectile", "pyromancy", 1, {"mana": 1}, 0.5, 1.0))
+  techs.append(SpotTargetedData.new(5, "sinus_projectile", "projectilegit ", "pyromancy", 1, {"mana": 1}, 0.5, 1.0))
   
-  
+
   
   races.append({"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"})
   races.append({"id": 1, "name": "dwarf", "label": "Nain", "description": "Description nain", "stats_text": "Santé: 18\nEnergie: 18\nMana: 9"})

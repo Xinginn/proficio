@@ -14,9 +14,9 @@ func harvest(harvester) -> void:
   #gain de ressources
   var fiber_gain = GameManager.rng.randi_range(1,3)
   harvester.add_resource("fiber", fiber_gain)
-  var wheat_gain = clamp(GameManager.rng.randi_range(-2,2), 0, 2)
-  if wheat_gain > 0:
-    harvester.add_resource("wheat", wheat_gain)
+  var grain_gain = clamp(GameManager.rng.randi_range(-2,2), 0, 2)
+  if grain_gain > 0:
+    harvester.add_resource("grain", grain_gain)
   var herb_gain = clamp(GameManager.rng.randi_range(-2,1), 0, 1)
   if herb_gain > 0:
     harvester.add_resource("herb", herb_gain)

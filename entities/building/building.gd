@@ -237,7 +237,7 @@ func _process(delta):
   elif is_refining:
     var level = building_owner.get_total_attribute(current_refine_data.skill_name)
     var refine_gain = REFINE_GAIN_SPEED * (1.0 + (level - 1) * 0.05) * delta
-    self.refine_progress += delta
+    self.refine_progress += refine_gain
   else:
     pass
 

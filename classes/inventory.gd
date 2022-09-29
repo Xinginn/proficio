@@ -28,7 +28,7 @@ var resources: Dictionary = {
   "ore": 10,
   "skin": 10,
   "stone": 10,
-  "wheat": 10,
+  "grain": 10,
   "wood": 10,
  }
 

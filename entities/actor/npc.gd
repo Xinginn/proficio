@@ -53,7 +53,7 @@ func _on_building_overlap(building):
 func _on_spawning_ended(building):
   building.is_spawning = false
   building.frames_since_no_overlap = 0
-  building.disconnect('occupied_space_overlapped', self, '_on_resource_spot_overlap')
+  building.disconnect('occupied_space_overlapped', self, '_on_building_overlap')
   building.disconnect('ended_spawning', self, '_on_spawning_ended')
   move_to(building.global_position)
 
@@ -69,4 +69,3 @@ func _process(delta):
 
 func _on_ready():
   ._on_ready()
-  load_npc_model("chicken")
