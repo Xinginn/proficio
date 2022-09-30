@@ -11,14 +11,19 @@ func _ready():
   remaining_harvests += harvest_number_modifier
   
 func harvest(harvester) -> void:
+  var gain_text = ""
   #gain de ressources
   var stone_gain = GameManager.rng.randi_range(1,3)
   harvester.add_resource("stone", stone_gain)
+  gain_text += "+%d %s" % [stone_gain, Dictionaries.resource_names["stone"] ]
   var ore_gain = clamp(GameManager.rng.randi_range(-2,2), 0, 2)
   if ore_gain > 0:
     harvester.add_resource("ore", ore_gain)
+    gain_text += "\n+%d %s" % [ore_gain, Dictionaries.resource_names["ore"] ]
   var cristal_gain = clamp(GameManager.rng.randi_range(-2,1), 0, 1)
   if cristal_gain > 0:
     harvester.add_resource("cristal", cristal_gain)
+    gain_text += "\n+%d %s" % [cristal_gain, Dictionaries.resource_names["cristal"] ]
   # l'appel a xp_gain et la gestion de perte de remaing_harvest est gérée par la classe mère
+  harvester.display_pop_up(gain_text)
   .harvest(harvester)

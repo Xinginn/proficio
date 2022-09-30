@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 class_name Actor
 
+const alert_display_scene: PackedScene = preload('res://entities/alert_display/alert_display.tscn')
+
 const MAX_BUILDINGS = 3
 const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 100
@@ -17,6 +19,7 @@ onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: TextureProgress = $HealthBar
 onready var texture_progress: TextureProgress = $TextureProgress
 onready var attack_holder: Node2D = $AttackHolder
+onready var pop_up_holder: Node2D = $PopUpHolder
 
 var _name: String = "Noname"
 var race: int = 0
@@ -291,6 +294,11 @@ func stop_harvesting() -> void:
   self.harvest_progress = 0.0
   current_resource_spot = null
   texture_progress.hide()
+
+func display_pop_up(text: String) -> void:
+  var new_pop_up = alert_display_scene.instance()
+  pop_up_holder.add_child(new_pop_up)
+  new_pop_up.init(text)
   
 func launch_tech(id: int, target_position) -> void:
   var attack_direction = Vector2(target_position - global_position).normalized()
