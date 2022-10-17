@@ -37,6 +37,7 @@ var resource_prices: Dictionary = {
   "grain": 2,
   "wood": 2,
   "iron": 8,
+  "stamina_potion": 15,
  }
 
 var caracs = [

@@ -26,6 +26,7 @@ var race: int = 0
 var sprite_path: String = "test" setget _set_sprite_path
 
 var team: int = 0
+var is_dead: bool = false
 
 var atk = 10
 var def = 10
@@ -76,11 +77,13 @@ func _set_sprite_path(_name: String) -> void:
 
 func _set_health(value) -> void:
   var max_h = max_health + get_total_attribute("max_health_lvl")
+  if value < 0.0:
+    die()
   health = clamp(value, 0, max_h)
   # affichage de la mini barre de vie
   health_bar.value = health
   health_bar.max_value = max_h
-  if health < max_h:
+  if health < max_h && not is_dead:
     health_bar.show()
   else:
     health_bar.hide()
@@ -113,6 +116,17 @@ func _set_harvest_progress(value: float) -> void:
 func _set_orientation(value):
   orientation = value
   animated_sprite.play("walk_%s" % orientation)
+
+func die():
+  is_dead = true
+  animated_sprite.self_modulate = Color(1.0, 1.0, 1.0, 0.4)
+  health_bar.hide()
+  texture_progress.hide()
+  stop_harvesting()
+  
+func live():
+  is_dead = false
+  animated_sprite.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 # methode pour calculer le poids porté, le poids max, et le malus move_speed eventuel
 # 1.0 de malus par %age de dépassement
@@ -400,21 +414,19 @@ func _on_ready() -> void:
 
 func _physics_process(delta):
 
-  if health < 0.0:
-    return
 
-  # Regens  
-  var gain = clamp(delta, 0.0, health_regain)
-
-  health_regain -= gain
-  self.health += delta * BASE_HEALTH_REGEN + gain
-  gain = clamp(delta, 0.0, stamina_regain)
-  stamina_regain -= gain
-  self.stamina += delta * BASE_STAMINA_REGEN + gain
-  gain = clamp(delta, 0.0, mana_regain)
-  mana_regain -= gain
-  self.mana += delta * BASE_MANA_REGEN + gain
-  
+  if not is_dead:
+    # Regens  
+    var gain = clamp(delta, 0.0, health_regain)
+    health_regain -= gain
+    self.health += delta * BASE_HEALTH_REGEN + gain
+    gain = clamp(delta, 0.0, stamina_regain)
+    stamina_regain -= gain
+    self.stamina += delta * BASE_STAMINA_REGEN + gain
+    gain = clamp(delta, 0.0, mana_regain)
+    mana_regain -= gain
+    self.mana += delta * BASE_MANA_REGEN + gain
+    
   if target_position != null:
     var final_move_speed = clamp(move_speed - weight_speed_malus, 0, MAX_MOVE_SPEED)
     velocity = global_position.direction_to(target_position) * final_move_speed
@@ -423,7 +435,7 @@ func _physics_process(delta):
     else:
       global_position = target_position
       stop_moving()
-  if !!current_resource_spot:
+  if !!current_resource_spot && not is_dead:
     var level = get_total_attribute(current_resource_spot.skill)
     var harvest_gain = (1.0 + (level - 1) * 0.05) * HARVEST_GAIN_PER_SECOND * delta
     self.harvest_progress += harvest_gain

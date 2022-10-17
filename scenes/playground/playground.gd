@@ -24,8 +24,8 @@ onready var building_ghost = $BuildingGhost
 onready var building_ghost_occupied_space = $BuildingGhost/OccupiedSpaceArea
 onready var building_ghost_occupied_collision = $BuildingGhost/OccupiedSpaceArea/CollisionShape2D
 
+
 var is_placing_building = false
-var is_selecting_building = false
 var type_to_build = null
 var is_building_ghost_overlapped = false
 var last_building = null
@@ -33,34 +33,28 @@ var last_building = null
 var player = null
 
 func _on_start_build_button_pressed():
-  for child in building_buttons_container.get_children():
-    child.queue_free()
-  if is_selecting_building:
-    build_mode_off()
-  else:
-    # instanciation de tous les boutons
-    for data in Data.buildings:
-      var new_button = building_button_scene.instance()
-      building_buttons_container.add_child(new_button)
-      new_button._initialize(data)
-      new_button.connect("building_button_pressed", self, "_on_building_button_pressed")
-      new_button.connect("building_button_right_pressed", self, "build_mode_off")
+  building_buttons_container.show()
 
 func _on_building_button_pressed(data) -> void:
-  is_placing_building = true
-  type_to_build = data
-  building_ghost.global_position = get_global_mouse_position()
-  var texture = load('res://assets/buildings/%s.png' % data._name)
-  building_ghost.texture = texture
-  building_ghost_occupied_collision.shape.extents = texture.get_size() / 2.0
-  building_ghost.show()
+  if GameManager.player_actor.is_dead:
+    BuildingTooltip.hide()
+    building_ghost.hide()
+    building_buttons_container.hide()
+  else:
+    is_placing_building = true
+    type_to_build = data
+    building_ghost.global_position = get_global_mouse_position()
+    var texture = load('res://assets/buildings/%s.png' % data._name)
+    building_ghost.texture = texture
+    building_ghost_occupied_collision.shape.extents = texture.get_size() / 2.0
+    building_ghost.show()
 
 func build_mode_off() -> void:
-  BuildingTooltip.hide()
   is_placing_building = false
+  building_buttons_container.hide()
+  BuildingTooltip.hide()
   building_ghost.hide()
-  for child in building_buttons_container.get_children():
-    child.queue_free()
+  
 
 func place_building() -> void:
   var new_building = building_scene.instance()
@@ -148,6 +142,15 @@ func _ready():
   world.add_child(player)
   GameManager.player_actor = player
   SaveManager.load_actor_data(GameManager.player_name)
+  
+  for data in Data.buildings:
+    var new_button = building_button_scene.instance()
+    building_buttons_container.add_child(new_button)
+    new_button._initialize(data)
+    new_button.connect("building_button_pressed", self, "_on_building_button_pressed")
+    new_button.connect("building_button_right_pressed", self, "build_mode_off")
+    # TODO connect inventory changed to button for legality of build attempt 
+  building_buttons_container.hide()
   
   # dans ready car a faire après que le player soit instancié
   status_panel.initialize()

@@ -89,6 +89,7 @@ margin_left = -781.41
 margin_top = 188.429
 margin_right = -711.41
 margin_bottom = 263.429
+mouse_filter = 1
 texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -97,9 +98,9 @@ __meta__ = {
 [node name="BuildingButtonsContainer" type="HBoxContainer" parent="Camera/StartBuildButton"]
 margin_left = 22.0
 margin_top = -55.0
-margin_right = 247.0
+margin_right = 22.0
 margin_bottom = -5.0
-mouse_filter = 2
+mouse_filter = 0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false

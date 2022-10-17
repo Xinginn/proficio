@@ -28,6 +28,8 @@ func harvest(harvester) -> void:
 
 func _on_body_entered(body):
   if body is Actor:
+    if body.is_dead:
+      return
     body.stop_moving()
     if required_tools == [] || required_tools.has(body.inventory.gear['main_hand']._name):
       body.start_harvesting(self)
