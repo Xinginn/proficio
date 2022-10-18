@@ -4,7 +4,7 @@ class_name Building
 #const HEALTH_GAIN_SPEED = 100
 #const CRAFT_GAIN_SPEED = 100
 const HEALTH_GAIN_SPEED = 1000 # valeur boostée pour simplicité de test
-const CRAFT_GAIN_SPEED = 1000
+const CRAFT_GAIN_SPEED = 100
 const REFINE_GAIN_SPEED = 1
 const MAX_QUEUE_SIZE = 8
 const STAMINA_LOSS_WHILE_BUILDING = 2.0
@@ -83,9 +83,10 @@ func _set_craft_progress(value) -> void:
       
 func _set_current_refine_data(data) -> void:
   current_refine_data = data
-  self.refine_progress = 0.0
   is_refining = !!data
-  emit_signal("current_refine_changed", data)      
+  emit_signal("current_refine_changed", data) 
+  self.refine_progress = 0.0   
+  emit_signal('refine_progress_changed', refine_progress)  
       
 func _set_refine_progress(value) -> void:
   refine_progress = value
@@ -113,6 +114,7 @@ func _initialize(_owner, data, pos) -> void:
   building_owner = _owner
   building_data = data
   self.gold_storage = 0
+  building_owner.connect('actor_died', self, "_on_owner_died")
   texture = load("res://assets/buildings/%s.png" % data._name)
   global_position = pos
   var level = building_owner.get_total_attribute("construction")
@@ -132,7 +134,7 @@ func _on_body_entered(body):
     body.stop_moving()
     if body == GameManager.player_actor:
       emit_signal('player_entered_building', self)
-    if body == building_owner:
+    if body == building_owner && not building_owner.is_dead:
       if health < max_health:
         is_building = true
       elif body == GameManager.player_actor:
@@ -148,6 +150,11 @@ func _on_body_exited(body):
     emit_signal('craft_queue_changed', [])
   if body is Player:
     emit_signal('player_exited_building')
+
+func _on_owner_died():
+  is_building = false
+  is_crafting = false
+  is_refining = false
 
 # signaux: recipe_button -> craft panel -> ici
 func _on_recipe_requested(craft_data) -> void:
@@ -172,7 +179,7 @@ func _on_refine_requested(refine_data) -> void:
 func _on_refine_loop_toggled(value: bool) -> void:
   is_refine_looping = value
   
-func _on_cancel_requested(index) -> void:
+func cancel_craft(index) -> void:
   var refund = craft_queue[index].resources
   for res in refund.keys():
     building_owner.add_resource(res, refund[res])

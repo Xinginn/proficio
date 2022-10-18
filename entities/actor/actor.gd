@@ -61,6 +61,7 @@ var cooldowns = []
 # --------- LEVELS AND XP ---------
 var attributes: Dictionary = {}
 
+signal actor_died
 signal gold_changed(value)
 signal weight_changed(total, maxi)
 signal inventory_changed(inventory)
@@ -119,6 +120,7 @@ func _set_orientation(value):
 
 func die():
   is_dead = true
+  emit_signal("actor_died")
   animated_sprite.self_modulate = Color(1.0, 1.0, 1.0, 0.4)
   health_bar.hide()
   texture_progress.hide()

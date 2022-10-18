@@ -47,7 +47,6 @@ func _on_inventory_changed(_inventory):
   var item_names = _inventory.get_item_names()
   
   for item_name in stackable_items.keys():
-    print(item_name)
     var quantity = 0
     if item_name in resource_names:
       quantity = _inventory.resources[item_name]
