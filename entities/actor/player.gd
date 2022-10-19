@@ -2,6 +2,16 @@ extends Actor
 class_name Player
 
 
+func _on_hotkeys_switch_requested(index_a: int, index_b: int) -> void:
+  var tmp = techs[index_a]
+  techs[index_a] = techs[index_b]
+  techs[index_b] = tmp
+  emit_signal("tech_list_changed", techs)
+  tmp = cooldowns[index_a]
+  cooldowns[index_a] = cooldowns[index_b]
+  cooldowns[index_b] = tmp
+  emit_signal("cooldowns_changed", cooldowns)
+
 func _physics_process(_delta):
   # movement clavier pour player
   var key_target: Vector2 = Vector2(0.0, 0.0)
@@ -17,6 +27,8 @@ func _physics_process(_delta):
     move_to(global_position + key_target)
   
 func _unhandled_input(event):
+  if is_dead:
+    return
   # gestion attack
   if event is InputEventMouseButton:
     if event.button_index == BUTTON_RIGHT and event.pressed:

@@ -4,11 +4,16 @@ const cooldown_display_scene: PackedScene = preload('res://entities/cooldown_dis
 
 var displays = []
 
+signal hotkeys_switched(index_a, index_b)
+
+
+
 func _on_tech_list_changed(techs):
   for child in get_children():
     child.queue_free()
-  for tech in techs:
+  for i in range(techs.size()):
     var new_display = cooldown_display_scene.instance()
+    new_display.index = i
     add_child(new_display)
 
 func _on_player_cooldowns_changed(cooldowns):

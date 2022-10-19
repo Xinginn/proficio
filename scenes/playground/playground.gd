@@ -169,6 +169,7 @@ func _ready():
   player.connect('inventory_changed', storage_panel, "_on_inventory_changed")
   player.connect('tech_list_changed', cooldowns_manager, "_on_tech_list_changed")
   player.connect('cooldowns_changed', cooldowns_manager, "_on_player_cooldowns_changed")
+  cooldowns_manager.connect("hotkeys_switched", player, "_on_hotkeys_switch_requested")
   
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()
