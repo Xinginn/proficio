@@ -685,6 +685,7 @@ __meta__ = {
 }
 
 [node name="CooldownDisplay" parent="Camera/CooldownsManager" instance=ExtResource( 23 )]
+
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
 [connection signal="toggled" from="Camera/BuildingWindow/RefineTab/RefinePanel/LoopButton" to="Camera/BuildingWindow/RefineTab/RefinePanel" method="_on_loop_button_toggled"]
