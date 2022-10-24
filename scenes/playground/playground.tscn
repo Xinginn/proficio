@@ -672,18 +672,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="Camera"]
+margin_left = -776.0
+margin_top = 330.0
+margin_right = -694.0
+margin_bottom = 353.0
+text = "null"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CooldownsManager" type="HBoxContainer" parent="Camera"]
 margin_left = -780.427
 margin_top = 363.487
 margin_right = -740.427
 margin_bottom = 403.487
+rect_min_size = Vector2( 300, 300 )
 script = ExtResource( 18 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CooldownDisplay" parent="Camera/CooldownsManager" instance=ExtResource( 23 )]
+margin_bottom = 300.0
 
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
 [connection signal="toggled" from="Camera/BuildingWindow/RefineTab/RefinePanel/LoopButton" to="Camera/BuildingWindow/RefineTab/RefinePanel" method="_on_loop_button_toggled"]
+[connection signal="gui_input" from="Camera/CooldownsManager" to="Camera/CooldownsManager" method="_on_gui_input"]

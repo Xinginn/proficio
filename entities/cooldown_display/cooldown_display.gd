@@ -4,6 +4,10 @@ onready var cooldown_label: Label = $Label
 
 var cooldown: float = 0.0 setget _set_cooldown 
 var index: int = 0
+var is_hovered = false
+
+signal hotkey_entered(i)
+signal hotkey_exited(i)
 
 func _set_cooldown(value) -> void:
   cooldown = max(value, 0.0)
@@ -13,5 +17,9 @@ func _set_cooldown(value) -> void:
 
 # TODO gestion cooldown circulaire 
 
-func _on_button_down():
-  print('a')
+
+func _on_mouse_entered():
+ emit_signal("hotkey_entered", index)
+
+func _on_mouse_exited():
+ emit_signal("hotkey_exited", index)
