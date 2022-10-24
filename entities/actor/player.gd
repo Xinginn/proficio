@@ -3,15 +3,16 @@ class_name Player
 
 
 func _on_hotkeys_switch_requested(index_a: int, index_b: int) -> void:
-  print('received switch', index_a, index_b)
-#  var tmp = techs[index_a]
-#  techs[index_a] = techs[index_b]
-#  techs[index_b] = tmp
-#  emit_signal("tech_list_changed", techs)
-#  tmp = cooldowns[index_a]
-#  cooldowns[index_a] = cooldowns[index_b]
-#  cooldowns[index_b] = tmp
-#  emit_signal("cooldowns_changed", cooldowns)
+  var tmp = techs[index_a]
+  techs[index_a] = techs[index_b]
+  techs[index_b] = tmp
+  emit_signal("tech_list_changed", techs)
+  tmp = cooldowns[index_a]
+  cooldowns[index_a] = cooldowns[index_b]
+  cooldowns[index_b] = tmp
+  emit_signal("cooldowns_changed", cooldowns)
+  for tech in techs:
+    print(tech._name)
 
 func _physics_process(_delta):
   # movement clavier pour player
@@ -31,22 +32,25 @@ func _unhandled_input(event):
   if is_dead:
     return
   # gestion attack
+  var action_number = null
   if event is InputEventMouseButton:
     if event.button_index == BUTTON_RIGHT and event.pressed:
+      action_number = 0
       if can_afford_skill(techs[0].cost):  # gestion temporaire couts
         if cooldowns[0] == 0.0: # TODO gestion cooldonw
           launch_tech(0, get_global_mouse_position())
   if event is InputEventKey:
     if Input.is_action_just_pressed("action_1"):
-      if can_afford_skill(techs[1].cost):  # gestion temporaire couts
-        if cooldowns[1] == 0.0: # TODO gestion cooldonw
-          launch_tech(1, get_global_mouse_position())
+      action_number = 1
     if Input.is_action_just_pressed("action_2"):
-      if can_afford_skill(techs[2].cost):  # gestion temporaire couts
-        if cooldowns[2] == 0.0: # TODO gestion cooldonw
-          launch_tech(2, get_global_mouse_position())
+      action_number = 2
     if Input.is_action_just_pressed("action_3"):
-      if can_afford_skill(techs[4].cost):  # gestion temporaire couts
-        if cooldowns[4] == 0.0: # TODO gestion cooldonw
-          launch_tech(4, get_global_mouse_position())
-
+      action_number = 3
+    if Input.is_action_just_pressed("action_4"):
+      action_number = 4
+    if Input.is_action_just_pressed("action_5"):
+      action_number = 5
+  if action_number == null:
+    return
+  if can_afford_skill(techs[action_number].cost) and cooldowns[action_number] == 0.0:
+    launch_tech(action_number, get_global_mouse_position())

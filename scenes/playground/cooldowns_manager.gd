@@ -1,32 +1,21 @@
 extends HBoxContainer
 
 const cooldown_display_scene: PackedScene = preload('res://entities/cooldown_display/cooldown_display.tscn')
-
-onready var label = get_node('../Label')
+const CHILD_SIZE = 48
+const SEPARATION = 3
 
 var displays = []
-var dragged_index = null setget _set_label
+var drag_start_index = null
 
 signal hotkeys_switched(index_a, index_b)
-
-func _set_label(value):
-  dragged_index = value
-  label.text = str(value) if !!value else 'null'
-
-
-func _on_hotkey_entered(index):
-  self.dragged_index = index
-  
-func _on_hotkey_exited(index):
-  self.dragged_index = null
 
 func _on_tech_list_changed(techs):
   for child in get_children():
     child.queue_free()
   for i in range(techs.size()):
     var new_display = cooldown_display_scene.instance()
-    new_display.index = i
     add_child(new_display)
+    new_display.initialize(i)
     new_display.connect('hotkey_entered', self, '_on_hotkey_entered')
     new_display.connect('hotkey_exited', self, '_on_hotkey_exited')
 
@@ -39,13 +28,12 @@ func _on_player_cooldowns_changed(cooldowns):
 func _on_gui_input(event):
   if event is InputEventMouseButton:
     if event.button_index == BUTTON_LEFT:
-      if !event.pressed:
-        print("released")
-        #emit_signal("hotkeys_switched", dragged_index, index)
+      var hovered_index = int( (get_global_mouse_position() - rect_global_position).x / (CHILD_SIZE + SEPARATION) )
+      if event.pressed:
+        drag_start_index = hovered_index
       else:
-        print('pressed')
-      
-
+        emit_signal("hotkeys_switched", drag_start_index, hovered_index)
+        drag_start_index = null
 
 func ready():
   displays = get_children()

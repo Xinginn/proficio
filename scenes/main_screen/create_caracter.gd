@@ -65,8 +65,8 @@ func _on_confirm_pressed():
   var new_chara = load('res://entities/actor/actor.tscn').instance()
   new_chara._name = character_name
   new_chara.race = selected_race
-  new_chara.sprite_path = selected_sprite_name
   add_child(new_chara)
+  new_chara.sprite_path = selected_sprite_name
   match selected_race:
     1:
       new_chara.max_health = 18

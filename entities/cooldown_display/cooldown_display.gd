@@ -4,10 +4,18 @@ onready var cooldown_label: Label = $Label
 
 var cooldown: float = 0.0 setget _set_cooldown 
 var index: int = 0
+var sprite_name = ""
 var is_hovered = false
 
 signal hotkey_entered(i)
 signal hotkey_exited(i)
+
+func initialize(_index):
+  index = _index
+  sprite_name = GameManager.player_actor.techs[index]._name
+  var sprite = load('res://assets/icons/tech_%s.png' % sprite_name)
+  if !!sprite:
+    texture = sprite
 
 func _set_cooldown(value) -> void:
   cooldown = max(value, 0.0)

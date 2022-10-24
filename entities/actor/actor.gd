@@ -73,6 +73,8 @@ signal tech_list_changed(techs)
 signal cooldowns_changed(cooldowns)
 
 func _set_sprite_path(_name: String) -> void:
+  print(_name)
+  print(animated_sprite)
   sprite_path = _name
   animated_sprite.frames = load('res://tres/spriteframes/actors/%s.tres' % sprite_path)
 
