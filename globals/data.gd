@@ -9,10 +9,10 @@ var races = []
 var npc_models = {}
 
 func _ready():
-  lands.append(LandData.new(0, "center", 3, {"herbs": 3, "pebble": 2, "wood": 2, "tree": 1}))
-  lands.append(LandData.new(1, "crown", 3, {"herbs": 3, "pebble": 2, "wood": 2, "tree": 1}))
-  lands.append(LandData.new(2, "plain", 8, {"herbs": 4, "pebble": 2, "wood": 2, "tree": 3}))
-  lands.append(LandData.new(3, "forest", 6, {"herbs": 2, "pebble": 1, "wood": 3, "tree": 5}))
+  lands.append(LandData.new(0, "center", 3, {"herbs": 3, "pebble": 2, "twig": 2, "tree": 1}))
+  lands.append(LandData.new(1, "crown", 3, {"herbs": 3, "pebble": 2, "twig": 2, "tree": 1}))
+  lands.append(LandData.new(2, "plain", 8, {"herbs": 4, "pebble": 2, "twig": 2, "tree": 3}))
+  lands.append(LandData.new(3, "forest", 6, {"herbs": 2, "pebble": 1, "twig": 3, "tree": 5}))
   
   # id, _name, inputs, outputs, time, skill, xp_gain
   refines.append(RefineData.new(0, "Fondre du fer", {"ore": 3}, {"iron": 1}, 2.0, "smelting", 3))
@@ -23,14 +23,14 @@ func _ready():
   crafts.append(CraftData.new(1, LeatherJacket, "leather_jacket", 4, "leatherwork", 10, {"leather": 3}, 1200))
   crafts.append(CraftData.new(2, HuntingKnife, "hunting_knife", 4, "toolmaking", 8, {"ore": 2, "wood": 1}, 1000))
   crafts.append(CraftData.new(3, Gladius, "gladius", 4, "weaponsmith", 10, {"ore": 2, "iron": 3}, 1200))
-  crafts.append(CraftData.new(4, Tunic, "tunic", 4, "weaving", 6, {"fiber": 6}, 900))
+  crafts.append(CraftData.new(4, Tunic, "tunic", 4, "weaving", 6, {"herb": 6}, 900))
   crafts.append(CraftData.new(5, Cudgel, "cudgel", 4, "woodcarving", 6, {"wood": 4}, 800))
   crafts.append(CraftData.new(6, IronHelmet, "iron_helmet", 4, "armorsmith", 6, {"iron": 3}, 1000))
   crafts.append(CraftData.new(7, WalkingShoes, "walking_shoes", 4, "shoemaking", 6, {"leather": 2, "skin": 1}, 900))
   crafts.append(CraftData.new(8, LumberingAxe, "lumbering_axe", 4, "toolmaking", 8, {"ore": 4, "wood": 2}, 1200))
   crafts.append(CraftData.new(9, Dirk, "dirk", 4, "weaponsmith", 4, {"ore": 3}, 800))
   
-  crafts.append(CraftData.new(10, Bandages, "bandages", 4, "apothecary", 4, {"fiber": 4, "herb": 1}, 600))
+  crafts.append(CraftData.new(10, Bandages, "bandages", 4, "apothecary", 4, {"herb": 4}, 600))
   crafts.append(CraftData.new(11, Bread, "bread", 4, "cooking", 4, {"grain": 4}, 600))
   crafts.append(CraftData.new(12, StaminaPotion, "stamina_potion", 4, "apothecary", 4, {"herb": 2, "cristal": 1}, 800))
   crafts.append(CraftData.new(13, CristalPowder, "cristal_powder", 4, "apothecary", 6, {"cristal": 4,}, 1000))
@@ -49,12 +49,12 @@ func _ready():
   # id, _name, type, skill ('weapon' pour déduire de l'arme equipée, _xp_gain, _cost ( _range ou area)
   techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))
   # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _velocity, _lifespan
-  techs.append(ProjectileData.new(1, "default_projectile", "projectile", "pyromancy", 1, {"mana": 1}, 0.5, 200.0, 1.0))
+  techs.append(ProjectileData.new(1, "default_projectile", "projectile", "pyromancy", 1, {"mana": 1}, 0.5, 200, 1.0))
     # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _area_multiplier
   techs.append(SelfCenteredData.new(2, "default_self_centered", "self_centered", "pyromancy", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(SpotTargetedData.new(3, "default_spot_targeted", "spot_targeted", "pyromancy", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(SpotTargetedData.new(4, "summon_chicken", "spot_targeted", "pyromancy", 1, {"mana": 1}, 0.5, 1.0))
-  techs.append(SpotTargetedData.new(5, "sinus_projectile", "projectilegit ", "pyromancy", 1, {"mana": 1}, 0.5, 1.0))
+  techs.append(ProjectileData.new(5, "sinus_projectile", "projectile ", "pyromancy", 1, {"mana": 1}, 0.5, 200, 1.0))
   
 
   

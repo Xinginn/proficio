@@ -1,16 +1,16 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://entities/resource_spot/wood_spot/wood_spot.gd" type="Script" id=1]
-[ext_resource path="res://assets/resource_spots/resource_spot_wood_0.png" type="Texture" id=2]
+[ext_resource path="res://entities/resource_spot/twig_spot/twig_spot.gd" type="Script" id=1]
+[ext_resource path="res://assets/resource_spots/resource_spot_twig_0.png" type="Texture" id=2]
 [ext_resource path="res://entities/resource_spot/resource_spot.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.97826, 4.32016 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32.2941, 32.1644 )
+extents = Vector2( 25.8096, 25.8967 )
 
-[node name="WoodSpot" groups=[
+[node name="TwigSpot" groups=[
 "wood",
 ] instance=ExtResource( 3 )]
 texture = ExtResource( 2 )

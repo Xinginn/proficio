@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://entities/resource_spot/resource_spot.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/resource_spot/stone_shards_spot/stone_shards_spot.gd" type="Script" id=2]
+[ext_resource path="res://assets/resource_spots/resource_spot_stone_shards_0.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 22.9453, 23.5274 )
+
+[node name="StoneShards" groups=[
+"tree",
+] instance=ExtResource( 1 )]
+texture = ExtResource( 3 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="OccupiedSpaceArea" index="0"]
+position = Vector2( -0.667419, -1.54949 )
+shape = SubResource( 1 )

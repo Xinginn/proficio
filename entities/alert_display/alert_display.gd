@@ -16,7 +16,7 @@ func init(text: String, wait_time = 1):
         Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
   timer.wait_time = wait_time
   timer.start()
-  tween.start()
+  var _result = tween.start()
   
 func _ready():
   label.text = ""

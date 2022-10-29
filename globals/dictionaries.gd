@@ -1,42 +1,52 @@
 extends Node
 
 var resource_names: Dictionary = {
-  "cristal" : "Cristaux",
-  "fiber": "Fibres",
+  "brick": "Briques", 
+  "cristal": "Cristaux",
+  "fabric": "Tissu",
+  "grain": "Graines",
   "herb": "Herbes",
+  "iron": "Fer",
   "leather": "Cuir",
   "ore": "Minerai",
+  "parchment": "Parchemin",
+  "plank": "Planches",
   "skin": "Peaux",
   "stone": "Pierres",
-  "grain": "Blé",
   "wood": "Bois",
-  "iron": "Fer"
  }
 
 var resource_weights: Dictionary = {
+  "brick" : 1.0,
   "cristal" : 0.1,
-  "fiber": 0.1,
+  "fabric": 0.15,
+  "grain": 0.5,
   "herb": 0.15,
+  "iron": 0.4,
   "leather": 0.2,
   "ore": 0.5,
+  "parchment": 0.1,
+  "plank": 1.0,
   "skin": 0.3,
   "stone": 1.0,
-  "grain": 0.5,
   "wood": 1.0,
-  "iron": 0.4
  }
 
 var resource_prices: Dictionary = {
+  "brick": 8,
   "cristal" : 5,
-  "fiber": 2,
+  "fabric": 10,
+  "grain": 2,
   "herb": 3,
-  "leather": 6,
+  "iron": 15,
+  "leather": 12,
   "ore": 4,
+  "parchment": 10,
+  "plank": 8,
   "skin": 3,
   "stone": 2,
-  "grain": 2,
   "wood": 2,
-  "iron": 8,
+
   "stamina_potion": 15,
  }
 
@@ -94,7 +104,7 @@ var attribute_names = {
   "gathering": "Ramassage",
   "lumberjack": "Bucheron",
   "smelting": "Fonderie",
-  "skinning": "Tannerie",
+  "skinning": "Dépeçage",
   "leatherwork": "Travail du Cuir",
   "weaponsmith": "Forge d'armes",
   "armorsmith": "Forge d'armures",

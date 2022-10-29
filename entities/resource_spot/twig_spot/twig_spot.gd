@@ -1,19 +1,19 @@
 extends ResourceSpot
 
 func _ready():
-  skill = "lumberjack"
-  xp_gain = 6
-  duration = 4.0
-  stamina_loss_while_harvesting = 1.2
+  skill = "gathering"
+  xp_gain = 2
+  duration = 2.0
+  stamina_loss_while_harvesting = 0.7
   remaining_harvests = 10
   # randomisation nombre recoltes
-  var harvest_number_modifier = GameManager.rng.randi_range(-1,1)
+  var harvest_number_modifier = GameManager.rng.randi_range(-2,2)
   remaining_harvests += harvest_number_modifier
   
 func harvest(harvester) -> void:
   var gain_text = ""
   #gain de ressources
-  var wood_gain = GameManager.rng.randi_range(2, 4)
+  var wood_gain = GameManager.rng.randi_range(1, 2)
   harvester.add_resource("wood", wood_gain)
   gain_text += "+%d %s" % [wood_gain, Dictionaries.resource_names["wood"] ]
   # l'appel a xp_gain et la gestion de perte de remaing_harvest est gérée par la classe mère

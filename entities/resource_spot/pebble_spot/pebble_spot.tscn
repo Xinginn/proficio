@@ -8,7 +8,7 @@
 extents = Vector2( 3.97826, 4.32016 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32.2941, 32.1644 )
+extents = Vector2( 25.3412, 24.1857 )
 
 [node name="PebbleSpot" groups=[
 "pebble",

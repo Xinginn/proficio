@@ -11,7 +11,7 @@ var frames_since_no_overlap = 0
 var stamina_loss_while_harvesting = 1.0
 var skill: String
 var xp_gain: int
-var duration: int
+var duration: float
 var remaining_harvests: int
 # TODO changement de sprite selon harvest restantes
 var required_tools: Array = []

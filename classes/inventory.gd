@@ -19,18 +19,11 @@ var gear = {
 var items = []
 
 # ressources
-var resources: Dictionary = {
-  "cristal" : 10,
-  "fiber": 10,
-  "herb": 10,
-  "iron": 10,
-  "leather": 10,
-  "ore": 10,
-  "skin": 10,
-  "stone": 10,
-  "grain": 10,
-  "wood": 10,
- }
+var resources: Dictionary = {}
+
+func _init() -> void:
+  for resource_name in Dictionaries.resource_names.keys():
+    resources[resource_name] = 0
 
 func compute_total_weight() -> void:
   var total: float = 0.0

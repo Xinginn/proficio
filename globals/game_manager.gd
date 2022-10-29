@@ -9,9 +9,9 @@ var player_actor = null
 
 var world_size: int = 1
 var forest_ratio: int = 1
-
-signal to_black_finished
-signal from_black_finished
+#
+#signal to_black_finished
+#signal from_black_finished
 
 # funcs de transitions
 func to_black(_speed: float = 1.0):
@@ -30,7 +30,7 @@ func from_black(_speed: float = 1.0):
 func change_scene(scene_path: String):
   to_black()
   yield(self, 'to_black_finished')
-  get_tree().change_scene(scene_path)
+  var _result = get_tree().change_scene(scene_path)
   from_black()
 
 func _on_animation_finished(anim_name):

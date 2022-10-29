@@ -5,7 +5,6 @@ class_name Actor
 const alert_display_scene: PackedScene = preload('res://entities/alert_display/alert_display.tscn')
 
 const MAX_BUILDINGS = 3
-const HARVEST_GAIN_PER_SECOND = 50
 const BASE_XP_NEED = 100
 const XP_NEED_GROWTH = 1.2
 const BASE_MAX_WEIGHT = 100.0
@@ -72,10 +71,8 @@ signal experience_changed()
 signal tech_list_changed(techs)
 signal cooldowns_changed(cooldowns)
 
-func _set_sprite_path(_name: String) -> void:
-  print(_name)
-  print(animated_sprite)
-  sprite_path = _name
+func _set_sprite_path(sprite_name: String) -> void:
+  sprite_path = sprite_name
   animated_sprite.frames = load('res://tres/spriteframes/actors/%s.tres' % sprite_path)
 
 func _set_health(value) -> void:
@@ -114,7 +111,7 @@ func _set_harvest_progress(value: float) -> void:
     if harvest_progress == current_resource_spot.duration:
       current_resource_spot.harvest(self)
       harvest_progress = 0.0
-    texture_progress.value = int(harvest_progress)
+    texture_progress.value = harvest_progress
 
 func _set_orientation(value):
   orientation = value
@@ -318,8 +315,8 @@ func display_pop_up(text: String) -> void:
   pop_up_holder.add_child(new_pop_up)
   new_pop_up.init(text)
   
-func launch_tech(id: int, target_position) -> void:
-  var attack_direction = Vector2(target_position - global_position).normalized()
+func launch_tech(id: int, target_pos) -> void:
+  var attack_direction = Vector2(target_pos - global_position).normalized()
   var data = techs[id]
   var tech_scene = load('res://entities/techs/%s.tscn' % data._name)
   var new_tech = tech_scene.instance()
@@ -441,7 +438,8 @@ func _physics_process(delta):
       stop_moving()
   if !!current_resource_spot && not is_dead:
     var level = get_total_attribute(current_resource_spot.skill)
-    var harvest_gain = (1.0 + (level - 1) * 0.05) * HARVEST_GAIN_PER_SECOND * delta
+    var harvest_gain = (1.0 + (level - 1) * 0.05) * delta
+    print(harvest_progress)
     self.harvest_progress += harvest_gain
     self.stamina -= current_resource_spot.stamina_loss_while_harvesting * delta
     if stamina == 0.0:
