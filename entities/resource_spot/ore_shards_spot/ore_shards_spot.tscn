@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://entities/resource_spot/resource_spot.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/resource_spots/resource_spot_ore_shards_0.png" type="Texture" id=2]
+[ext_resource path="res://entities/resource_spot/ore_shards_spot/ore_shards_spot.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 19.6837, 19.0104 )
+
+[node name="OreShards" groups=[
+"tree",
+] instance=ExtResource( 1 )]
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="OccupiedSpaceArea" index="0"]
+shape = SubResource( 1 )

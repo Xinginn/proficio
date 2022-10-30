@@ -13,9 +13,9 @@ func _ready():
 func harvest(harvester) -> void:
   var gain_text = ""
   #gain de ressources
-  var stone_gain = clamp(GameManager.rng.randi_range(1, 3), 1, 2)
-  harvester.add_resource("stone", stone_gain)
-  gain_text += "+%d %s" % [stone_gain, Dictionaries.resource_names["stone"] ]
+  var cristal_gain = clamp(GameManager.rng.randi_range(1, 3), 1, 2)
+  harvester.add_resource("cristal", cristal_gain)
+  gain_text += "+%d %s" % [cristal_gain, Dictionaries.resource_names["cristal"] ]
   # l'appel a xp_gain et la gestion de perte de remaing_harvest est gérée par la classe mère
   harvester.display_pop_up(gain_text)
   .harvest(harvester)

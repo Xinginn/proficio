@@ -439,7 +439,6 @@ func _physics_process(delta):
   if !!current_resource_spot && not is_dead:
     var level = get_total_attribute(current_resource_spot.skill)
     var harvest_gain = (1.0 + (level - 1) * 0.05) * delta
-    print(harvest_progress)
     self.harvest_progress += harvest_gain
     self.stamina -= current_resource_spot.stamina_loss_while_harvesting * delta
     if stamina == 0.0:

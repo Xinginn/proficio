@@ -12,6 +12,7 @@ func _ready():
   lands.append(LandData.new(0, "center", 3, {"herbs": 3, "pebble": 2, "twig": 2, "tree": 1}))
   lands.append(LandData.new(1, "crown", 3, {"herbs": 3, "pebble": 2, "twig": 2, "tree": 1}))
   lands.append(LandData.new(2, "plain", 8, {"herbs": 4, "pebble": 2, "twig": 2, "tree": 3}))
+#  lands.append(LandData.new(2, "plain", 8, {"cristal_shards": 4, "ore_shards": 2, "stone_shards": 3}))
   lands.append(LandData.new(3, "forest", 6, {"herbs": 2, "pebble": 1, "twig": 3, "tree": 5}))
   
   # id, _name, inputs, outputs, time, skill, xp_gain
