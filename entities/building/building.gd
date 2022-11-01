@@ -2,9 +2,8 @@ extends Sprite
 class_name Building
 
 #const HEALTH_GAIN_SPEED = 100
-#const CRAFT_GAIN_SPEED = 100
 const HEALTH_GAIN_SPEED = 1000 # valeur boostée pour simplicité de test
-const CRAFT_GAIN_SPEED = 100
+#const CRAFT_GAIN_SPEED = 1000
 const REFINE_GAIN_SPEED = 1
 const MAX_QUEUE_SIZE = 8
 const STAMINA_LOSS_WHILE_BUILDING = 2.0
@@ -236,7 +235,7 @@ func _process(delta):
       self.is_crafting = false
       return
     var level = building_owner.get_total_attribute(craft_queue[0].skill)
-    var craft_gain = CRAFT_GAIN_SPEED * (1.0 + (level - 1) * 0.05) * delta
+    var craft_gain = (1.0 + (level - 1) * 0.05) * delta
     self.craft_progress += craft_gain 
     building_owner.stamina -= delta * STAMINA_LOSS_WHILE_CRAFTING
     if building_owner.stamina == 0.0:

@@ -178,9 +178,13 @@ func _ready():
   player.add_item(StaminaPotion.new())
   player.add_item(StaminaPotion.new())
   player.emit_signal('inventory_changed', player.inventory)
-  player.add_resource("wood", 4)
-  player.add_resource("stone", 15)
+  player.add_resource("ore", 15)
+  player.add_resource("iron", 15)
   player.add_resource("leather", 8)
+  player.add_resource("skin", 8)
+  player.add_resource("fabric", 8)
+  player.add_resource("cristal", 8)
+  
 #  player.gain_xp("light_armors", 200)
 #  player.gain_xp("leatherwork", 200)
   player.gold += 120

@@ -414,8 +414,6 @@ func _on_ready() -> void:
   emit_signal("tech_list_changed", techs)
 
 func _physics_process(delta):
-
-
   if not is_dead:
     # Regens  
     var gain = clamp(delta, 0.0, health_regain)
