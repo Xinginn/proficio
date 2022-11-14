@@ -46,6 +46,9 @@ var orientation: String = "down" setget _set_orientation
 
 var harvest_progress: float = 0.0 setget _set_harvest_progress
 var current_resource_spot = null
+var contribution_progress: float = 0.0 setget _set_contribution_progress
+var current_contribution: string = null
+
 
 var gold: int = 0 setget _set_gold
 var inventory: Inventory = Inventory.new()
@@ -116,6 +119,11 @@ func _set_harvest_progress(value: float) -> void:
 func _set_orientation(value):
   orientation = value
   animated_sprite.play("walk_%s" % orientation)
+  
+func _set_contribution_progress(value):
+  contribution_progress = value
+  emit_signal('contribution_progress_changed', contribution_progress)
+  if current_contribution_task
 
 func die():
   is_dead = true

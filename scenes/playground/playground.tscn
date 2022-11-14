@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://tres/styles/gaugebar_back.tres" type="StyleBox" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://assets/icons/cudgel.png" type="Texture" id=24]
 [ext_resource path="res://scenes/playground/refine_panel.gd" type="Script" id=25]
 [ext_resource path="res://entities/building/castle/castle.tscn" type="PackedScene" id=26]
+[ext_resource path="res://scenes/playground/contribution_panel.gd" type="Script" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 0, 0 )
@@ -39,19 +40,55 @@ bg_color = Color( 0.533333, 0.0705882, 0.0705882, 1 )
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.286275, 0.509804, 0.266667, 0.541176 )
-
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.286275, 0.509804, 0.266667, 1 )
-
 [sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.105882, 0.384314, 0.678431, 0.54902 )
+bg_color = Color( 0.0705882, 0.478431, 0.533333, 0.584314 )
 
 [sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.105882, 0.384314, 0.678431, 0.815686 )
+bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.0705882, 0.478431, 0.533333, 0.584314 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.286275, 0.509804, 0.266667, 0.541176 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.286275, 0.509804, 0.266667, 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.105882, 0.384314, 0.678431, 0.54902 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.105882, 0.384314, 0.678431, 0.815686 )
+
+[sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [node name="Playground" type="Node2D"]
@@ -122,6 +159,7 @@ __meta__ = {
 }
 
 [node name="CraftTab" type="Tabs" parent="Camera/BuildingWindow"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -278,6 +316,138 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ContributionTab" type="Tabs" parent="Camera/BuildingWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ContributionPanel" type="Panel" parent="Camera/BuildingWindow/ContributionTab"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 14 )
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthRegainBar" type="ProgressBar" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel"]
+margin_left = 12.0
+margin_top = 14.0
+margin_right = 463.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 160, 15 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = ExtResource( 2 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="ProgressBar" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel/HealthRegainBar"]
+margin_right = 450.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 160, 15 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
+value = 40.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel/HealthRegainBar/HealthBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "40 / 40"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeRegainBar" type="ProgressBar" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel"]
+margin_left = 12.8638
+margin_top = 45.818
+margin_right = 463.864
+margin_bottom = 60.818
+rect_min_size = Vector2( 160, 15 )
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 8 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeBar" type="ProgressBar" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeRegainBar"]
+margin_right = 450.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 160, 15 )
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 10 )
+value = 40.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeRegainBar/UpgradeBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "40 / 40"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RepairButton" type="Button" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel"]
+margin_left = 37.4455
+margin_top = 134.927
+margin_right = 119.445
+margin_bottom = 158.927
+text = "Repair"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RepairProgress" type="ProgressBar" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel/RepairButton"]
+margin_left = -1.4455
+margin_top = 34.0729
+margin_right = 158.555
+margin_bottom = 41.0729
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeButton" type="Button" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel"]
+margin_left = 36.5545
+margin_top = 210.208
+margin_right = 118.555
+margin_bottom = 234.208
+text = "Upgrade"
+
+[node name="UpgradeProgress" type="ProgressBar" parent="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeButton"]
+margin_left = 1.67267
+margin_top = 33.182
+margin_right = 161.673
+margin_bottom = 40.182
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="RefineTab" type="Tabs" parent="Camera/BuildingWindow"]
 visible = false
 anchor_right = 1.0
@@ -335,10 +505,13 @@ texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 24 )
 
 [node name="InventoryPanel" type="Panel" parent="Camera"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = -746.606
 margin_top = -420.475
-margin_right = -220.606
-margin_bottom = -61.4749
+margin_right = -746.606
+margin_bottom = -420.475
 mouse_filter = 2
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 15 )
@@ -615,7 +788,7 @@ margin_left = 200.0
 margin_right = 360.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
-custom_styles/fg = SubResource( 5 )
+custom_styles/fg = SubResource( 11 )
 custom_styles/bg = ExtResource( 2 )
 value = 60.0
 percent_visible = false
@@ -627,7 +800,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 160, 30 )
-custom_styles/fg = SubResource( 6 )
+custom_styles/fg = SubResource( 12 )
 custom_styles/bg = SubResource( 4 )
 value = 40.0
 percent_visible = false
@@ -647,7 +820,7 @@ margin_left = 400.0
 margin_right = 560.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
-custom_styles/fg = SubResource( 7 )
+custom_styles/fg = SubResource( 13 )
 custom_styles/bg = ExtResource( 2 )
 value = 60.0
 percent_visible = false
@@ -659,8 +832,8 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 160, 30 )
-custom_styles/fg = SubResource( 8 )
-custom_styles/bg = SubResource( 9 )
+custom_styles/fg = SubResource( 14 )
+custom_styles/bg = SubResource( 15 )
 value = 40.0
 percent_visible = false
 __meta__ = {
@@ -690,7 +863,10 @@ __meta__ = {
 }
 
 [node name="CooldownDisplay" parent="Camera/CooldownsManager" instance=ExtResource( 23 )]
+
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/RepairButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_repair_button_pressed"]
+[connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_upgrade_button_pressed"]
 [connection signal="toggled" from="Camera/BuildingWindow/RefineTab/RefinePanel/LoopButton" to="Camera/BuildingWindow/RefineTab/RefinePanel" method="_on_loop_button_toggled"]
 [connection signal="gui_input" from="Camera/CooldownsManager" to="Camera/CooldownsManager" method="_on_gui_input"]

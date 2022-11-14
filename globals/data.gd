@@ -7,6 +7,7 @@ var buildings = []
 var techs = []
 var races = []
 var npc_models = {}
+var contributions = {}
 
 func _ready():
   lands.append(LandData.new(0, "center", 3, {"herbs": 3, "pebble": 2, "twig": 2, "tree": 1}))
@@ -76,5 +77,10 @@ func _ready():
     "max_mana": 6,
     "move_speed": 250,
     "attributes": { "gathering": 5 },
+   }
+  
+  contributions = {
+    "repair": {"cost": {"stone": 4}, "needed_progress": 2.0},
+    "upgrade": {"cost": {"stone": 4}, "needed_progress": 4.0}
    }
   
