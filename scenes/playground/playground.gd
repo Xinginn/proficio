@@ -193,6 +193,7 @@ func _ready():
   player.add_resource("skin", 8)
   player.add_resource("fabric", 8)
   player.add_resource("cristal", 8)
+  player.add_resource("stone", 8)
   
 #  player.gain_xp("light_armors", 200)
 #  player.gain_xp("leatherwork", 200)

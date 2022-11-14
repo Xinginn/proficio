@@ -47,8 +47,7 @@ var orientation: String = "down" setget _set_orientation
 var harvest_progress: float = 0.0 setget _set_harvest_progress
 var current_resource_spot = null
 var contribution_progress: float = 0.0 setget _set_contribution_progress
-var current_contribution: string = null
-
+var current_contribution = ""
 
 var gold: int = 0 setget _set_gold
 var inventory: Inventory = Inventory.new()
@@ -73,6 +72,8 @@ signal mana_changed(current, maxi)
 signal experience_changed()
 signal tech_list_changed(techs)
 signal cooldowns_changed(cooldowns)
+signal contribution_progress_changed(contribution_name, value)
+signal contribution_finished(contribution_name, actor)
 
 func _set_sprite_path(sprite_name: String) -> void:
   sprite_path = sprite_name
@@ -122,8 +123,14 @@ func _set_orientation(value):
   
 func _set_contribution_progress(value):
   contribution_progress = value
-  emit_signal('contribution_progress_changed', contribution_progress)
-  if current_contribution_task
+  emit_signal('contribution_progress_changed', current_contribution, contribution_progress)
+  if current_contribution == "":
+    return
+  if contribution_progress >= Data.contributions[current_contribution]["needed_progress"]:
+    contribution_progress = 0.0
+    emit_signal('contribution_progress_changed', current_contribution, contribution_progress)
+    emit_signal('contribution_finished', current_contribution, self)
+  
 
 func die():
   is_dead = true
@@ -449,7 +456,10 @@ func _physics_process(delta):
     self.stamina -= current_resource_spot.stamina_loss_while_harvesting * delta
     if stamina == 0.0:
       stop_harvesting()
-      
+  
+  if current_contribution != "" && not is_dead:
+    self.contribution_progress += delta
+        
   var cooldown_changed = false
   for key in techs.size():
     if cooldowns[key] > 0.0:

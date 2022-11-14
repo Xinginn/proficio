@@ -40,10 +40,10 @@ bg_color = Color( 0.533333, 0.0705882, 0.0705882, 1 )
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.0705882, 0.478431, 0.533333, 0.584314 )
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -55,16 +55,16 @@ expand_margin_right = 2.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.0705882, 0.478431, 0.533333, 0.584314 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -375,8 +375,8 @@ margin_top = 45.818
 margin_right = 463.864
 margin_bottom = 60.818
 rect_min_size = Vector2( 160, 15 )
-custom_styles/fg = SubResource( 7 )
-custom_styles/bg = SubResource( 8 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
 value = 60.0
 percent_visible = false
 __meta__ = {
@@ -387,8 +387,8 @@ __meta__ = {
 margin_right = 450.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 160, 15 )
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 8 )
 value = 40.0
 percent_visible = false
 __meta__ = {
@@ -420,9 +420,9 @@ margin_left = -1.4455
 margin_top = 34.0729
 margin_right = 158.555
 margin_bottom = 41.0729
-custom_styles/fg = SubResource( 5 )
-custom_styles/bg = SubResource( 6 )
-value = 60.0
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 10 )
+max_value = 2.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -440,9 +440,9 @@ margin_left = 1.67267
 margin_top = 33.182
 margin_right = 161.673
 margin_bottom = 40.182
-custom_styles/fg = SubResource( 5 )
-custom_styles/bg = SubResource( 6 )
-value = 60.0
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 10 )
+max_value = 2.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -863,10 +863,9 @@ __meta__ = {
 }
 
 [node name="CooldownDisplay" parent="Camera/CooldownsManager" instance=ExtResource( 23 )]
-
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
-[connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/RepairButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_repair_button_pressed"]
-[connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/RepairButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "repair" ]]
+[connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "upgrade" ]]
 [connection signal="toggled" from="Camera/BuildingWindow/RefineTab/RefinePanel/LoopButton" to="Camera/BuildingWindow/RefineTab/RefinePanel" method="_on_loop_button_toggled"]
 [connection signal="gui_input" from="Camera/CooldownsManager" to="Camera/CooldownsManager" method="_on_gui_input"]
