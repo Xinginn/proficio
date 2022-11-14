@@ -1,6 +1,7 @@
 extends Node2D
 
 const building_scene: PackedScene = preload('res://entities/building/building.tscn')
+const castle_scene: PackedScene = preload('res://entities/building/castle/castle.tscn')
 const building_button_scene: PackedScene = preload('res://entities/building_button/building_button.tscn')
 const npc_scene = preload('res://entities/actor/npc.tscn')
 
@@ -62,6 +63,12 @@ func place_building() -> void:
   new_building._initialize(player, type_to_build, get_global_mouse_position())
   connect_building(new_building)
   build_mode_off()
+
+func place_castle(coords: Vector2):
+  var new_castle = castle_scene.instance()
+  buildings_holder.add_child(new_castle)
+  new_castle.global_position = coords
+  connect_building(new_castle)
 
 # methode pour raccorder les signaux d'un nouveau building
 func connect_building(building):
@@ -144,6 +151,8 @@ func _ready():
   SaveManager.load_actor_data(GameManager.player_name)
   
   for data in Data.buildings:
+#    if data._name == "castle":
+#      continue
     var new_button = building_button_scene.instance()
     building_buttons_container.add_child(new_button)
     new_button._initialize(data)
@@ -189,3 +198,5 @@ func _ready():
 #  player.gain_xp("leatherwork", 200)
   player.gold += 120
   player.health -= 6
+  
+  place_castle(Vector2(10,10))

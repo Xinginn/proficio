@@ -28,7 +28,7 @@ func take_decision():
 #    return
 ##  go_to_nearest_resource('herb')
   if has_resources(Data.buildings[0].resources):
-    place_building(0)
+    place_building(1)
   else:
     print('not enough')
    

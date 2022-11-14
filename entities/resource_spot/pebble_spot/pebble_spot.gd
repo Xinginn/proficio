@@ -22,7 +22,7 @@ func harvest(harvester) -> void:
     harvester.add_resource("ore", ore_gain)
     gain_text += "\n+%d %s" % [ore_gain, Dictionaries.resource_names["ore"] ]
     
-  var cristal_gain = clamp(GameManager.rng.randi_range(-2,1), 0, 1) if (stone_gain + ore_gain) > 0 else 1
+  var cristal_gain = clamp(GameManager.rng.randi_range(-2,1), 0, 1) if (stone_gain + ore_gain > 0) else 1
   if cristal_gain > 0:
     harvester.add_resource("cristal", cristal_gain)
     gain_text += "\n+%d %s" % [cristal_gain, Dictionaries.resource_names["cristal"] ]

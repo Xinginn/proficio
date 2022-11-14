@@ -59,7 +59,8 @@ func _set_health(value) -> void:
     queue_free()
   if health == max_health:
     # TODO gerer valeur de px gagné
-    building_owner.gain_xp("construction", 10)
+    if !!building_owner: 
+      building_owner.gain_xp("construction", 10)
     emit_signal('building_constructed', self)
     is_building = false
     if building_owner == GameManager.player_actor:
@@ -125,6 +126,7 @@ func _initialize(_owner, data, pos) -> void:
   # TODO gerer storage possible d'equipable
   # TODO set position et largeur health_bar
 
+# TODO pourquoi c'est là? à virer?
 func display_buidling_window(_visible: bool):
   print("should toggle building display ", _visible)
 
@@ -206,21 +208,7 @@ func _on_stackable_withdrawal_requested(item_name) -> void:
   stackable_storage[item_name] -= 1
   emit_signal("stackable_storage_changed", stackable_storage)
   
-func _on_stackable_buy_requested(item_name, customer) -> void:
-  var base_price = 0
-  if item_name in customer.inventory.resources.keys():
-    base_price = Dictionaries.resource_prices[item_name]
-    customer.add_resource(item_name, 1)
-  else:
-    var new_item = load('res://classes/item/consumable/%s.gd' % item_name).new()
-    base_price = new_item.base_price
-    customer.add_item(new_item)
-  stackable_storage[item_name] -= 1
-  emit_signal("stackable_storage_changed", stackable_storage)
-  # gestion niveau de trade dans le prix
-  self.gold_storage += base_price
-  customer.gold -= int(round(base_price / (0.99 + 0.01 * customer.get_total_attribute("bartering"))))
-  customer.gain_xp("bartering", base_price)
+
 
 func _process(delta):
   if is_building:

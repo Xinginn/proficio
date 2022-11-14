@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://entities/building/building.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/buildings/castle.png" type="Texture" id=2]
+[ext_resource path="res://entities/building/castle/castle.gd" type="Script" id=3]
+
+[node name="Castle" instance=ExtResource( 1 )]
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="HealthBar" parent="." index="0"]
+margin_top = 61.5717
+margin_bottom = 75.5717
+
+[node name="CollisionShape2D" parent="TriggerArea" index="0"]
+position = Vector2( -0.25, 41.5 )
+
+[node name="CollisionShape2D" parent="OccupiedSpaceArea" index="0"]
+position = Vector2( -1.52588e-05, 2.80614 )
