@@ -139,6 +139,7 @@ func die():
   health_bar.hide()
   texture_progress.hide()
   stop_harvesting()
+  cancel_contribution()
   
 func live():
   is_dead = false
@@ -314,6 +315,28 @@ func stop_moving() -> void:
   animated_sprite.frame = 0
   target_position = null
   velocity = Vector2(0,0)
+  
+func start_contribution(contribution_name) -> void:
+  current_contribution = contribution_name
+  self.contribution_progress = 0.0
+  connect('contribution_finished', GameManager.team_castles[team], '_on_actor_finished_contribution')
+  if self == GameManager.player_actor:
+    var panel = $Camera/BuildingWindow/ContributionTab/ContributionPanel
+    connect('contribution_progress_changed', panel, '_on_player_contribution_progress_changed')
+  for resource_name in Data.contributions[contribution_name]["cost"].keys():
+    remove_resource(resource_name, Data.contributions[contribution_name]["cost"][resource_name])
+  
+func cancel_contribution() -> void:
+  if current_contribution == "":
+    return
+  self.contribution_progress = 0.0
+  for resource_name in Data.contributions[current_contribution]["cost"].keys():
+    add_resource(resource_name, Data.contributions[current_contribution]["cost"][resource_name])
+  current_contribution = ""
+  if self == GameManager.player_actor:
+    var panel = $Camera/BuildingWindow/ContributionTab/ContributionPanel
+    disconnect('contribution_progress_changed', panel, '_on_player_contribution_progress_changed')
+  disconnect('contribution_finished', GameManager.team_castles[team], '_on_actor_finished_contribution')
 
 func start_harvesting(spot):
   current_resource_spot = spot

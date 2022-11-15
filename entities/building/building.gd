@@ -151,6 +151,8 @@ func _on_body_exited(body):
     emit_signal('craft_queue_changed', [])
   if body is Player:
     emit_signal('player_exited_building')
+  if body is Actor:
+    body.cancel_contribution()
 
 func _on_owner_died():
   is_building = false

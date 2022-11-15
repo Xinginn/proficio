@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://tres/styles/gaugebar_back.tres" type="StyleBox" id=2]
@@ -25,7 +25,6 @@
 [ext_resource path="res://entities/cooldown_display/cooldown_display.tscn" type="PackedScene" id=23]
 [ext_resource path="res://assets/icons/cudgel.png" type="Texture" id=24]
 [ext_resource path="res://scenes/playground/refine_panel.gd" type="Script" id=25]
-[ext_resource path="res://entities/building/castle/castle.tscn" type="PackedScene" id=26]
 [ext_resource path="res://scenes/playground/contribution_panel.gd" type="Script" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -111,9 +110,6 @@ script = ExtResource( 1 )
 
 [node name="BuildingsHolder" type="Node2D" parent="World"]
 
-[node name="Castle" parent="World/BuildingsHolder" instance=ExtResource( 26 )]
-position = Vector2( -445.495, 148.725 )
-
 [node name="Npc" parent="World" instance=ExtResource( 13 )]
 position = Vector2( -117.986, -138.954 )
 
@@ -159,7 +155,6 @@ __meta__ = {
 }
 
 [node name="CraftTab" type="Tabs" parent="Camera/BuildingWindow"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -317,6 +312,7 @@ __meta__ = {
 }
 
 [node name="ContributionTab" type="Tabs" parent="Camera/BuildingWindow"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -863,6 +859,7 @@ __meta__ = {
 }
 
 [node name="CooldownDisplay" parent="Camera/CooldownsManager" instance=ExtResource( 23 )]
+
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/RepairButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "repair" ]]

@@ -64,10 +64,11 @@ func place_building() -> void:
   connect_building(new_building)
   build_mode_off()
 
-func place_castle(coords: Vector2):
+func place_castle(team: int, coords: Vector2):
   var new_castle = castle_scene.instance()
   buildings_holder.add_child(new_castle)
   new_castle.global_position = coords
+  GameManager.team_castles[team] = new_castle
   connect_building(new_castle)
 
 # methode pour raccorder les signaux d'un nouveau building
@@ -200,4 +201,4 @@ func _ready():
   player.gold += 120
   player.health -= 6
   
-  place_castle(Vector2(10,10))
+  place_castle(0, Vector2(10,10))

@@ -45,6 +45,10 @@ func _set_rare_resources_ticks(value) -> void:
     for resource_name in rare_resources:
       stackable_storage[resource_name] += 1
     emit_signal('stackable_storage_changed', stackable_storage)
+    
+func _on_actor_finished_contribution(_name, actor):
+  actor.cancel_contribution()
+  print('should handle contribution effects')    
 
 func _ready() -> void:
   building_data = Data.buildings[0]

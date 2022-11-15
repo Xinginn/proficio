@@ -9,6 +9,8 @@ var player_actor = null
 
 var world_size: int = 1
 var forest_ratio: int = 1
+
+var team_castles = {0: null, 1: null}
 #
 #signal to_black_finished
 #signal from_black_finished

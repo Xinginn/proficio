@@ -59,4 +59,5 @@ custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
