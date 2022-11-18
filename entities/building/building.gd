@@ -13,7 +13,7 @@ onready var occupied_space = $OccupiedSpaceArea
 onready var health_bar = $HealthBar
 onready var health_bar_label = $HealthBar/Label
 
-var health setget _set_health
+var health: float setget _set_health
 var max_health
 var building_owner = null
 var building_data: BuildingData = null
@@ -38,7 +38,7 @@ signal craft_progress_changed(value)
 signal craft_queue_changed(queue)
 signal refine_progress_changed(value)
 signal current_refine_changed(value)
-signal player_entered_building(building)
+signal player_entered_building(building, is_owner)
 signal player_entered_owned_building(data)
 signal player_exited_building
 
@@ -134,7 +134,7 @@ func _on_body_entered(body):
   if body is Actor:
     body.stop_moving()
     if body == GameManager.player_actor:
-      emit_signal('player_entered_building', self)
+      emit_signal('player_entered_building', self, building_owner == body)
     if body == building_owner && not building_owner.is_dead:
       if health < max_health:
         is_building = true

@@ -17,6 +17,7 @@ onready var building_window = $Camera/BuildingWindow
 onready var craft_panel = $Camera/BuildingWindow/CraftTab/CraftPanel
 onready var storage_panel = $Camera/BuildingWindow/StorageTab/StoragePanel
 onready var refine_panel = $Camera/BuildingWindow/RefineTab/RefinePanel
+onready var contribution_panel = $Camera/BuildingWindow/ContributionTab/ContributionPanel 
 onready var gauges_manager = $Camera/GaugesManager
 onready var building_buttons_container = $Camera/StartBuildButton/BuildingButtonsContainer
 onready var cooldowns_manager = $Camera/CooldownsManager
@@ -80,7 +81,7 @@ func connect_building(building):
   building.connect('player_entered_owned_building', refine_panel, "_on_player_entered_owned_building")
   building.connect('player_exited_building', craft_panel, "_on_player_exited_building")
 
-func _on_player_entered_building(building) -> void:
+func _on_player_entered_building(building, actor) -> void:
   storage_panel._initialize(building)
   refine_panel._initialize(building)
   if !!last_building:
@@ -98,6 +99,10 @@ func _on_player_entered_building(building) -> void:
     storage_panel.disconnect('stackable_buy_requested', last_building, '_on_stackable_buy_requested')
     refine_panel.disconnect('refine_requested', last_building, '_on_refine_requested')
     refine_panel.disconnect('refine_loop_toggled', last_building, '_on_refine_loop_toggled')
+    if last_building is Castle:
+      last_building.disconnect('health_changed', contribution_panel, '_on_health_changed')
+      last_building.connect('upgrade_changed', contribution_panel, '_on_upgrade_changed')
+
   building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
   building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
   building.connect('stackable_storage_changed', storage_panel, "_on_stackable_storage_changed")
@@ -111,6 +116,9 @@ func _on_player_entered_building(building) -> void:
   storage_panel.connect('stackable_buy_requested', building, '_on_stackable_buy_requested')
   refine_panel.connect('refine_requested', building, '_on_refine_requested')
   refine_panel.connect('refine_loop_toggled', building, '_on_refine_loop_toggled')
+  if building is Castle:
+    building.connect('health_changed', contribution_panel, '_on_health_changed')
+    building.connect('upgrade_changed', contribution_panel, '_on_upgrade_changed')
   
   last_building = building
 

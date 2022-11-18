@@ -127,9 +127,9 @@ func _set_contribution_progress(value):
   if current_contribution == "":
     return
   if contribution_progress >= Data.contributions[current_contribution]["needed_progress"]:
-    contribution_progress = 0.0
     emit_signal('contribution_progress_changed', current_contribution, contribution_progress)
     emit_signal('contribution_finished', current_contribution, self)
+    end_contribution()
   
 
 func die():
@@ -219,12 +219,15 @@ func has_resources(needs: Dictionary) -> bool:
   return true
 
 func add_resource(resource: String, number: int) -> void:
+  print('add')
   inventory.resources[resource] += number
   compute_weight()
   emit_signal('inventory_changed', inventory)
 
 func remove_resource(resource: String, number: int) -> void:
+  print(inventory.resources['stone'])
   inventory.resources[resource] -= number
+  print(inventory.resources['stone'])
   compute_weight()
   emit_signal('inventory_changed', inventory)
 
@@ -324,19 +327,23 @@ func start_contribution(contribution_name) -> void:
     var panel = $Camera/BuildingWindow/ContributionTab/ContributionPanel
     connect('contribution_progress_changed', panel, '_on_player_contribution_progress_changed')
   for resource_name in Data.contributions[contribution_name]["cost"].keys():
+    print('removing ', resource_name, Data.contributions[contribution_name]["cost"][resource_name])
     remove_resource(resource_name, Data.contributions[contribution_name]["cost"][resource_name])
   
-func cancel_contribution() -> void:
-  if current_contribution == "":
-    return
+func end_contribution() -> void:
   self.contribution_progress = 0.0
-  for resource_name in Data.contributions[current_contribution]["cost"].keys():
-    add_resource(resource_name, Data.contributions[current_contribution]["cost"][resource_name])
   current_contribution = ""
   if self == GameManager.player_actor:
     var panel = $Camera/BuildingWindow/ContributionTab/ContributionPanel
     disconnect('contribution_progress_changed', panel, '_on_player_contribution_progress_changed')
   disconnect('contribution_finished', GameManager.team_castles[team], '_on_actor_finished_contribution')
+  
+func cancel_contribution() -> void:
+  if current_contribution == "":
+    return
+  for resource_name in Data.contributions[current_contribution]["cost"].keys():
+    add_resource(resource_name, Data.contributions[current_contribution]["cost"][resource_name])
+  end_contribution()
 
 func start_harvesting(spot):
   current_resource_spot = spot
