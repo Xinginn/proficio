@@ -6,6 +6,7 @@ const TIME_FOR_COMMON_RESOURCES_GAIN = 10.0
 const TIME_FOR_RARE_RESOURCES_GAIN = 20.0
 const BASE_HEALTH_REGEN = 0.0
 const BASE_UPGRADE_GAIN = 0.0
+const TIME_FOR_INSTANT_RESURRECTION_GAIN = 5.0
 
 var base_resources_ticks: float = 0.0 setget _set_base_resources_ticks
 var common_resources_ticks: float = 0.0 setget _set_common_resources_ticks
@@ -20,10 +21,14 @@ var max_upgrade = 50.0
 var upgrade_level = 1
 var health_regain = 20.0
 var upgrade_regain = 0.0
+var instant_resurrection_stock: int = 0 setget _set_instant_resurrection_stock
+var instant_resurrection_ticks: float = 0.0 setget _set_instant_resurrection_ticks
 
 signal health_changed(current, maxi, regain)
 signal upgrade_changed(current, maxi, regain)
 signal upgrade_level_gained(castle)
+signal instant_resurrection_stock_changed(value)
+signal instant_resurrection_ticks_changed(value)
 signal castle_destroyed
 
 func _set_health(value) -> void:
@@ -41,8 +46,19 @@ func _set_health(value) -> void:
 func _set_upgrade(value) -> void:
   upgrade = clamp(value, 0, max_upgrade)
   if upgrade == max_upgrade:
-    pass #TODO gerer upgrade
+    pass #TODO gerer upgrade de level
   emit_signal('upgrade_changed', upgrade, max_upgrade, upgrade_regain)
+  
+func _set_instant_resurrection_stock(value) -> void:
+  instant_resurrection_stock = clamp(value, 0, 99)
+  emit_signal("instant_resurrection_stock_changed", instant_resurrection_stock)
+  
+func _set_instant_resurrection_ticks(value) -> void:
+  instant_resurrection_ticks = value
+  if instant_resurrection_ticks >= TIME_FOR_INSTANT_RESURRECTION_GAIN:
+    instant_resurrection_ticks -= TIME_FOR_INSTANT_RESURRECTION_GAIN
+    self.instant_resurrection_stock += 1
+  emit_signal("instant_resurrection_ticks_changed", instant_resurrection_ticks)
 
 func _set_base_resources_ticks(value) -> void:
   base_resources_ticks = value
@@ -95,4 +111,6 @@ func _process(delta):
   gain = clamp(delta, 0.0, upgrade_regain)
   upgrade_regain -= gain
   self.upgrade += delta * BASE_UPGRADE_GAIN + gain
+  
+  self.instant_resurrection_ticks += delta  #TODO reduire vitesse de gain selon stock ?
   

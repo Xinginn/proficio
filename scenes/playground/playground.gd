@@ -18,6 +18,7 @@ onready var craft_panel = $Camera/BuildingWindow/CraftTab/CraftPanel
 onready var storage_panel = $Camera/BuildingWindow/StorageTab/StoragePanel
 onready var refine_panel = $Camera/BuildingWindow/RefineTab/RefinePanel
 onready var contribution_panel = $Camera/BuildingWindow/ContributionTab/ContributionPanel 
+onready var resurrection_panel = $Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel
 onready var gauges_manager = $Camera/GaugesManager
 onready var building_buttons_container = $Camera/StartBuildButton/BuildingButtonsContainer
 onready var cooldowns_manager = $Camera/CooldownsManager
@@ -101,7 +102,8 @@ func _on_player_entered_building(building, actor) -> void:
     refine_panel.disconnect('refine_loop_toggled', last_building, '_on_refine_loop_toggled')
     if last_building is Castle:
       last_building.disconnect('health_changed', contribution_panel, '_on_health_changed')
-      last_building.connect('upgrade_changed', contribution_panel, '_on_upgrade_changed')
+      last_building.disconnect('upgrade_changed', contribution_panel, '_on_upgrade_changed')
+      last_building.disconnect('instant_resurrection_stock_changed', resurrection_panel, '_on_instant_resurrection_stock_changed')
 
   building.connect('craft_queue_changed', craft_panel, "_on_craft_queue_changed")
   building.connect('craft_progress_changed', craft_panel, "_on_craft_progress_changed")
@@ -119,6 +121,7 @@ func _on_player_entered_building(building, actor) -> void:
   if building is Castle:
     building.connect('health_changed', contribution_panel, '_on_health_changed')
     building.connect('upgrade_changed', contribution_panel, '_on_upgrade_changed')
+    building.connect('instant_resurrection_stock_changed', resurrection_panel, '_on_instant_resurrection_stock_changed')
   
   last_building = building
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scenes/playground/world_manager.gd" type="Script" id=1]
 [ext_resource path="res://tres/styles/gaugebar_back.tres" type="StyleBox" id=2]
@@ -25,24 +25,16 @@
 [ext_resource path="res://entities/cooldown_display/cooldown_display.tscn" type="PackedScene" id=23]
 [ext_resource path="res://assets/icons/cudgel.png" type="Texture" id=24]
 [ext_resource path="res://scenes/playground/refine_panel.gd" type="Script" id=25]
+[ext_resource path="res://scenes/playground/resurrection_panel.gd" type="Script" id=26]
 [ext_resource path="res://scenes/playground/contribution_panel.gd" type="Script" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 0, 0 )
 
 [sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.533333, 0.0705882, 0.0705882, 0.584314 )
+bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.533333, 0.0705882, 0.0705882, 1 )
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
-
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.0705882, 0.478431, 0.533333, 0.584314 )
-
-[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -53,17 +45,20 @@ expand_margin_left = 2.0
 expand_margin_right = 2.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.533333, 0.0705882, 0.0705882, 0.584314 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.533333, 0.0705882, 0.0705882, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.0705882, 0.478431, 0.533333, 0.584314 )
 
 [sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
-
-[sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -74,6 +69,12 @@ expand_margin_left = 2.0
 expand_margin_right = 2.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.0705882, 0.478431, 0.533333, 0.584314 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.286275, 0.509804, 0.266667, 0.541176 )
@@ -155,10 +156,11 @@ __meta__ = {
 }
 
 [node name="CraftTab" type="Tabs" parent="Camera/BuildingWindow"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 24.0
+margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -236,7 +238,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 24.0
+margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -311,12 +313,69 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ResurrectionTab" type="Tabs" parent="Camera/BuildingWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ResurrectionPanel" type="Panel" parent="Camera/BuildingWindow/ResurrectionTab"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 14 )
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InstantButton" type="Button" parent="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel"]
+margin_left = 37.4456
+margin_top = 95.8695
+margin_right = 119.445
+margin_bottom = 119.87
+text = "Instantané"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResurrectionStockLabel" type="Label" parent="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel/InstantButton"]
+margin_left = 101.162
+margin_top = -1.05399
+margin_right = 197.162
+margin_bottom = 24.946
+text = "Stock:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SlowButton" type="Button" parent="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel"]
+margin_left = 36.5545
+margin_top = 210.208
+margin_right = 118.555
+margin_bottom = 234.208
+text = "Slow"
+
+[node name="SlowProgressBar" type="ProgressBar" parent="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel/SlowButton"]
+margin_left = 1.67267
+margin_top = 33.182
+margin_right = 161.673
+margin_bottom = 40.182
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+max_value = 2.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ContributionTab" type="Tabs" parent="Camera/BuildingWindow"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 24.0
+margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -336,7 +395,7 @@ margin_top = 14.0
 margin_right = 463.0
 margin_bottom = 29.0
 rect_min_size = Vector2( 160, 15 )
-custom_styles/fg = SubResource( 2 )
+custom_styles/fg = SubResource( 4 )
 custom_styles/bg = ExtResource( 2 )
 value = 60.0
 percent_visible = false
@@ -348,8 +407,8 @@ __meta__ = {
 margin_right = 450.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 160, 15 )
-custom_styles/fg = SubResource( 3 )
-custom_styles/bg = SubResource( 4 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
 value = 40.0
 percent_visible = false
 __meta__ = {
@@ -372,8 +431,8 @@ margin_top = 45.818
 margin_right = 463.864
 margin_bottom = 60.818
 rect_min_size = Vector2( 160, 15 )
-custom_styles/fg = SubResource( 5 )
-custom_styles/bg = SubResource( 6 )
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 8 )
 value = 60.0
 percent_visible = false
 __meta__ = {
@@ -384,8 +443,8 @@ __meta__ = {
 margin_right = 450.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 160, 15 )
-custom_styles/fg = SubResource( 7 )
-custom_styles/bg = SubResource( 8 )
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 10 )
 value = 40.0
 percent_visible = false
 __meta__ = {
@@ -417,8 +476,8 @@ margin_left = -1.4455
 margin_top = 34.0729
 margin_right = 158.555
 margin_bottom = 41.0729
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
 max_value = 2.0
 percent_visible = false
 __meta__ = {
@@ -437,8 +496,8 @@ margin_left = 1.67267
 margin_top = 33.182
 margin_right = 161.673
 margin_bottom = 40.182
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
 max_value = 2.0
 percent_visible = false
 __meta__ = {
@@ -450,7 +509,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 24.0
+margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -750,7 +809,7 @@ __meta__ = {
 margin_right = 160.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
-custom_styles/fg = SubResource( 2 )
+custom_styles/fg = SubResource( 4 )
 custom_styles/bg = ExtResource( 2 )
 value = 60.0
 percent_visible = false
@@ -762,8 +821,8 @@ __meta__ = {
 margin_right = 160.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
-custom_styles/fg = SubResource( 3 )
-custom_styles/bg = SubResource( 4 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
 value = 40.0
 percent_visible = false
 __meta__ = {
@@ -798,7 +857,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 160, 30 )
 custom_styles/fg = SubResource( 12 )
-custom_styles/bg = SubResource( 4 )
+custom_styles/bg = SubResource( 6 )
 value = 40.0
 percent_visible = false
 __meta__ = {

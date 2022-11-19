@@ -219,15 +219,12 @@ func has_resources(needs: Dictionary) -> bool:
   return true
 
 func add_resource(resource: String, number: int) -> void:
-  print('add')
   inventory.resources[resource] += number
   compute_weight()
   emit_signal('inventory_changed', inventory)
 
 func remove_resource(resource: String, number: int) -> void:
-  print(inventory.resources['stone'])
   inventory.resources[resource] -= number
-  print(inventory.resources['stone'])
   compute_weight()
   emit_signal('inventory_changed', inventory)
 
