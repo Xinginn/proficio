@@ -83,6 +83,12 @@ func _set_rare_resources_ticks(value) -> void:
     for resource_name in rare_resources:
       stackable_storage[resource_name] += 1
     emit_signal('stackable_storage_changed', stackable_storage)
+
+func require_instant_resurrection(actor):
+  if instant_resurrection_stock > 0 && actor.is_dead:
+    self.instant_resurrection_stock -= 1
+    actor.live()
+
     
 func _on_actor_finished_contribution(_name, actor):
   actor.end_contribution()

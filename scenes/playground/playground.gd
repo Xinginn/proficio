@@ -122,7 +122,6 @@ func _on_player_entered_building(building, actor) -> void:
     building.connect('health_changed', contribution_panel, '_on_health_changed')
     building.connect('upgrade_changed', contribution_panel, '_on_upgrade_changed')
     building.connect('instant_resurrection_stock_changed', resurrection_panel, '_on_instant_resurrection_stock_changed')
-  
   last_building = building
 
 func _unhandled_input(event):

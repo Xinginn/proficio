@@ -14,6 +14,8 @@ const BASE_HEALTH_REGEN = 0.5
 const BASE_STAMINA_REGEN = 0.2
 const BASE_MANA_REGEN = 0.15
 
+const TIME_FOR_RESURRECTION = 3.0 # TODO surement plus
+
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: TextureProgress = $HealthBar
 onready var texture_progress: TextureProgress = $TextureProgress
@@ -48,6 +50,8 @@ var harvest_progress: float = 0.0 setget _set_harvest_progress
 var current_resource_spot = null
 var contribution_progress: float = 0.0 setget _set_contribution_progress
 var current_contribution = ""
+var is_resurrecting: bool = false
+var resurrection_progress: float = 0.0 setget _set_resurrection_progress
 
 var gold: int = 0 setget _set_gold
 var inventory: Inventory = Inventory.new()
@@ -74,6 +78,7 @@ signal tech_list_changed(techs)
 signal cooldowns_changed(cooldowns)
 signal contribution_progress_changed(contribution_name, value)
 signal contribution_finished(contribution_name, actor)
+signal resurrection_progress_changed(current, maxi)
 
 func _set_sprite_path(sprite_name: String) -> void:
   sprite_path = sprite_name
@@ -131,6 +136,12 @@ func _set_contribution_progress(value):
     emit_signal('contribution_finished', current_contribution, self)
     end_contribution()
   
+func _set_resurrection_progress(value):
+  resurrection_progress = value
+  if resurrection_progress > TIME_FOR_RESURRECTION:
+    live()
+  emit_signal('resurrection_progress_changed', resurrection_progress, TIME_FOR_RESURRECTION)
+
 
 func die():
   is_dead = true
@@ -144,6 +155,8 @@ func die():
 func live():
   is_dead = false
   animated_sprite.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+  is_resurrecting = false
+  resurrection_progress = 0.0
 
 # methode pour calculer le poids porté, le poids max, et le malus move_speed eventuel
 # 1.0 de malus par %age de dépassement
@@ -456,6 +469,9 @@ func _on_ready() -> void:
   emit_signal("tech_list_changed", techs)
 
 func _physics_process(delta):
+  if is_resurrecting:
+    self.resurrection_progress += delta
+  
   if not is_dead:
     # Regens  
     var gain = clamp(delta, 0.0, health_regain)

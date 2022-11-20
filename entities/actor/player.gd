@@ -52,5 +52,7 @@ func _unhandled_input(event):
       action_number = 5
   if action_number == null:
     return
+  if !techs[action_number]:
+    return
   if can_afford_skill(techs[action_number].cost) and cooldowns[action_number] == 0.0:
     launch_tech(action_number, get_global_mouse_position())
