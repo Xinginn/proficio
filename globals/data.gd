@@ -40,7 +40,7 @@ func _ready():
   crafts.append(CraftData.new(16, AssassinSuit, "assassin_suit", 4, "leatherwork", 4, {"leather" : 6, "iron": 2}, 2.0))
   crafts.append(CraftData.new(17, NightGarb, "night_garb", 4, "weaving", 4, {"leather" : 2, "fabric": 4, "cristal": 4}, 2.0))
   
-  # id, nom, label, max_health, stamina, resources, ?craft_ids = [], ?refine_ids = [], ?stackables = [], ?equipables = []
+  # id, _name, label, max_health, stamina, resources, ?craft_ids = [], ?refine_ids = [], ?stackables = [], ?equipables = []
   buildings.append(BuildingData.new(0, "castle", "Castle", 1000, 0, {}, [], [], ["brick","cristal","fabric","grain","herb","iron","leather","ore","parchment","plank","skin","stone","wood"], []))
   buildings.append(BuildingData.new(1, "hunting_lodge", "Loge de chasseur", 500, 4, {"wood": 24}, [0, 1, 2], [], []))
   buildings.append(BuildingData.new(2, "armory", "Armurerie", 500, 4, {"wood": 4, "stone": 3}, [0, 1, 6], [], [], []))

@@ -134,7 +134,7 @@ func _on_body_entered(body):
   if body is Actor:
     body.stop_moving()
     if body == GameManager.player_actor:
-      emit_signal('player_entered_building', self, building_owner == body)
+      emit_signal('player_entered_building', self, body)
     if body == building_owner && not building_owner.is_dead:
       if health < max_health:
         is_building = true

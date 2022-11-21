@@ -9,10 +9,10 @@ var drag_start_index = null
 
 signal hotkeys_switched(index_a, index_b)
 
-func _on_tech_list_changed(techs):
+func _on_tech_list_changed(techs: Dictionary):
   for child in get_children():
     child.queue_free()
-  for i in range(techs.size()):
+  for i in techs.keys():
     var new_display = cooldown_display_scene.instance()
     add_child(new_display)
     new_display.initialize(i)

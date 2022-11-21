@@ -11,8 +11,6 @@ func _on_hotkeys_switch_requested(index_a: int, index_b: int) -> void:
   cooldowns[index_a] = cooldowns[index_b]
   cooldowns[index_b] = tmp
   emit_signal("cooldowns_changed", cooldowns)
-  for tech in techs:
-    print(tech._name)
 
 func _physics_process(_delta):
   # movement clavier pour player

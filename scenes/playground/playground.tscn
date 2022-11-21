@@ -151,12 +151,8 @@ margin_right = 739.301
 margin_bottom = -83.9996
 tab_align = 0
 script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CraftTab" type="Tabs" parent="Camera/BuildingWindow"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -232,6 +228,62 @@ columns = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="RefineTab" type="Tabs" parent="Camera/BuildingWindow"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RefinePanel" type="Panel" parent="Camera/BuildingWindow/RefineTab"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 14 )
+script = ExtResource( 25 )
+
+[node name="RefineRecipeContainer" type="VBoxContainer" parent="Camera/BuildingWindow/RefineTab/RefinePanel"]
+margin_left = 19.0
+margin_top = 17.0
+margin_right = 216.0
+margin_bottom = 295.0
+
+[node name="CurrentRefine" type="TextureRect" parent="Camera/BuildingWindow/RefineTab/RefinePanel"]
+margin_left = 289.0
+margin_top = 38.0
+margin_right = 383.0
+margin_bottom = 131.0
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="Camera/BuildingWindow/RefineTab/RefinePanel/CurrentRefine"]
+margin_left = -35.9723
+margin_top = 103.149
+margin_right = 137.028
+margin_bottom = 115.149
+step = 0.001
+value = 25.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 9 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoopButton" type="TextureButton" parent="Camera/BuildingWindow/RefineTab/RefinePanel"]
+margin_left = 194.457
+margin_top = 44.4472
+margin_right = 234.457
+margin_bottom = 84.4472
+toggle_mode = true
+pressed = true
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 24 )
 
 [node name="StorageTab" type="Tabs" parent="Camera/BuildingWindow"]
 visible = false
@@ -314,6 +366,7 @@ __meta__ = {
 }
 
 [node name="ResurrectionTab" type="Tabs" parent="Camera/BuildingWindow"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -503,62 +556,6 @@ percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="RefineTab" type="Tabs" parent="Camera/BuildingWindow"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="RefinePanel" type="Panel" parent="Camera/BuildingWindow/RefineTab"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = ExtResource( 14 )
-script = ExtResource( 25 )
-
-[node name="RefineRecipeContainer" type="VBoxContainer" parent="Camera/BuildingWindow/RefineTab/RefinePanel"]
-margin_left = 19.0
-margin_top = 17.0
-margin_right = 216.0
-margin_bottom = 295.0
-
-[node name="CurrentRefine" type="TextureRect" parent="Camera/BuildingWindow/RefineTab/RefinePanel"]
-margin_left = 289.0
-margin_top = 38.0
-margin_right = 383.0
-margin_bottom = 131.0
-texture = ExtResource( 7 )
-expand = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="TextureProgress" type="TextureProgress" parent="Camera/BuildingWindow/RefineTab/RefinePanel/CurrentRefine"]
-margin_left = -35.9723
-margin_top = 103.149
-margin_right = 137.028
-margin_bottom = 115.149
-step = 0.001
-value = 25.0
-texture_under = ExtResource( 8 )
-texture_progress = ExtResource( 9 )
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LoopButton" type="TextureButton" parent="Camera/BuildingWindow/RefineTab/RefinePanel"]
-margin_left = 194.457
-margin_top = 44.4472
-margin_right = 234.457
-margin_bottom = 84.4472
-toggle_mode = true
-pressed = true
-texture_normal = ExtResource( 7 )
-texture_pressed = ExtResource( 24 )
 
 [node name="InventoryPanel" type="Panel" parent="Camera"]
 visible = false
@@ -922,9 +919,9 @@ __meta__ = {
 
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
+[connection signal="toggled" from="Camera/BuildingWindow/RefineTab/RefinePanel/LoopButton" to="Camera/BuildingWindow/RefineTab/RefinePanel" method="_on_loop_button_toggled"]
 [connection signal="pressed" from="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel/InstantButton" to="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel" method="_on_instant_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel/SlowButton" to="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel" method="_on_slow_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/RepairButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "repair" ]]
 [connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "upgrade" ]]
-[connection signal="toggled" from="Camera/BuildingWindow/RefineTab/RefinePanel/LoopButton" to="Camera/BuildingWindow/RefineTab/RefinePanel" method="_on_loop_button_toggled"]
 [connection signal="gui_input" from="Camera/CooldownsManager" to="Camera/CooldownsManager" method="_on_gui_input"]

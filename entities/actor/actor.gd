@@ -60,7 +60,7 @@ var health_regain :float = 0.0
 var stamina_regain :float = 0.0
 var mana_regain :float = 0.0
 
-var techs = []
+var techs = {0: null, 1: null, 2: null, 3: null, 4: null, 5: null}
 var cooldowns = []
 
 # --------- LEVELS AND XP ---------
@@ -153,10 +153,11 @@ func die():
   cancel_contribution()
   
 func live():
+  is_resurrecting = false
+  self.resurrection_progress = 0.0
   is_dead = false
   animated_sprite.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
-  is_resurrecting = false
-  resurrection_progress = 0.0
+
 
 # methode pour calculer le poids porté, le poids max, et le malus move_speed eventuel
 # 1.0 de malus par %age de dépassement
@@ -354,6 +355,10 @@ func cancel_contribution() -> void:
   for resource_name in Data.contributions[current_contribution]["cost"].keys():
     add_resource(resource_name, Data.contributions[current_contribution]["cost"][resource_name])
   end_contribution()
+  
+func start_resurrecting() -> void:
+  is_resurrecting = true
+  self.resurrection_progress = 0.0
 
 func start_harvesting(spot):
   current_resource_spot = spot
@@ -401,7 +406,7 @@ func launch_tech(id: int, target_pos) -> void:
     new_tech.launch(self)
     gain_xp(data.skill, data.xp_gain)
   if data is SpotTargetedData:
-    new_tech.global_position = target_position
+    new_tech.global_position = target_pos
     new_tech.launch(self)
     gain_xp(data.skill, data.xp_gain)
     
@@ -462,7 +467,14 @@ func _on_ready() -> void:
     var new_attribute = Attribute.new(attr, "masteries")
     attributes[attr] = new_attribute
   texture_progress.hide()
-  techs = [Data.techs[0], Data.techs[1], Data.techs[2], Data.techs[3], Data.techs[4]]
+  techs = {
+    0: Data.techs[0], 
+    1: Data.techs[1],
+    2: Data.techs[2],
+    3: Data.techs[3],
+    4: Data.techs[4],
+    5: null
+  }
   for tech in techs:
     cooldowns.append(0.0)
   yield(get_tree(), "idle_frame")

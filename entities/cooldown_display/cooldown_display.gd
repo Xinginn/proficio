@@ -12,10 +12,12 @@ signal hotkey_exited(i)
 
 func initialize(_index):
   index = _index
-  sprite_name = GameManager.player_actor.techs[index]._name
-  var sprite = load('res://assets/icons/tech_%s.png' % sprite_name)
-  if !!sprite:
-    texture = sprite
+  var tech = GameManager.player_actor.techs[index]
+  if !!tech:
+    sprite_name = GameManager.player_actor.techs[index]._name
+    var sprite = load('res://assets/icons/tech_%s.png' % sprite_name)
+    if !!sprite:
+      texture = sprite
 
 func _set_cooldown(value) -> void:
   cooldown = max(value, 0.0)
