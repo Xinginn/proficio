@@ -212,3 +212,5 @@ func _ready():
   player.health -= 6
   
   place_castle(0, Vector2(10,10))
+
+
