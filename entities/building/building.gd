@@ -153,6 +153,7 @@ func _on_body_exited(body):
     emit_signal('player_exited_building')
   if body is Actor:
     body.cancel_contribution()
+    body.cancel_resurrecting()
 
 func _on_owner_died():
   is_building = false

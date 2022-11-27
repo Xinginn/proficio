@@ -142,7 +142,6 @@ func _set_resurrection_progress(value):
     live()
   emit_signal('resurrection_progress_changed', resurrection_progress, TIME_FOR_RESURRECTION)
 
-
 func die():
   is_dead = true
   emit_signal("actor_died")
@@ -153,11 +152,9 @@ func die():
   cancel_contribution()
   
 func live():
-  is_resurrecting = false
-  self.resurrection_progress = 0.0
   is_dead = false
   animated_sprite.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
-
+  cancel_resurrecting()
 
 # methode pour calculer le poids porté, le poids max, et le malus move_speed eventuel
 # 1.0 de malus par %age de dépassement
@@ -338,7 +335,6 @@ func start_contribution(contribution_name) -> void:
     var panel = $Camera/BuildingWindow/ContributionTab/ContributionPanel
     connect('contribution_progress_changed', panel, '_on_player_contribution_progress_changed')
   for resource_name in Data.contributions[contribution_name]["cost"].keys():
-    print('removing ', resource_name, Data.contributions[contribution_name]["cost"][resource_name])
     remove_resource(resource_name, Data.contributions[contribution_name]["cost"][resource_name])
   
 func end_contribution() -> void:
@@ -359,6 +355,18 @@ func cancel_contribution() -> void:
 func start_resurrecting() -> void:
   is_resurrecting = true
   self.resurrection_progress = 0.0
+  if self == GameManager.player_actor:
+    var panel = $Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel
+    connect('resurrection_progress_changed', panel, '_on_player_resurrection_progress_changed')
+
+func cancel_resurrecting() -> void:
+  if is_resurrecting == false:
+    return
+  self.resurrection_progress = 0.0
+  is_resurrecting = false
+  if self == GameManager.player_actor:
+    var panel = $Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel
+    disconnect('resurrection_progress_changed', panel, '_on_player_resurrection_progress_changed')
 
 func start_harvesting(spot):
   current_resource_spot = spot
