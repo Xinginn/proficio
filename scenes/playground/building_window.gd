@@ -1,6 +1,5 @@
 extends TabContainer
 
-
 func _on_player_entered_building(building, player):
   set_tab_hidden(0, building.building_owner != player)
   set_tab_hidden(1, building.building_owner != player)

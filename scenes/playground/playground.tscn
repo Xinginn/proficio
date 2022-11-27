@@ -94,6 +94,12 @@ bg_color = Color( 0.6, 0.6, 0.6, 0 )
 [node name="Playground" type="Node2D"]
 script = ExtResource( 3 )
 
+[node name="Button" type="Button" parent="."]
+margin_left = -4.24255
+margin_top = -202.233
+margin_right = 139.757
+margin_bottom = -141.233
+
 [node name="BuildingGhost" type="Sprite" parent="."]
 z_index = 5
 
@@ -153,6 +159,7 @@ tab_align = 0
 script = ExtResource( 12 )
 
 [node name="CraftTab" type="Tabs" parent="Camera/BuildingWindow"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -286,7 +293,6 @@ texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 24 )
 
 [node name="StorageTab" type="Tabs" parent="Camera/BuildingWindow"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -299,9 +305,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GoldIcon" type="TextureRect" parent="Camera/BuildingWindow/StorageTab/StoragePanel"]
 margin_left = 10.0
@@ -321,11 +324,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StackablesContainer" type="GridContainer" parent="Camera/BuildingWindow/StorageTab/StoragePanel"]
-margin_left = 31.0
-margin_top = 52.0
-margin_right = 437.0
-margin_bottom = 199.0
+[node name="StackablesContainer" type="ScrollContainer" parent="Camera/BuildingWindow/StorageTab/StoragePanel"]
+margin_left = 19.0
+margin_top = 49.0
+margin_right = 460.0
+margin_bottom = 195.0
+
+[node name="StackableGrid" type="GridContainer" parent="Camera/BuildingWindow/StorageTab/StoragePanel/StackablesContainer"]
 __meta__ = {
 "_edit_use_anchors_": false
 }

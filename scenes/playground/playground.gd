@@ -124,6 +124,7 @@ func _on_player_entered_building(building, actor) -> void:
     building.connect('instant_resurrection_stock_changed', resurrection_panel, '_on_instant_resurrection_stock_changed')
   last_building = building
 
+
 func _unhandled_input(event):
   if event is InputEventMouseButton:
     if event.button_index == BUTTON_LEFT and event.pressed:
@@ -208,9 +209,8 @@ func _ready():
   
 #  player.gain_xp("light_armors", 200)
 #  player.gain_xp("leatherwork", 200)
-  player.gold += 120
+  player.gold += 15
   player.health -= 6
   
   place_castle(0, Vector2(10,10))
-
 

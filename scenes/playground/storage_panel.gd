@@ -3,7 +3,7 @@ extends Panel
 const stackable_item_scene: PackedScene = preload('res://entities/stackable_store_item/stackable_store_item.tscn')
 
 onready var gold_label: Label = $GoldIcon/GoldLabel
-onready var stackables_container: GridContainer = $StackablesContainer
+onready var stackables_grid: GridContainer = $StackablesContainer/StackableGrid
 onready var equipable_lines_container: VBoxContainer = $EquipablesContainer/LinesContainer
 onready var equipable_items_grid: GridContainer = $EquipablesContainer/MarginContainer/ItemsGrid
 
@@ -18,29 +18,32 @@ signal stackable_buy_requested(_name, customer)
 func _initialize(building):
   stackable_items = {}
   gold_label.text = "%s" % building.gold_storage
-  for child in stackables_container.get_children():
+  for child in stackables_grid.get_children():
     child.queue_free()
   for item_name in building.building_data.storable_stackables:
     var new_stackable_item = stackable_item_scene.instance()
-    stackables_container.add_child(new_stackable_item)
+    stackables_grid.add_child(new_stackable_item)
     new_stackable_item._initialize(item_name, building)
     new_stackable_item.connect('storage_requested', self, '_on_store_request_from_stackable_item')
     new_stackable_item.connect('withdraw_requested', self, '_on_withdraw_request_from_stackable_item')
     new_stackable_item.connect('buy_requested', self, '_on_buy_request_from_stackable_item')
     stackable_items[item_name] = new_stackable_item
-  check_for_affordable_items(GameManager.player_actor.gold)
+  check_for_affordable_items()
     
-func check_for_affordable_items(player_gold):
+func check_for_affordable_items():
+  var player_gold = GameManager.player_actor.gold
   var resource_names = Dictionaries.resource_names.keys()
-  var player_bartering_level = GameManager.player_actor.get_total_attribute("bartering")
+  var barter_level = GameManager.player_actor.get_total_attribute("bartering")
   var expected_price = 0
+  var base_price = 0
   for item_name in stackable_items.keys():
     if item_name in resource_names:
-      expected_price = Dictionaries.resource_prices[item_name] / (0.99 + 0.01 * player_bartering_level)
+      base_price = Dictionaries.resource_prices[item_name]
     else:
       var new_item = load('res://classes/item/consumable/%s.gd' % item_name).new()
-      expected_price = new_item.base_price / (0.99 + 0.01 * player_bartering_level)
-    stackable_items[item_name].buy_button.disabled = (expected_price > player_gold)
+      base_price = new_item.base_price
+    expected_price = int(round( (base_price / (0.99 + 0.01 * barter_level) ) ))
+    stackable_items[item_name].is_affordable = expected_price <= player_gold
 
 func _on_inventory_changed(_inventory):
   var resource_names = Dictionaries.resource_names.keys()
@@ -58,7 +61,7 @@ func _on_inventory_changed(_inventory):
 
 # TODO checker aussi lors du changement de bartering_level
 func _on_gold_changed(player_gold):
-  check_for_affordable_items(player_gold)
+  check_for_affordable_items()
   
 func _on_building_gold_changed(building_gold):
   gold_label.text = str(building_gold)
@@ -66,6 +69,7 @@ func _on_building_gold_changed(building_gold):
 func _on_stackable_storage_changed(stackable_storage):
   for item_name in stackable_storage.keys():
     stackable_items[item_name].quantity = stackable_storage[item_name]
+  check_for_affordable_items()
 
 func _on_store_request_from_equipable_item(item_name):
   emit_signal("equipable_storage_requested", item_name)
