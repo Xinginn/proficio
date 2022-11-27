@@ -530,4 +530,3 @@ func _physics_process(delta):
       cooldown_changed = true
   if cooldown_changed:
     emit_signal("cooldowns_changed", cooldowns)
-      

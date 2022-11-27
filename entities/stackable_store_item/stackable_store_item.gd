@@ -3,6 +3,7 @@ extends HBoxContainer
 onready var quantity_label: Label = $QuantityLabel
 onready var icon: TextureRect = $Icon
 onready var buy_button: TextureButton = $BuyButton
+onready var sell_button: TextureButton = $SellButton
 onready var store_button: TextureButton = $StoreButton
 onready var withdraw_button: TextureButton = $WithdrawButton
 onready var price_display: MarginContainer = $PriceDisplay
@@ -12,7 +13,8 @@ var item_name: String = ""
 var quantity: int = 0 setget _set_quantity
 var is_affordable: bool = true setget _set_is_affordable
 
-signal buy_requested(_name, buyer)
+signal buy_requested(_name, customer)
+signal sell_requested(_name, seller)
 signal storage_requested(_name)
 signal withdraw_requested(_name)
 
@@ -32,6 +34,7 @@ func _initialize(_item_name: String, _building):
   self.quantity = _building.stackable_storage[_item_name]
   if _building.building_owner == GameManager.player_actor:
     buy_button.hide()
+    sell_button.hide()
     price_display.hide()
   else:
     store_button.hide()
@@ -47,7 +50,6 @@ func _on_store_button_pressed():
 func _on_withdraw_button_pressed():
   emit_signal('withdraw_requested', item_name)
 
-# argument GameManager.player_actor pour préciser l'acheteur
 func _on_buy_button_pressed():
   emit_signal('buy_requested', item_name, GameManager.player_actor)
 

@@ -30,7 +30,6 @@ text = "x 45"
 margin_left = 100.0
 margin_right = 132.0
 margin_bottom = 32.0
-disabled = true
 texture_normal = ExtResource( 1 )
 texture_disabled = ExtResource( 5 )
 
@@ -38,7 +37,6 @@ texture_disabled = ExtResource( 5 )
 margin_left = 136.0
 margin_right = 168.0
 margin_bottom = 32.0
-disabled = true
 texture_normal = ExtResource( 1 )
 texture_disabled = ExtResource( 5 )
 

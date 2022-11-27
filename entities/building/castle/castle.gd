@@ -67,6 +67,7 @@ func _set_base_resources_ticks(value) -> void:
     for resource_name in base_resources:
       stackable_storage[resource_name] += 1
     emit_signal('stackable_storage_changed', stackable_storage)
+    self.gold_storage += 1
     
 func _set_common_resources_ticks(value) -> void:
   common_resources_ticks = value

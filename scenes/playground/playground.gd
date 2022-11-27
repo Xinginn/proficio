@@ -98,6 +98,7 @@ func _on_player_entered_building(building, actor) -> void:
     storage_panel.disconnect('stackable_storage_requested', last_building, '_on_stackable_storage_requested')
     storage_panel.disconnect('stackable_withdrawal_requested', last_building, '_on_stackable_withdrawal_requested')
     storage_panel.disconnect('stackable_buy_requested', last_building, '_on_stackable_buy_requested')
+    storage_panel.disconnect('stackable_sell_requested', last_building, '_on_stackable_sell_requested')
     refine_panel.disconnect('refine_requested', last_building, '_on_refine_requested')
     refine_panel.disconnect('refine_loop_toggled', last_building, '_on_refine_loop_toggled')
     if last_building is Castle:
@@ -116,6 +117,7 @@ func _on_player_entered_building(building, actor) -> void:
   storage_panel.connect('stackable_storage_requested', building, '_on_stackable_storage_requested')
   storage_panel.connect('stackable_withdrawal_requested', building, '_on_stackable_withdrawal_requested')
   storage_panel.connect('stackable_buy_requested', building, '_on_stackable_buy_requested')
+  storage_panel.connect('stackable_sell_requested', building, '_on_stackable_sell_requested')
   refine_panel.connect('refine_requested', building, '_on_refine_requested')
   refine_panel.connect('refine_loop_toggled', building, '_on_refine_loop_toggled')
   if building is Castle:
