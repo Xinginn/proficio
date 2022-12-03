@@ -129,9 +129,6 @@ margin_right = -711.41
 margin_bottom = 263.429
 mouse_filter = 1
 texture_normal = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BuildingButtonsContainer" type="HBoxContainer" parent="Camera/StartBuildButton"]
 margin_left = 22.0
@@ -153,7 +150,6 @@ tab_align = 0
 script = ExtResource( 12 )
 
 [node name="CraftTab" type="Tabs" parent="Camera/BuildingWindow"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -287,6 +283,7 @@ texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 24 )
 
 [node name="StorageTab" type="Tabs" parent="Camera/BuildingWindow"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0

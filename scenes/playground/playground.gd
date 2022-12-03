@@ -70,6 +70,7 @@ func place_castle(team: int, coords: Vector2):
   var new_castle = castle_scene.instance()
   buildings_holder.add_child(new_castle)
   new_castle.global_position = coords
+  new_castle.team = team
   GameManager.team_castles[team] = new_castle
   connect_building(new_castle)
 

@@ -2,6 +2,8 @@ extends Control
 
 onready var animation_player = $AnimationPlayer
 onready var black_panel = $CanvasLayer/BlackPanel
+onready var game_over_panel = $CanvasLayer/GameOverPanel
+
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var player_name: String = "mouette"
@@ -11,9 +13,9 @@ var world_size: int = 1
 var forest_ratio: int = 1
 
 var team_castles = {0: null, 1: null}
-#
-#signal to_black_finished
-#signal from_black_finished
+
+signal to_black_finished
+signal from_black_finished
 
 # funcs de transitions
 func to_black(_speed: float = 1.0):
@@ -40,3 +42,15 @@ func _on_animation_finished(anim_name):
 
 func _ready():
   rng.randomize()
+  game_over_panel.hide()
+
+func _on_castle_destroyed(castle) -> void:
+  # TODO check for win
+  if castle.team == player_actor.team:
+    print('TODO: handle player data save')
+    game_over_panel.show()
+
+
+func _on_main_menu_button_pressed():
+  game_over_panel.hide()
+  change_scene("res://scenes/main_screen/main_screen.tscn")

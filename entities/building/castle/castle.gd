@@ -4,7 +4,7 @@ class_name Castle
 const TIME_FOR_BASE_RESOURCES_GAIN = 5.0
 const TIME_FOR_COMMON_RESOURCES_GAIN = 10.0
 const TIME_FOR_RARE_RESOURCES_GAIN = 20.0
-const BASE_HEALTH_REGEN = 0.0
+const BASE_HEALTH_REGEN = -150.0
 const BASE_UPGRADE_GAIN = 0.0
 const TIME_FOR_INSTANT_RESURRECTION_GAIN = 5.0
 
@@ -24,12 +24,14 @@ var upgrade_regain = 0.0
 var instant_resurrection_stock: int = 0 setget _set_instant_resurrection_stock
 var instant_resurrection_ticks: float = 0.0 setget _set_instant_resurrection_ticks
 
+var team = 0
+
 signal health_changed(current, maxi, regain)
 signal upgrade_changed(current, maxi, regain)
 signal upgrade_level_gained(castle)
 signal instant_resurrection_stock_changed(value)
 signal instant_resurrection_ticks_changed(value)
-signal castle_destroyed
+signal castle_destroyed(castle)
 
 func _set_health(value) -> void:
   health = clamp(value, 0, max_health)
@@ -38,8 +40,7 @@ func _set_health(value) -> void:
   health_bar_label.text = "%d / %d" % [health, max_health]
   emit_signal('health_changed', health, max_health, health_regain)
   if health <= 0.0:
-    print('should handle team elimination')
-    emit_signal('castle_destroyed')
+    emit_signal('castle_destroyed', self)
     emit_signal('building_destroyed', self)
     queue_free()
     
@@ -100,6 +101,7 @@ func _on_actor_finished_contribution(_name, actor):
       upgrade_regain += 5
 
 func _ready() -> void:
+  connect('castle_destroyed', GameManager, '_on_castle_destroyed')
   building_data = Data.buildings[0]
   max_health = building_data.max_health
   self.health = max_health - 200.0

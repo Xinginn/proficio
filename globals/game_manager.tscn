@@ -39,9 +39,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/from_black = SubResource( 1 )
@@ -56,8 +53,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="GameOverPanel" type="Panel" parent="CanvasLayer"]
+self_modulate = Color( 1, 1, 1, 0.501961 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -207.5
+margin_top = -66.0
+margin_right = 207.5
+margin_bottom = 66.0
+custom_constants/separation = 64
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverPanel/VBoxContainer"]
+margin_right = 415.0
+margin_bottom = 48.0
+text = "GAME OVER
+
+Votre château a été détruit"
+align = 1
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/GameOverPanel/VBoxContainer"]
+margin_left = 166.0
+margin_top = 112.0
+margin_right = 249.0
+margin_bottom = 132.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Main Menu"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+[connection signal="pressed" from="CanvasLayer/GameOverPanel/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
