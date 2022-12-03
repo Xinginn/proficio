@@ -125,6 +125,11 @@ _global_script_classes=[ {
 "path": "res://classes/item/equipable/armors/leather_jacket.gd"
 }, {
 "base": "Equipable",
+"class": "LeatherSkullcap",
+"language": "GDScript",
+"path": "res://classes/item/equipable/armors/leather_skullcap.gd"
+}, {
+"base": "Equipable",
 "class": "LumberingAxe",
 "language": "GDScript",
 "path": "res://classes/item/equipable/weapons/lumbering_axe.gd"
@@ -163,6 +168,11 @@ _global_script_classes=[ {
 "class": "SelfCenteredData",
 "language": "GDScript",
 "path": "res://classes/data_holders/tech_data/self_centered_data.gd"
+}, {
+"base": "Equipable",
+"class": "ShortBow",
+"language": "GDScript",
+"path": "res://classes/item/equipable/weapons/short_bow.gd"
 }, {
 "base": "TechData",
 "class": "SpotTargetedData",
@@ -228,6 +238,7 @@ _global_script_class_icons={
 "Item": "",
 "LandData": "",
 "LeatherJacket": "",
+"LeatherSkullcap": "",
 "LumberingAxe": "",
 "NightGarb": "",
 "Npc": "",
@@ -236,6 +247,7 @@ _global_script_class_icons={
 "RefineData": "",
 "ResourceSpot": "",
 "SelfCenteredData": "",
+"ShortBow": "",
 "SpotTargetedData": "",
 "StaminaPotion": "",
 "StrikeData": "",
