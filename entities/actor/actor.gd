@@ -185,8 +185,8 @@ func get_total_attribute(attribute_name: String) -> int:
 func get_attribute_level(attribute_name: String) -> int:
   return attributes[attribute_name].level
   
-func get_gear_bonus(attribute_name: String) -> int:
-  var total: int = 0
+func get_gear_bonus(attribute_name: String):
+  var total: float = 0.0
   for slot in inventory.gear:
     var item: Equipable = inventory.gear[slot]
     if item != null:
@@ -194,8 +194,11 @@ func get_gear_bonus(attribute_name: String) -> int:
       if wear_attribute != null:
         var value = wear_attribute.value
         var mastery_bonus = wear_attribute.ratio * get_attribute_level(wear_attribute.attribute_name)
-        total += int(value + mastery_bonus)
-  return total
+        total += value + mastery_bonus
+  if ["health_regen", "stamina_regen", "mana_regen"].has(attribute_name):
+    return stepify(total, 0.01)
+  else: 
+    return int(total)
 
 func get_data() -> Dictionary:
   var data = {
@@ -288,6 +291,7 @@ func destroy_item(slot):
     inventory.items[slot].destroy()
     inventory.items.remove(slot)
   compute_weight()
+  compute_regens_from_gear()
   emit_signal('inventory_changed', inventory)
       
 func consume_item(index: int) -> void:
@@ -312,6 +316,7 @@ func swap_gear_and_inventory_item(gear_slot, item_slot):
     inventory.gear[gear_slot] = temp
   compute_weight()
   auto_assign_techs()
+  compute_regens_from_gear()
   emit_signal('inventory_changed', inventory)
 
 func unequip(gear_slot):
@@ -319,12 +324,16 @@ func unequip(gear_slot):
   inventory.gear[gear_slot] = null
   compute_weight()
   auto_assign_techs()
+  compute_regens_from_gear()
   emit_signal('inventory_changed', inventory)
 
 func compute_regens_from_gear():
   regens_from_gear["health"] = get_gear_bonus("health_regen")
   regens_from_gear["mana"] = get_gear_bonus("mana_regen")
   regens_from_gear["stamina"] = get_gear_bonus("stamina_regen")
+  if inventory.gear["amulet"] != null:
+    print(inventory.gear["amulet"].mana_regen.value)
+    print(regens_from_gear["mana"])
 
 func auto_assign_techs():
   var available_list = self.available_techs
@@ -539,13 +548,13 @@ func _physics_process(delta):
     # Regens  
     var gain = clamp(delta, 0.0, health_regain)
     health_regain -= gain
-    self.health += delta * BASE_HEALTH_REGEN + gain
+    self.health += delta * (BASE_HEALTH_REGEN + regens_from_gear["health"]) + gain
     gain = clamp(delta, 0.0, stamina_regain)
     stamina_regain -= gain
-    self.stamina += delta * BASE_STAMINA_REGEN + gain
+    self.stamina += delta * (BASE_STAMINA_REGEN + regens_from_gear["stamina"]) + gain
     gain = clamp(delta, 0.0, mana_regain)
     mana_regain -= gain
-    self.mana += delta * BASE_MANA_REGEN + gain
+    self.mana += delta * (BASE_MANA_REGEN + regens_from_gear["mana"]) + gain
     
   if target_position != null:
     var final_move_speed = clamp(move_speed - weight_speed_malus, 0, MAX_MOVE_SPEED)

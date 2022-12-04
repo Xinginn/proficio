@@ -16,6 +16,8 @@ func initialize():
     else:
       masteries_container.add_child(new_block)
     new_block.update_display(key)
+    if ['health_regen', 'mana_regen', 'stamina_regen'].has(key):
+      new_block.hide()
 
 # TODO mettre uniquement le nom et le type dans le signal, pour recuperer son 
 # index et eviter de reboucler sur tous les attributs

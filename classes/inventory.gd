@@ -11,8 +11,8 @@ var gear = {
   "body": null,
   "head": null,
   "feet": null,
-  "right_ring": null,
-  "left_ring": null,
+  "ring": null,
+  "amulet": null,
  }
 
 # equipables et potions

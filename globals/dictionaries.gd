@@ -85,6 +85,7 @@ var skills = [
   "light_magic",
   "black_magic",
   "alchemy",
+  "enchanting"
 ]
 
 var masteries = [
@@ -98,7 +99,8 @@ var masteries = [
   "shoes",
   "light_armors",
   "heavy_armors",
-  "mage_clothes"
+  "mage_clothes",
+  "jewels"
 ]
 
 var attribute_names = {
@@ -106,8 +108,11 @@ var attribute_names = {
   "atk_lvl": "Attaque",
   "def_lvl": "Défense",
   "max_health_lvl": "Santé",
+  "health_regen": "Regen. santé",
   "max_stamina_lvl": "Energie",
+  "stamina_regen": "Regen. energie",
   "max_mana_lvl": "Mana",
+  "mana_regen": "Regen. mana",
   "critical": "Coups critiques",
   #skills
   "construction": "Construction",
@@ -131,6 +136,7 @@ var attribute_names = {
   "light_magic": "Magie lumineuse",
   "black_magic": "Magie noire",
   "alchemy": "Alchimie",
+  "enchanting": "Enchantement",
   # masteries
   "tools": "Outils",
   "knives": "Dagues",
@@ -143,4 +149,5 @@ var attribute_names = {
   "shoes": "Chaussures",
   "light_armors": "Armures Légères",
   "heavy_armors": "Armures Lourdes",
+  "jewels": "Bijoux"
 }

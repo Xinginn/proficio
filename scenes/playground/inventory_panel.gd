@@ -9,8 +9,8 @@ onready var body_button: TextureButton = $Gear/BodyButton
 onready var main_hand_button: TextureButton = $Gear/MainHandButton
 onready var off_hand_button: TextureButton = $Gear/OffHandButton
 onready var feet_button: TextureButton = $Gear/FeetButton
-onready var right_ring_button: TextureButton = $Gear/RightRingButton
-onready var left_ring_button: TextureButton = $Gear/LeftRingButton
+onready var ring_button: TextureButton = $Gear/RingButton
+onready var amulet_button: TextureButton = $Gear/AmuletButton
 
 onready var gold_label: Label = $GoldIcon/Label
 onready var weight_label: Label = $WeightIcon/Label
@@ -116,7 +116,7 @@ func _on_line_clicked():
 func _ready():
   hide()
   # boucle pour connecter et pré-renseigner les gear button sans forcément avoir un player ready
-  for key in ["head", "body", "main_hand", "off_hand", "feet", "right_ring", "left_ring"]:
+  for key in ["head", "body", "main_hand", "off_hand", "feet", "ring", "amulet"]:
     gear_buttons[key] = get("%s_button" % key)
     gear_buttons[key].slot = key
     gear_buttons[key].connect('inventory_item_pressed', self, '_on_inventory_item_pressed')

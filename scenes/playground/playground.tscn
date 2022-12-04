@@ -553,7 +553,6 @@ __meta__ = {
 }
 
 [node name="InventoryPanel" type="Panel" parent="Camera"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -746.606
@@ -613,14 +612,14 @@ margin_right = 120.695
 margin_bottom = 191.015
 texture_normal = ExtResource( 22 )
 
-[node name="RightRingButton" parent="Camera/InventoryPanel/Gear" instance=ExtResource( 21 )]
+[node name="RingButton" parent="Camera/InventoryPanel/Gear" instance=ExtResource( 21 )]
 margin_left = 4.95148
 margin_top = 29.8889
 margin_right = 52.9515
 margin_bottom = 77.8889
 texture_normal = ExtResource( 22 )
 
-[node name="LeftRingButton" parent="Camera/InventoryPanel/Gear" instance=ExtResource( 21 )]
+[node name="AmuletButton" parent="Camera/InventoryPanel/Gear" instance=ExtResource( 21 )]
 margin_left = 147.446
 margin_top = 29.8901
 margin_right = 195.446

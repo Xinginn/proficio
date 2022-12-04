@@ -199,7 +199,7 @@ func _ready():
   var new_armor = Data.crafts[0].product.new()
   player.inventory.gear['body'] = new_armor
   player.add_item(Data.crafts[21].product.new())
-  player.add_item(Data.crafts[5].product.new())
+  player.add_item(Data.crafts[22].product.new())
   player.add_item(StaminaPotion.new())
   player.add_item(StaminaPotion.new())
   player.add_item(StaminaPotion.new())
@@ -211,6 +211,7 @@ func _ready():
   player.add_resource("fabric", 8)
   player.add_resource("cristal", 8)
   player.add_resource("stone", 8)
+  player.gain_xp("jewels", 300)
   
 #  player.gain_xp("light_armors", 200)
 #  player.gain_xp("leatherwork", 200)

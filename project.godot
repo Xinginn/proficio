@@ -140,6 +140,11 @@ _global_script_classes=[ {
 "path": "res://classes/item/equipable/clothes/mage_robe.gd"
 }, {
 "base": "Equipable",
+"class": "ManaAmulet",
+"language": "GDScript",
+"path": "res://classes/item/equipable/jewels/mana_amulet.gd"
+}, {
+"base": "Equipable",
 "class": "NightGarb",
 "language": "GDScript",
 "path": "res://classes/item/equipable/armors/night_garb.gd"
@@ -251,6 +256,7 @@ _global_script_class_icons={
 "LeatherSkullcap": "",
 "LumberingAxe": "",
 "MageRobe": "",
+"ManaAmulet": "",
 "NightGarb": "",
 "Npc": "",
 "Player": "",
