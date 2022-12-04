@@ -76,7 +76,11 @@ var skills = [
   "apothecary",
   "cooking",
   "bartering",
-  "pyromancy",
+  "fire_magic",
+  "ice_magic",
+  "wild_magic",
+  "light_magic",
+  "black_magic",
   "alchemy",
 ]
 
@@ -90,6 +94,7 @@ var masteries = [
   "shoes",
   "light_armors",
   "heavy_armors",
+  "mage_clothes"
 ]
 
 var attribute_names = {
@@ -116,7 +121,11 @@ var attribute_names = {
   "apothecary": "Apothicaire",
   "cooking": "Cuisine",
   "bartering": "Marchandage",
-  "pyromancy": "Pyromancie",
+  "fire_magic": "Magie flamboyante",
+  "ice_magic": "Magie glaciale",
+  "wild_magic": "Magie druidique",
+  "light_magic": "Magie lumineuse",
+  "black_magic": "Magie noire",
   "alchemy": "Alchimie",
   # masteries
   "tools": "Outils",
@@ -125,6 +134,7 @@ var attribute_names = {
   "masses": "Masses",
   "bows": "Arcs",
   "clothes": "Vêtements",
+  "mage_clothes": "Tenues de mage",
   "shoes": "Chaussures",
   "light_armors": "Armures Légères",
   "heavy_armors": "Armures Lourdes",

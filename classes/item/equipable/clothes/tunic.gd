@@ -10,6 +10,7 @@ func _init(crafter = null):
   description = "Un vêtement léger, idéal pour travailler."
   base_price = 20
   slots = ["body"]
+  granted_techs = []
   # calcul des valeur selon niveau de crafteur
   var base_max_stamina = 4
   var bonus_max_stamina = 0

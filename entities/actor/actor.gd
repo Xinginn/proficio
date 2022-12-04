@@ -60,6 +60,7 @@ var health_regain :float = 0.0
 var stamina_regain :float = 0.0
 var mana_regain :float = 0.0
 
+var available_tech_ids = [] setget ,_get_available_tech_ids
 var techs = {0: null, 1: null, 2: null, 3: null, 4: null, 5: null}
 var cooldowns = []
 
@@ -142,6 +143,15 @@ func _set_resurrection_progress(value):
     live()
   emit_signal('resurrection_progress_changed', resurrection_progress, TIME_FOR_RESURRECTION)
 
+func _get_available_tech_ids() -> Array:
+  var tech_list = []
+  for item in inventory.gear.values():
+    if !!item:
+      for index in item.granted_techs:
+        if not tech_list.has(index):
+          tech_list.append(index)
+  return tech_list
+  
 func die():
   is_dead = true
   emit_signal("actor_died")

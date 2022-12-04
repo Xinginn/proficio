@@ -135,6 +135,11 @@ _global_script_classes=[ {
 "path": "res://classes/item/equipable/weapons/lumbering_axe.gd"
 }, {
 "base": "Equipable",
+"class": "MageRobe",
+"language": "GDScript",
+"path": "res://classes/item/equipable/clothes/mage_robe.gd"
+}, {
+"base": "Equipable",
 "class": "NightGarb",
 "language": "GDScript",
 "path": "res://classes/item/equipable/armors/night_garb.gd"
@@ -240,6 +245,7 @@ _global_script_class_icons={
 "LeatherJacket": "",
 "LeatherSkullcap": "",
 "LumberingAxe": "",
+"MageRobe": "",
 "NightGarb": "",
 "Npc": "",
 "Player": "",

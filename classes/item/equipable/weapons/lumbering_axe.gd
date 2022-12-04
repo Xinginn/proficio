@@ -10,6 +10,7 @@ func _init(crafter = null):
   description = "Un outil idéal pour couper du bois. Peut également servir d'arme."
   base_price = 40
   slots = ["main_hand"]
+  granted_techs = []
   # calcul des valeur selon niveau de crafteur
   var base_lumberjack = 3
   var bonus_lumberjack = 0

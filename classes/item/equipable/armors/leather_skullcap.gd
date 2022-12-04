@@ -10,6 +10,7 @@ func _init(crafter = null):
   description = "Une protection de tête rudimentaire."
   base_price = 20
   slots = ["head"]
+  granted_techs = []
   # calcul des valeur selon niveau de crafteur
   var base_def = 2
   var bonus_def = 0

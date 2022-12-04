@@ -10,6 +10,7 @@ func _init(crafter = null):
   description = "un arc de petite taille, facile à bander. Adapté aux débutants."
   base_price = 25
   slots = ["main_hand"]
+  granted_techs = []
   # calcul des valeur selon niveau de crafteur
   var base_atk = 5
   var bonus_atk = 0 

@@ -10,6 +10,7 @@ func _init(crafter = null):
   description = "Un couteau fait d'une lame fine et droite."
   base_price = 25
   slots = ["main_hand"]
+  granted_techs = []
   # calcul des valeur selon niveau de crafteur
   var base_atk = 2
   var bonus_atk = 0

@@ -10,6 +10,7 @@ func _init(crafter = null):
   description = "Une armure rudimentaire faite de peaux d'animaux."
   base_price = 40
   slots = ["body"]
+  granted_techs = []
   # calcul des valeur selon niveau de crafteur
   var base_def = 4
   var bonus_def = 0

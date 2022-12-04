@@ -10,6 +10,7 @@ func _init(crafter = null):
   description = "Une protection de corps composées d'anneaux de fer enchevetrés."
   base_price = 60
   slots = ["body"]
+  granted_techs = []
   # calcul des valeur selon niveau de crafteur
   var base_def = 8
   var bonus_def = 0

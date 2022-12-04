@@ -10,6 +10,7 @@ func _init(crafter = null):
   description = "Des chaussures confortables à porter."
   base_price = 30
   slots = ["feet"]
+  granted_techs = []
   # calcul des valeur selon niveau de crafteur
 
   var base_move_speed = 10

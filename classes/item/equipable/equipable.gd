@@ -5,7 +5,8 @@ class_name Equipable
 var attributes = [
   "atk", "def", "max_health", "max_stamina", "max_mana", "critical", "move_speed", "construction",
   "gathering", "lumberjack", "smelting", "skinning", "leatherwork", "weaponsmith", "armorsmith", "weaving",
-  "woodcarving", "shoemaking", "toolmaking", "apothecary", "cooking"
+  "woodcarving", "shoemaking", "toolmaking", "apothecary", "cooking", "bartering", "fire_magic", "ice_magic",
+  "wild_magic", "light_magic", "black_magic"
 ]
 
 var atk: WearAttribute
@@ -31,9 +32,17 @@ var shoemaking: WearAttribute
 var toolmaking: WearAttribute
 var apothecary: WearAttribute
 var cooking: WearAttribute
+var bartering: WearAttribute
+var fire_magic: WearAttribute
+var ice_magic: WearAttribute
+var wild_magic: WearAttribute
+var light_magic: WearAttribute
+var black_magic: WearAttribute
 # probablement pas de masteries en wearAttribute, parce qu'on pourrait avoir un bénéfice cyclique à la skyrim
 # ou alors en assurant une "direction", à la manière des conversion d'élements de PoE
 # ça pourrait être l'exclusivité des bijoux, peut être?
+
+var granted_techs = []
 
 var stats_text setget ,_get_stats_text
 var final_stats_text setget ,_get_final_stats_text
