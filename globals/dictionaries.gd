@@ -55,8 +55,11 @@ var caracs = [
   "atk_lvl",
   "def_lvl",
   "max_health_lvl",
+  "health_regen",
   "max_stamina_lvl",
+  "stamina_regen",
   "max_mana_lvl",
+  "mana_regen",
   "critical",
  ]
 
@@ -90,6 +93,7 @@ var masteries = [
   "swords",
   "masses",
   "bows",
+  "focus",
   "clothes",
   "shoes",
   "light_armors",
@@ -133,6 +137,7 @@ var attribute_names = {
   "swords": "Epées",
   "masses": "Masses",
   "bows": "Arcs",
+  "focus": "Catalyseurs",
   "clothes": "Vêtements",
   "mage_clothes": "Tenues de mage",
   "shoes": "Chaussures",

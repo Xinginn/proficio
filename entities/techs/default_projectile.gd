@@ -30,8 +30,6 @@ func launch(_caster: Actor) -> void:
   caster.stamina -= tech_data.cost["stamina"]
   caster.mana -= tech_data.cost["mana"]
   
-  caster.health -= 50
-  
 func _process(delta):
   elapsed_time += delta
   if elapsed_time >= tech_data.lifespan:

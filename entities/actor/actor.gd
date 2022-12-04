@@ -60,6 +60,8 @@ var health_regain :float = 0.0
 var stamina_regain :float = 0.0
 var mana_regain :float = 0.0
 
+var regens_from_gear: Dictionary = {'health': 0.0, 'mana': 0.0, 'stamina': 0.0}
+
 var available_techs = [] setget ,_get_available_techs
 var techs = {0: null, 1: null, 2: null, 3: null, 4: null, 5: null}
 var cooldowns = []
@@ -191,7 +193,7 @@ func get_gear_bonus(attribute_name: String) -> int:
       var wear_attribute: WearAttribute = item.get(attribute_name)
       if wear_attribute != null:
         var value = wear_attribute.value
-        var mastery_bonus = wear_attribute.ratio * get(wear_attribute.attribute_name)
+        var mastery_bonus = wear_attribute.ratio * get_attribute_level(wear_attribute.attribute_name)
         total += int(value + mastery_bonus)
   return total
 
@@ -319,6 +321,11 @@ func unequip(gear_slot):
   auto_assign_techs()
   emit_signal('inventory_changed', inventory)
 
+func compute_regens_from_gear():
+  regens_from_gear["health"] = get_gear_bonus("health_regen")
+  regens_from_gear["mana"] = get_gear_bonus("mana_regen")
+  regens_from_gear["stamina"] = get_gear_bonus("stamina_regen")
+
 func auto_assign_techs():
   var available_list = self.available_techs
   # collecte techs dans les hotkeys
@@ -329,7 +336,6 @@ func auto_assign_techs():
         techs[key] = null
       elif not hotkeys.has(techs[key]):
         hotkeys.append(techs[key])
-      
   #remove tech qui ne sont plus dispo
   var available_size = available_list.size()
   for key in techs.keys():

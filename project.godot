@@ -184,6 +184,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/data_holders/tech_data/spot_targeted_data.gd"
 }, {
+"base": "Equipable",
+"class": "StaffOfEmbers",
+"language": "GDScript",
+"path": "res://classes/item/equipable/weapons/staff_of_embers.gd"
+}, {
 "base": "Consumable",
 "class": "StaminaPotion",
 "language": "GDScript",
@@ -255,6 +260,7 @@ _global_script_class_icons={
 "SelfCenteredData": "",
 "ShortBow": "",
 "SpotTargetedData": "",
+"StaffOfEmbers": "",
 "StaminaPotion": "",
 "StrikeData": "",
 "StuddedArmor": "",

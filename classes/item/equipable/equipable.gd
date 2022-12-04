@@ -3,7 +3,7 @@ extends Item
 class_name Equipable
 
 var attributes = [
-  "atk", "def", "max_health", "max_stamina", "max_mana", "critical", "move_speed", "construction",
+  "atk", "def", "max_health", "health_regen", "max_stamina", "stamina_regen", "max_mana", "mana_regen", "critical", "move_speed", "max_weight", "construction",
   "gathering", "lumberjack", "smelting", "skinning", "leatherwork", "weaponsmith", "armorsmith", "weaving",
   "woodcarving", "shoemaking", "toolmaking", "apothecary", "cooking", "bartering", "fire_magic", "ice_magic",
   "wild_magic", "light_magic", "black_magic"
@@ -12,8 +12,11 @@ var attributes = [
 var atk: WearAttribute
 var def: WearAttribute
 var max_health: WearAttribute
+var health_regen: WearAttribute
 var max_stamina: WearAttribute
+var stamina_regen: WearAttribute
 var max_mana: WearAttribute
+var mana_regen: WearAttribute
 var critical: WearAttribute
 var move_speed: WearAttribute
 var max_weight: WearAttribute
