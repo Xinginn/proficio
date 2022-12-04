@@ -60,7 +60,7 @@ var health_regain :float = 0.0
 var stamina_regain :float = 0.0
 var mana_regain :float = 0.0
 
-var available_tech_ids = [] setget ,_get_available_tech_ids
+var available_techs = [] setget ,_get_available_techs
 var techs = {0: null, 1: null, 2: null, 3: null, 4: null, 5: null}
 var cooldowns = []
 
@@ -143,13 +143,13 @@ func _set_resurrection_progress(value):
     live()
   emit_signal('resurrection_progress_changed', resurrection_progress, TIME_FOR_RESURRECTION)
 
-func _get_available_tech_ids() -> Array:
+func _get_available_techs() -> Array:
   var tech_list = []
   for item in inventory.gear.values():
     if !!item:
       for index in item.granted_techs:
-        if not tech_list.has(index):
-          tech_list.append(index)
+        if not tech_list.has(Data.techs[index]):
+          tech_list.append(Data.techs[index])
   return tech_list
   
 func die():
@@ -309,13 +309,36 @@ func swap_gear_and_inventory_item(gear_slot, item_slot):
     inventory.items[item_slot] = inventory.gear[gear_slot]
     inventory.gear[gear_slot] = temp
   compute_weight()
+  auto_assign_techs()
   emit_signal('inventory_changed', inventory)
 
 func unequip(gear_slot):
   inventory.items.append(inventory.gear[gear_slot])
   inventory.gear[gear_slot] = null
   compute_weight()
+  auto_assign_techs()
   emit_signal('inventory_changed', inventory)
+
+func auto_assign_techs():
+  var available_list = self.available_techs
+  # collecte techs dans les hotkeys
+  var hotkeys = []
+  for key in techs.keys():
+    if !!techs[key]:
+      if not available_list.has(techs[key]):
+        techs[key] = null
+      elif not hotkeys.has(techs[key]):
+        hotkeys.append(techs[key])
+      
+  #remove tech qui ne sont plus dispo
+  var available_size = available_list.size()
+  for key in techs.keys():
+    # ajoute skill dans slot vide...
+    if techs[key] == null && available_size > key:
+      # uniquement si la tech n'est pas déja présente
+      if not hotkeys.has(available_list[key]):
+        techs[key] = available_list[key]
+  emit_signal("tech_list_changed", techs)
 
 func move_to(coords: Vector2) -> void:
   animated_sprite.playing = true
@@ -486,11 +509,15 @@ func _on_ready() -> void:
     attributes[attr] = new_attribute
   texture_progress.hide()
   techs = {
-    0: Data.techs[0], 
-    1: Data.techs[1],
-    2: Data.techs[2],
-    3: Data.techs[3],
-    4: Data.techs[4],
+    0: Data.techs[0],
+#    1: Data.techs[1],
+#    2: Data.techs[2],
+#    3: Data.techs[3],
+#    4: Data.techs[4],
+    1: null,
+    2: null,
+    3: null,
+    4: null,
     5: null
   }
   for tech in techs:
