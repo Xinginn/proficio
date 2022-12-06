@@ -3,10 +3,10 @@ extends Item
 class_name Equipable
 
 var attributes = [
-	"atk", "def", "max_health", "health_regen", "max_stamina", "stamina_regen", "max_mana", "mana_regen", "critical", "move_speed", "max_weight", "construction",
-	"gathering", "lumberjack", "smelting", "skinning", "leatherwork", "weaponsmith", "armorsmith", "weaving",
-	"woodcarving", "shoemaking", "toolmaking", "apothecary", "cooking", "bartering", "fire_magic", "ice_magic",
-	"wild_magic", "light_magic", "black_magic", "alchemy", "enchanting"
+  "atk", "def", "max_health", "health_regen", "max_stamina", "stamina_regen", "max_mana", "mana_regen", "critical", "move_speed", "max_weight", "construction",
+  "gathering", "lumberjack", "smelting", "skinning", "leatherwork", "weaponsmith", "armorsmith", "weaving",
+  "woodcarving", "shoemaking", "toolmaking", "apothecary", "cooking", "bartering", "fire_magic", "ice_magic",
+  "wild_magic", "light_magic", "black_magic", "alchemy", "enchanting"
 ]
 
 var atk: WearAttribute
@@ -55,13 +55,13 @@ var final_stats_text setget ,_get_final_stats_text
 var slots: Array = []
 
 func _get_stats_text() -> String:
-	return "No stats"
-	
+  return "No stats"
+  
 func _get_final_stats_text() -> String:
-	return "No stats"
+  return "No stats"
 
 # retrait des WeatAttributes de la mémoire 
 func destroy():
-	for attr in attributes:
-		if !!get(attr): get(attr).queue_free()
-	.destroy()
+  for attr in attributes:
+    if !!get(attr): get(attr).queue_free()
+  .destroy()

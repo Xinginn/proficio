@@ -24,8 +24,8 @@ func _init(crafter = null):
 
   # declaration des wear attribute: valeur inhérente à l'objet crafté, mastery l'augmentant 
   # et ratio de boost et gain d'xp en l'utilisant
-  gathering = WearAttribute.new(base_gathering + bonus_gathering, "tools", 0.1)
-  max_weight = WearAttribute.new(base_max_weight + bonus_max_weight, "tools", 0.1)
+  gathering = WearAttribute.new(base_gathering + bonus_gathering, "tools", 0.2)
+  max_weight = WearAttribute.new(base_max_weight + bonus_max_weight, "tools", 0.2)
 
 # override du getter
 func _get_stats_text() -> String:
