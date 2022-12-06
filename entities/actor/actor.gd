@@ -505,9 +505,7 @@ func gain_xp(main_attribute, xp_value):
     if boost_attribute.value == 0:
       continue
     # on calcule le gain d'xp a partir du ratio et la valeur de base d'xp
-    print('xp_value: ', xp_value, ". ratio: ", boost_attribute.ratio, ". total: ", xp_value * boost_attribute.ratio)
     attributes[boost_attribute.attribute_name].xp += xp_value * boost_attribute.ratio
-    print(attributes[boost_attribute.attribute_name].xp)
   emit_signal('experience_changed')
 
 func _ready() -> void:
