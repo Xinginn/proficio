@@ -70,6 +70,7 @@ func _ready():
   techs.append(SpotTargetedData.new(3, "default_spot_targeted", "spot_targeted", "fire_magic", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(SpotTargetedData.new(4, "summon_chicken", "spot_targeted", "fire_magic", 1, {"mana": 1}, 0.5, 1.0))
   techs.append(ProjectileData.new(5, "sinus_projectile", "projectile ", "fire_magic", 1, {"mana": 1}, 0.5, 200, 1.0))
+  techs.append(SelfCenteredData.new(6, "growing_radius_area", "self_centered ", "fire_magic", 1, {"mana": 1}, 1.0, 1.0))
   
 
   

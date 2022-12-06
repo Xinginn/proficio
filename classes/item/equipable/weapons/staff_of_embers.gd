@@ -10,7 +10,7 @@ func _init(crafter = null):
   description = "Un baton de pyromancien novice."
   base_price = 20
   slots = ["main_hand"]
-  granted_techs = [1]
+  granted_techs = [1,6]
   # calcul des valeur selon niveau de crafteur
   var base_atk = 1
   var bonus_atk = 0

@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Equipable",
 "class": "Basket",
 "language": "GDScript",
-"path": "res://classes/item/equipable/weapons/basket.gd"
+"path": "res://classes/item/equipable/tools/basket.gd"
 }, {
 "base": "Consumable",
 "class": "Bread",
@@ -102,7 +102,7 @@ _global_script_classes=[ {
 "base": "Equipable",
 "class": "HuntingKnife",
 "language": "GDScript",
-"path": "res://classes/item/equipable/weapons/hunting_knife.gd"
+"path": "res://classes/item/equipable/tools/hunting_knife.gd"
 }, {
 "base": "Node",
 "class": "Inventory",
@@ -137,7 +137,7 @@ _global_script_classes=[ {
 "base": "Equipable",
 "class": "LumberingAxe",
 "language": "GDScript",
-"path": "res://classes/item/equipable/weapons/lumbering_axe.gd"
+"path": "res://classes/item/equipable/tools/lumbering_axe.gd"
 }, {
 "base": "Equipable",
 "class": "MageRobe",
