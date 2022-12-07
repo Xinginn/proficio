@@ -555,10 +555,10 @@ __meta__ = {
 [node name="InventoryPanel" type="Panel" parent="Camera"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -746.606
-margin_top = -420.475
-margin_right = -746.606
-margin_bottom = -420.475
+margin_left = -783.0
+margin_top = -430.0
+margin_right = -259.0
+margin_bottom = -130.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 15 )
@@ -573,9 +573,6 @@ margin_right = 296.79
 margin_bottom = 200.469
 mouse_filter = 2
 texture = ExtResource( 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HeadButton" parent="Camera/InventoryPanel/Gear" instance=ExtResource( 21 )]
 margin_left = 73.3674
@@ -627,13 +624,13 @@ margin_bottom = 77.8901
 texture_normal = ExtResource( 22 )
 
 [node name="ResourcesContainer" type="GridContainer" parent="Camera/InventoryPanel"]
-margin_left = 336.644
-margin_top = 5.81756
-margin_right = 519.644
-margin_bottom = 197.818
+margin_left = 2.58899
+margin_top = 307.424
+margin_right = 292.589
+margin_bottom = 452.424
 custom_constants/vseparation = 8
 custom_constants/hseparation = 60
-columns = 2
+columns = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -641,11 +638,8 @@ __meta__ = {
 [node name="ScrollContainer" type="ScrollContainer" parent="Camera/InventoryPanel"]
 margin_top = 202.0
 margin_right = 523.0
-margin_bottom = 358.0
+margin_bottom = 302.0
 mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LinesContainer" type="VBoxContainer" parent="Camera/InventoryPanel/ScrollContainer"]
 custom_constants/separation = -1

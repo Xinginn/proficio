@@ -331,9 +331,6 @@ func compute_regens_from_gear():
   regens_from_gear["health"] = get_gear_bonus("health_regen")
   regens_from_gear["mana"] = get_gear_bonus("mana_regen")
   regens_from_gear["stamina"] = get_gear_bonus("stamina_regen")
-  if inventory.gear["amulet"] != null:
-    print(inventory.gear["amulet"].mana_regen.value)
-    print(regens_from_gear["mana"])
 
 func auto_assign_techs():
   var available_list = self.available_techs

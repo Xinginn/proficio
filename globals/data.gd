@@ -45,6 +45,7 @@ func _ready():
   crafts.append(CraftData.new(21, StaffOfEmbers, "staff_of_embers", 4, "woodcarving", 4, {"wood": 4, "cristal": 2}, 2.0))
   crafts.append(CraftData.new(22, ManaAmulet, "mana_amulet", 4, "enchanting", 4, {"iron": 3, "cristal": 3}, 2.5))
   crafts.append(CraftData.new(23, Basket, "basket", 4, "toolmaking", 4, {"wood": 2, "fabric": 2}, 1.5))
+  crafts.append(CraftData.new(24, HealingPotion, "healing_potion", 4, "apothecary", 4, {"herb": 6, "ore": 2}, 1.5))
   
   # id, _name, label, max_health, stamina, resources, ?craft_ids = [], ?refine_ids = [], ?stackables = [], ?equipables = []
   buildings.append(BuildingData.new(0, "castle", "Castle", 1000, 0, {}, [], [], ["brick","cristal","fabric","grain","herb","iron","leather","ore","parchment","plank","skin","stone","wood"], []))

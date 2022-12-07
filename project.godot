@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Consumable",
 "class": "Bandages",
 "language": "GDScript",
-"path": "res://classes/item/consumable/bandages.gd"
+"path": "res://classes/item/consumable/scroll_summon_chicken.gd"
 }, {
 "base": "Equipable",
 "class": "Basket",
@@ -93,6 +93,11 @@ _global_script_classes=[ {
 "class": "Gladius",
 "language": "GDScript",
 "path": "res://classes/item/equipable/weapons/gladius.gd"
+}, {
+"base": "Consumable",
+"class": "HealingPotion",
+"language": "GDScript",
+"path": "res://classes/item/consumable/healing_potion.gd"
 }, {
 "base": "Equipable",
 "class": "HideArmor",
@@ -252,6 +257,7 @@ _global_script_class_icons={
 "Dirk": "",
 "Equipable": "",
 "Gladius": "",
+"HealingPotion": "",
 "HideArmor": "",
 "HuntingKnife": "",
 "Inventory": "",
