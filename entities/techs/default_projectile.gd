@@ -20,15 +20,16 @@ func _on_body_entered(body):
       body.health -= 5.0
       die()
 
-func launch(_caster: Actor) -> void:
+func launch(_caster: Actor, is_free: bool = false) -> void:
   caster = _caster
   # initialisation 
   frame = 0
   playing = true
-  # paiement du coût:
-  caster.health -= tech_data.cost["health"]
-  caster.stamina -= tech_data.cost["stamina"]
-  caster.mana -= tech_data.cost["mana"]
+  # paiement du coût, si n'est pas gratuit par lancement indirect (objet, ... ):
+  if not is_free:
+    caster.health -= tech_data.cost["health"]
+    caster.stamina -= tech_data.cost["stamina"]
+    caster.mana -= tech_data.cost["mana"]
   
   
 func _process(delta):

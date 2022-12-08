@@ -428,7 +428,7 @@ func display_pop_up(text: String) -> void:
   pop_up_holder.add_child(new_pop_up)
   new_pop_up.init(text)
   
-func launch_tech(id: int, target_pos) -> void:
+func launch_tech(id: int, target_pos, is_free: bool = false) -> void:
   var attack_direction = Vector2(target_pos - global_position).normalized()
   var data = techs[id]
   var tech_scene = load('res://entities/techs/%s.tscn' % data._name)
@@ -445,26 +445,35 @@ func launch_tech(id: int, target_pos) -> void:
       var mastery_name = inventory.gear['main_hand'].atk.attribute_name
       gain_xp(mastery_name, data.xp_gain)
     else: print('no weapon equipped')
-    new_tech.launch(self)
+    new_tech.launch(self, is_free)
     # TODO gain_xp
   if data is ProjectileData:
     new_tech.global_position = global_position
     new_tech.normalized_direction = attack_direction
     var rota = global_position.direction_to(global_position + attack_direction).angle_to(Vector2(1,0)) * 180 / -PI
     new_tech.rotation_degrees = rota
-    new_tech.launch(self)
+    new_tech.launch(self, is_free)
     gain_xp(data.skill, data.xp_gain)
   if data is SelfCenteredData:
     new_tech.global_position = global_position
-    new_tech.launch(self)
+    new_tech.launch(self, is_free)
     gain_xp(data.skill, data.xp_gain)
   if data is SpotTargetedData:
     new_tech.global_position = target_pos
-    new_tech.launch(self)
+    new_tech.launch(self, is_free)
     gain_xp(data.skill, data.xp_gain)
     
   cooldowns[id] = data.cooldown
   emit_signal("cooldowns_changed", cooldowns)
+
+func launch_spot_targeted(tech_data, target_pos, is_free = false):
+    var tech_scene = load('res://entities/techs/%s.tscn' % tech_data._name)
+    var new_tech = tech_scene.instance()
+    new_tech.tech_data = tech_data
+    get_tree().get_root().get_node('Playground/EffectsHolder').add_child(new_tech)
+    new_tech.global_position = target_pos
+    new_tech.launch(self, is_free)
+    gain_xp(tech_data.skill, tech_data.xp_gain)
 
 # ------- fonctions de navigation et d'IA -------
 func go_to_nearest_resource(resource_name: String):
