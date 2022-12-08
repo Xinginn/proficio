@@ -10,17 +10,12 @@ var tech_data: SpotTargetedData
 #  if body is Actor:
 #    body.health -= 2.0
 
-func launch(_caster: Actor, is_free: bool = false) -> void:
+func launch(_caster: Actor) -> void:
   scale *= tech_data.area_multiplier
   caster = _caster
   # initialisation 
   frame = 0
   playing = true
-  # paiement du coût, si n'est pas gratuit par lancement indirect (objet, ... ):
-  if not is_free:
-    caster.health -= tech_data.cost["health"]
-    caster.stamina -= tech_data.cost["stamina"]
-    caster.mana -= tech_data.cost["mana"]
   
   # create chicken
   var new_npc: Npc = load('res://entities/actor/npc.tscn').instance()

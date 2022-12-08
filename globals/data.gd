@@ -64,7 +64,7 @@ func _ready():
   buildings.append(BuildingData.new(99, "building_01", "Test", 500, 4, {}, all_crafts, [], ["ore", "wood", "stamina_potion"], []))
 
   # id, _name, type, skill ('weapon' pour déduire de l'arme equipée, _xp_gain, _cost ( _range ou area)
-  techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))
+  techs.append(StrikeData.new(0, "weapon_strike", "strike", "swords", 4, {"stamina": 1}, 1.0, 60))
   # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _velocity, _lifespan
   techs.append(ProjectileData.new(1, "default_projectile", "projectile", "fire_magic", 1, {"mana": 1}, 0.5, 200, 1.0))
     # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _area_multiplier

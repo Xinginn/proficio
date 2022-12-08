@@ -16,10 +16,3 @@ func launch(_caster: Actor, is_free: bool = false) -> void:
   # initialisation 
   frame = 0
   playing = true
-  # paiement du coût, si n'est pas gratuit par lancement indirect (objet, ... ):
-  if not is_free:
-    caster.health -= tech_data.cost["health"]
-    caster.stamina -= tech_data.cost["stamina"]
-    caster.mana -= tech_data.cost["mana"]
-
-  
