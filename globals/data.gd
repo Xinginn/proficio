@@ -46,6 +46,7 @@ func _ready():
   crafts.append(CraftData.new(22, ManaAmulet, "mana_amulet", 4, "enchanting", 4, {"iron": 3, "cristal": 3}, 2.5))
   crafts.append(CraftData.new(23, Basket, "basket", 4, "toolmaking", 4, {"wood": 2, "fabric": 2}, 1.5))
   crafts.append(CraftData.new(24, HealingPotion, "healing_potion", 4, "apothecary", 4, {"herb": 6, "ore": 2}, 1.5))
+  crafts.append(CraftData.new(25, ScrollSummonChicken, "scroll_summon_chicken", 4, "wild_magic", 4, {"parchment": 3, "skin": 1}, 1.5))
   
   # id, _name, label, max_health, stamina, resources, ?craft_ids = [], ?refine_ids = [], ?stackables = [], ?equipables = []
   buildings.append(BuildingData.new(0, "castle", "Castle", 1000, 0, {}, [], [], ["brick","cristal","fabric","grain","herb","iron","leather","ore","parchment","plank","skin","stone","wood"], []))
@@ -63,13 +64,13 @@ func _ready():
   buildings.append(BuildingData.new(99, "building_01", "Test", 500, 4, {}, all_crafts, [], ["ore", "wood", "stamina_potion"], []))
 
   # id, _name, type, skill ('weapon' pour déduire de l'arme equipée, _xp_gain, _cost ( _range ou area)
-  techs.append(StrikeData.new(0, "weapon_strike", "strike", "weapon", 4, {"stamina": 1}, 1.0, 60))
+  techs.append(StrikeData.new(0, "weapon_strike", "strike", "swords", 4, {"stamina": 1}, 1.0, 60))
   # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _velocity, _lifespan
   techs.append(ProjectileData.new(1, "default_projectile", "projectile", "fire_magic", 1, {"mana": 1}, 0.5, 200, 1.0))
     # _id, _name, _type, _skill, _xp_gain, _cost, _cooldown, _area_multiplier
   techs.append(SelfCenteredData.new(2, "default_self_centered", "self_centered", "fire_magic", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(SpotTargetedData.new(3, "default_spot_targeted", "spot_targeted", "fire_magic", 1, {"mana": 1}, 1.0, 1.0))
-  techs.append(SpotTargetedData.new(4, "summon_chicken", "spot_targeted", "fire_magic", 1, {"mana": 1}, 0.5, 1.0))
+  techs.append(SpotTargetedData.new(4, "summon_chicken", "spot_targeted", "wild_magic", 1, {"mana": 1}, 0.5, 1.0))
   techs.append(ProjectileData.new(5, "sinus_projectile", "projectile ", "fire_magic", 1, {"mana": 1}, 0.5, 200, 1.0))
   techs.append(SelfCenteredData.new(6, "growing_radius_area", "self_centered ", "fire_magic", 1, {"mana": 1}, 1.0, 1.0))
   

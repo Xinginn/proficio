@@ -16,10 +16,7 @@ func launch(_caster: Actor) -> void:
   # initialisation 
   frame = 0
   playing = true
-  # paiement du coût:
-  caster.health -= tech_data.cost["health"]
-  caster.stamina -= tech_data.cost["stamina"]
-  caster.mana -= tech_data.cost["mana"]
+  
   # create chicken
   var new_npc: Npc = load('res://entities/actor/npc.tscn').instance()
   get_tree().get_root().get_node('Playground/World').add_child(new_npc)

@@ -16,7 +16,3 @@ func launch(_caster: Actor) -> void:
   # initialisation 
   frame = 0
   playing = true
-  # paiement du coût:
-  caster.health -= tech_data.cost["health"]
-  caster.stamina -= tech_data.cost["stamina"]
-  caster.mana -= tech_data.cost["mana"]
