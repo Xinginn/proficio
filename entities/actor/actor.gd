@@ -303,6 +303,7 @@ func swap_inventory_items(slot_a, slot_b):
   var temp = inventory.items[slot_a]
   inventory.items[slot_a] = inventory.items[slot_b]
   inventory.items[slot_b] = temp
+  
   emit_signal('inventory_changed', inventory)
 
 func swap_gear_and_inventory_item(gear_slot, item_slot):

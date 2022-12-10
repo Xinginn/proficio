@@ -44,8 +44,10 @@ func check_for_affordable_items():
     if item_name in resource_names:
       base_price = Dictionaries.resource_prices[item_name]
     else:
+      # item temporaire pour avoir le prix
       var new_item = load('res://classes/item/consumable/%s.gd' % item_name).new()
       base_price = new_item.base_price
+      new_item.destroy() # penser à destroy, l'objet étant orphelin il n'est pas detruit tout seul
     expected_price = int(round( (base_price / (0.99 + 0.01 * barter_level) ) ))
     stackable_items[item_name].is_affordable = expected_price <= player_gold
     
@@ -58,8 +60,10 @@ func check_for_player_sellable_items():
     if item_name in Dictionaries.resource_names.keys():
       base_price = Dictionaries.resource_prices[item_name]
     else:
+      # item temporaire pour avoir le prix
       var new_item = load('res://classes/item/consumable/%s.gd' % item_name).new()
       base_price = new_item.base_price
+      new_item.destroy() # penser à destroy, l'objet étant orphelin il n'est pas detruit tout seul
     var no_quantity = false
     if item_name in Dictionaries.resource_names:
       no_quantity = GameManager.player_actor.inventory.resources[item_name] == 0
