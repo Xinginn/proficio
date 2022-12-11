@@ -34,9 +34,6 @@ func _unhandled_input(event):
   if event is InputEventMouseButton:
     if event.button_index == BUTTON_RIGHT and event.pressed:
       action_number = 0
-      if can_afford_skill(techs[0].cost):  # gestion temporaire couts
-        if cooldowns[0] == 0.0: # TODO gestion cooldonw
-          launch_tech(0, get_global_mouse_position())
   if event is InputEventKey:
     if Input.is_action_just_pressed("action_1"):
       action_number = 1

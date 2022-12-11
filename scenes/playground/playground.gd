@@ -199,6 +199,7 @@ func _ready():
   var new_armor = Data.crafts[0].product.new()
   player.inventory.gear['body'] = new_armor
   player.add_item(Data.crafts[21].product.new())
+  player.add_item(Data.crafts[23].product.new())
   player.add_item(Data.crafts[25].product.new())
   player.add_item(StaminaPotion.new())
   player.add_item(StaminaPotion.new())
