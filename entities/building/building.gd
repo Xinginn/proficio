@@ -60,7 +60,7 @@ func _set_health(value) -> void:
   if health == max_health:
     # TODO gerer valeur de px gagné
     if !!building_owner: 
-      building_owner.gain_xp("construction", 10)
+      building_owner.gain_xp(["construction"], 10)
     emit_signal('building_constructed', self)
     is_building = false
     if building_owner == GameManager.player_actor:
@@ -73,7 +73,7 @@ func _set_craft_progress(value) -> void:
     if craft_progress >= craft_queue[0].needed_progress:
       building_owner.add_item(craft_queue[0].product.new(building_owner))
       # gain de pex
-      building_owner.gain_xp(craft_queue[0].skill, craft_queue[0].xp)
+      building_owner.gain_xp(craft_queue[0].skills, craft_queue[0].xp)
       # changement d'item
       craft_queue.pop_front()
       emit_signal('craft_queue_changed', craft_queue)
@@ -93,7 +93,7 @@ func _set_refine_progress(value) -> void:
   if !current_refine_data:
     return
   elif refine_progress >= current_refine_data.time:
-    building_owner.gain_xp(current_refine_data.skill_name, current_refine_data.xp_gain)
+    building_owner.gain_xp([current_refine_data.skill], current_refine_data.xp_gain)
     for input_name in current_refine_data.inputs.keys():
       building_owner.remove_resource(input_name, current_refine_data.inputs[input_name])
     for output_name in current_refine_data.outputs.keys():
@@ -217,7 +217,7 @@ func _on_stackable_buy_requested(item_name, customer) -> void:
   var final_price = int(round( (base_price / (0.99 + 0.01 * barter_level) ) ))
   customer.gold -= final_price
   self.gold_storage += final_price
-  customer.gain_xp('bartering', int(final_price/4.0)) # TODO equilibrer valeur
+  customer.gain_xp(['bartering'], int(final_price/4.0)) # TODO equilibrer valeur
   stackable_storage[item_name] -= 1
   if item_name in Dictionaries.resource_names.keys():
     customer.add_resource(item_name, 1)
@@ -231,7 +231,7 @@ func _on_stackable_sell_requested(item_name, seller) -> void:
   var final_price = int(round( (base_price * (0.99 + 0.01 * barter_level) / 2.0) ))
   seller.gold += final_price
   self.gold_storage -= final_price
-  seller.gain_xp('bartering', int(final_price/4.0)) # TODO equilibrer valeur
+  seller.gain_xp(['bartering'], int(final_price/4.0)) # TODO equilibrer valeur
   stackable_storage[item_name] += 1
   if item_name in Dictionaries.resource_names.keys():
     seller.remove_resource(item_name, 1)
@@ -251,14 +251,14 @@ func _process(delta):
     if craft_queue.size() == 0:
       self.is_crafting = false
       return
-    var level = building_owner.get_total_attribute(craft_queue[0].skill)
+    var level = building_owner.get_total_attribute(craft_queue[0].skills[0])
     var craft_gain = (1.0 + (level - 1) * 0.05) * delta
     self.craft_progress += craft_gain 
     building_owner.stamina -= delta * STAMINA_LOSS_WHILE_CRAFTING
     if building_owner.stamina == 0.0:
       is_crafting = false
   elif is_refining:
-    var level = building_owner.get_total_attribute(current_refine_data.skill_name)
+    var level = building_owner.get_total_attribute(current_refine_data.skill)
     var refine_gain = REFINE_GAIN_SPEED * (1.0 + (level - 1) * 0.05) * delta
     self.refine_progress += refine_gain
   else:

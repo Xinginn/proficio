@@ -26,6 +26,7 @@ func _init(crafter = null):
   # et ratio de boost et gain d'xp en l'utilisant
   atk = WearAttribute.new(base_atk + bonus_atk, "focus", 0.1)
   fire_magic = WearAttribute.new(base_atk + bonus_atk, "focus", 0.1)
+  enchanting = WearAttribute.new(8, "focus", 0.8)
 
 # override du getter
 func _get_stats_text() -> String:

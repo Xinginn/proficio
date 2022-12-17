@@ -10,7 +10,7 @@ func _init(crafter = null):
   description = "Un couteau fait d'une lame fine et droite."
   base_price = 25
   slots = ["main_hand"]
-  granted_techs = []
+  granted_techs = [7]
   # calcul des valeur selon niveau de crafteur
   var base_atk = 2
   var bonus_atk = 0
@@ -21,7 +21,7 @@ func _init(crafter = null):
   
   # declaration des wear attribute: valeur inhérente à l'objet crafté, mastery l'augmentant 
   # et ratio de boost et gain d'xp en l'utilisant
-  atk = WearAttribute.new(base_atk + bonus_atk, "knives", 0.2)
+  atk = WearAttribute.new(base_atk + bonus_atk, "daggers", 0.15)
 
 # override du getter
 func _get_stats_text() -> String:

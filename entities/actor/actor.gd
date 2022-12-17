@@ -452,7 +452,7 @@ func launch_tech(id: int, target_pos, is_free: bool = false) -> void:
   if data is SpotTargetedData:
     new_tech.global_position = target_pos
   new_tech.launch(self)
-  gain_xp(data.skill, data.xp_gain)
+  gain_xp([data.skill], data.xp_gain)
   #depense si pas gratuit (sort indirect, 
   if not is_free:
     cooldowns[id] = data.cooldown
@@ -483,22 +483,27 @@ func get_closest_in_array(arr):
 # cette methode fait gagner de l'xp à la stat envoyée en argument,
 # puis augmente d'une fraction les compétences des équipements qui ameillorent aussi cette stat
 # ex: gain d'xp de def -> porte une armure légere qui augmente la def -> gain d'xp d'armure legere
-func gain_xp(main_attribute, xp_value): 
-  # gain de base
-  attributes[main_attribute].xp += xp_value
-  # gain bonus selon equipement boostant la stat
-  for item in inventory.gear.values():   
-    if item == null:
-      continue
-    # on récupère la stat utilisée par l'equipement
-    var boost_attribute = item.get(main_attribute)
-    if boost_attribute == null:
-      continue
-    if boost_attribute.value == 0:
-      continue
-    # on calcule le gain d'xp a partir du ratio et la valeur de base d'xp
-    attributes[boost_attribute.attribute_name].xp += xp_value * boost_attribute.ratio
-  emit_signal('experience_changed')
+func gain_xp(attributes_list, xp_value):
+  if xp_value == 0:
+    return
+  var xp_gain = xp_value / float(attributes_list.size())
+  for attribute_name in attributes_list:
+    # gain de base
+    attributes[attribute_name].xp += xp_gain
+    attribute_name = attribute_name.trim_suffix('_lvl')
+    # gain bonus selon equipement boostant la stat
+    for item in inventory.gear.values():   
+      if item == null:
+        continue
+      # on récupère la stat utilisée par l'equipement
+      var boost_attribute = item.get(attribute_name)
+      if boost_attribute == null:
+        continue
+      if boost_attribute.value == 0:
+        continue
+      # on calcule le gain d'xp a partir du ratio et la valeur de base d'xp
+      attributes[boost_attribute.attribute_name].xp += xp_gain * boost_attribute.ratio
+    emit_signal('experience_changed')
 
 func _ready() -> void:
   _on_ready()
@@ -517,10 +522,6 @@ func _on_ready() -> void:
   texture_progress.hide()
   techs = {
     0: Data.techs[0],
-#    1: Data.techs[1],
-#    2: Data.techs[2],
-#    3: Data.techs[3],
-#    4: Data.techs[4],
     1: null,
     2: null,
     3: null,

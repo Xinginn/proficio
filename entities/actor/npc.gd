@@ -27,10 +27,10 @@ func take_decision():
 #    print ('already doing something')
 #    return
 ##  go_to_nearest_resource('herb')
-  if has_resources(Data.buildings[0].resources):
-    place_building(1)
-  else:
-    print('not enough')
+#  if has_resources(Data.buildings[0].resources):
+#    place_building(1)
+#  else:
+#    print('not enough')
    
 func place_building(id):
   var cost = Data.buildings[id].resources

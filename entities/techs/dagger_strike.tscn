@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tres/spriteframes/skills/dagger_strike.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://entities/techs/dagger_strike.gd" type="Script" id=2]
+
+[node name="DaggerStrike" type="AnimatedSprite"]
+frames = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( -6.0634, -4.07998, -1.5034, -4.07998, 6.00307, -0.57229, -0.872013, 2.7951, -6.0634, 2.51448 )
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

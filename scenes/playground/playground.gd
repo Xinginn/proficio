@@ -198,7 +198,7 @@ func _ready():
   # zone de seed pour test
   var new_armor = Data.crafts[0].product.new()
   player.inventory.gear['body'] = new_armor
-  player.add_item(Data.crafts[21].product.new())
+  player.add_item(Data.crafts[8].product.new())
   player.add_item(Data.crafts[23].product.new())
   player.add_item(Data.crafts[25].product.new())
   player.add_item(StaminaPotion.new())
@@ -213,7 +213,7 @@ func _ready():
   player.add_resource("cristal", 8)
   player.add_resource("stone", 8)
   
-#  player.gain_xp("light_armors", 200)
+  player.gain_xp(["light_armors", "fire_magic"], 200)
 #  player.gain_xp("leatherwork", 200)
   player.gold += 15
   player.health -= 6

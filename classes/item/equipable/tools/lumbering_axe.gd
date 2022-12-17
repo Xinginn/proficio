@@ -10,7 +10,7 @@ func _init(crafter = null):
   description = "Un outil idéal pour couper du bois. Peut également servir d'arme."
   base_price = 40
   slots = ["main_hand"]
-  granted_techs = []
+  granted_techs = [8]
   # calcul des valeur selon niveau de crafteur
   var base_lumberjack = 3
   var bonus_lumberjack = 0
@@ -19,8 +19,8 @@ func _init(crafter = null):
   
   # calcul des values de base + bonus du au skill de craft
   if crafter != null:
-    bonus_lumberjack = int(crafter.get_total_attribute("toolmaking") * 0.2)
-    bonus_atk = int(crafter.get_total_attribute("toolmaking") * 0.1)
+    bonus_lumberjack = int(crafter.get_total_attribute("toolmaking") * 0.25)
+    bonus_atk = int(crafter.get_total_attribute("toolmaking") * 0.2)
   
   # attributions des wear attribute de l'objet crafté, et déclaration des mastery les augmentant 
   # et ratio de boost et gain d'xp en l'utilisant

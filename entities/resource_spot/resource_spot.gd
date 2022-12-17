@@ -21,7 +21,7 @@ signal ended_spawning(spot)
 
 # destiné à être surchargé
 func harvest(harvester) -> void:
-  harvester.gain_xp(skill, xp_gain)
+  harvester.gain_xp([skill], xp_gain)
   remaining_harvests -= 1
   if remaining_harvests == 0:
     queue_free()
