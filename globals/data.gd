@@ -74,7 +74,11 @@ func _ready():
   techs.append(ProjectileData.new(5, "sinus_projectile", "projectile ", "fire_magic", 1, {"mana": 1}, 0.5, 200, 1.0))
   techs.append(SelfCenteredData.new(6, "growing_radius_area", "self_centered ", "fire_magic", 1, {"mana": 1}, 1.0, 1.0))
   techs.append(StrikeData.new(7, "dagger_strike", "strike", "daggers", 0, {"stamina": 0.5}, 0.3, 40))
-  techs.append(StrikeData.new(8, "axe_strike", "strike", "axes", 0, {"stamina": 0.5}, 0.3, 40))
+  techs.append(StrikeData.new(8, "axe_strike", "strike", "axes", 0, {"stamina": 0.5}, 0.3, 60))
+  techs.append(ProjectileData.new(9, "bow_projectile", "projectile", "bows", 0, {"stamina": 1}, 0.5, 300, 1.0))
+  techs.append(StrikeData.new(10, "sword_strike", "strike", "swords", 0, {"stamina": 1}, 1.0, 60))
+  techs.append(StrikeData.new(11, "staff_strike", "strike", "focus", 0, {"stamina": 1}, 0.8, 40))
+  techs.append(StrikeData.new(11, "unarmed_strike", "strike", "focus", 0, {"stamina": 0.5}, 0.5, 40))
 
   
   races.append({"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"})

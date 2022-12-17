@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tres/spriteframes/skills/staff_strike.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://entities/techs/unarmed_strike.gd" type="Script" id=2]
+
+[node name="UnarmedStrike" type="AnimatedSprite"]
+frames = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( 2.41486, -5.66943, 4.8676, -3.14236, 4.8676, 1.83744, 2.19188, 4.95911, -3.15955, 4.88478, -5.68662, 2.20907, -5.68662, -3.14236, -3.3082, -5.66943 )
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

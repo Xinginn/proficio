@@ -10,7 +10,7 @@ func _init(crafter = null):
   description = "Une épée de conception ancienne, courte et large."
   base_price = 50
   slots = ["main_hand"]
-  granted_techs = []
+  granted_techs = [10]
   # calcul des valeur selon niveau de crafteur
   var base_atk = 4
   var bonus_atk = 0

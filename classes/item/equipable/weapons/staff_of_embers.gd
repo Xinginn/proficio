@@ -10,7 +10,7 @@ func _init(crafter = null):
   description = "Un baton de pyromancien novice."
   base_price = 20
   slots = ["main_hand"]
-  granted_techs = [1,4]
+  granted_techs = [11, 1]
   # calcul des valeur selon niveau de crafteur
   var base_atk = 1
   var bonus_atk = 0
@@ -25,7 +25,7 @@ func _init(crafter = null):
   # declaration des wear attribute: valeur inhérente à l'objet crafté, mastery l'augmentant 
   # et ratio de boost et gain d'xp en l'utilisant
   atk = WearAttribute.new(base_atk + bonus_atk, "focus", 0.1)
-  fire_magic = WearAttribute.new(base_atk + bonus_atk, "focus", 0.1)
+  fire_magic = WearAttribute.new(base_atk + bonus_atk, "focus", 0.15)
   enchanting = WearAttribute.new(8, "focus", 0.8)
 
 # override du getter

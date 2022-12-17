@@ -11,6 +11,7 @@ func _on_body_entered(body):
     if body is Actor:
       if body.team != caster.team and not body.is_dead:
         body.health -= 5.0
+        caster.gain_xp(['atk_lvl'], 4)
   
 func launch(_caster: Actor) -> void:
   caster = _caster

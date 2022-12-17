@@ -68,4 +68,5 @@ func _process(delta):
     take_decision()
 
 func _on_ready():
+  team = 1
   ._on_ready()
