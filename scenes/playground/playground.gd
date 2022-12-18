@@ -166,14 +166,14 @@ func _ready():
   SaveManager.load_actor_data(GameManager.player_name)
   
   for data in Data.buildings:
-#    if data._name == "castle":
-#      continue
+    if data._name == "castle":
+      continue
     var new_button = building_button_scene.instance()
     building_buttons_container.add_child(new_button)
     new_button._initialize(data)
     new_button.connect("building_button_pressed", self, "_on_building_button_pressed")
     new_button.connect("building_button_right_pressed", self, "build_mode_off")
-    # TODO connect inventory changed to button for legality of build attempt 
+    player.connect("inventory_changed", new_button, "_on_player_inventory_changed")
   building_buttons_container.hide()
   
   # dans ready car a faire après que le player soit instancié

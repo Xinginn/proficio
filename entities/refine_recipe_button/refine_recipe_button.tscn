@@ -9,9 +9,6 @@ margin_right = 186.0
 margin_bottom = 54.0
 texture_normal = ExtResource( 1 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="."]
 margin_left = 22.2236

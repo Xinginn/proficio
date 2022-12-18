@@ -8,6 +8,7 @@ const REFINE_GAIN_SPEED = 1
 const MAX_QUEUE_SIZE = 8
 const STAMINA_LOSS_WHILE_BUILDING = 2.0
 const STAMINA_LOSS_WHILE_CRAFTING = 2.0
+const STAMINA_LOSS_WHILE_REFINING = 2.0
 
 onready var occupied_space = $OccupiedSpaceArea
 onready var health_bar = $HealthBar
@@ -98,7 +99,7 @@ func _set_refine_progress(value) -> void:
       building_owner.remove_resource(input_name, current_refine_data.inputs[input_name])
     for output_name in current_refine_data.outputs.keys():
       building_owner.add_resource(output_name, current_refine_data.outputs[output_name])
-    if is_refine_looping:
+    if is_refine_looping and building_owner.has_resources(current_refine_data.inputs) :
       refine_progress -= current_refine_data.time
     else:
       refine_progress = 0.0
@@ -261,6 +262,9 @@ func _process(delta):
     var level = building_owner.get_total_attribute(current_refine_data.skill)
     var refine_gain = REFINE_GAIN_SPEED * (1.0 + (level - 1) * 0.05) * delta
     self.refine_progress += refine_gain
+    building_owner.stamina -= delta * STAMINA_LOSS_WHILE_REFINING
+    if building_owner.stamina == 0.0:
+      is_refining = false
   else:
     pass
 
