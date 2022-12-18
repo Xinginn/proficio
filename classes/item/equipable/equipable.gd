@@ -4,7 +4,7 @@ class_name Equipable
 
 var attributes = [
   "atk", "def", "max_health", "health_regen", "max_stamina", "stamina_regen", "max_mana", "mana_regen", "critical", "move_speed", "max_weight", "construction",
-  "gathering", "lumberjack", "smelting", "skinning", "leatherwork", "weaponsmith", "armorsmith", "weaving",
+  "mining", "botanic", "lumberjack", "smelting", "skinning", "cristalogy", "leatherwork", "weaponsmith", "armorsmith", "weaving",
   "woodcarving", "shoemaking", "toolmaking", "apothecary", "cooking", "bartering", "fire_magic", "ice_magic",
   "wild_magic", "light_magic", "black_magic", "alchemy", "enchanting"
 ]
@@ -22,10 +22,12 @@ var move_speed: WearAttribute
 var max_weight: WearAttribute
 #skills
 var construction: WearAttribute
-var gathering: WearAttribute
+var mining: WearAttribute
+var botanic: WearAttribute
 var lumberjack: WearAttribute
 var smelting: WearAttribute
 var skinning: WearAttribute
+var cristalogy: WearAttribute
 var leatherwork: WearAttribute
 var weaponsmith: WearAttribute
 var armorsmith: WearAttribute

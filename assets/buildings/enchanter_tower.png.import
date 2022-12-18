@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/workshop.png-5259f4cb73dda9198e01c101eb291a88.stex"
+path="res://.import/enchanter_tower.png-381fa2a9a3991fb0b9e8aedca6ff1b52.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/buildings/workshop.png"
-dest_files=[ "res://.import/workshop.png-5259f4cb73dda9198e01c101eb291a88.stex" ]
+source_file="res://assets/buildings/enchanter_tower.png"
+dest_files=[ "res://.import/enchanter_tower.png-381fa2a9a3991fb0b9e8aedca6ff1b52.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

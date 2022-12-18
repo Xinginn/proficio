@@ -17,8 +17,15 @@ func _ready():
   lands.append(LandData.new(3, "forest", 6, {"herbs": 2, "pebble": 1, "twig": 3, "tree": 5}))
   
   # id, _name, inputs, outputs, time, skill, xp_gain
-  refines.append(RefineData.new(0, "Fondre du fer", {"ore": 3}, {"iron": 1}, 2.0, "smelting", 3))
-  refines.append(RefineData.new(1, "Rafiner des pierres", {"stone": 5}, {"cristal": 1}, 3.0, "alchemy", 3))
+  refines.append(RefineData.new(0, "Cultiver des céréales", {"grain": 3}, {"grain": 9}, 4.0, "botanic", 3))
+  refines.append(RefineData.new(1, "Cultiver des herbes", {"grain": 3}, {"herb": 2}, 3.0, "botanic", 2))
+  refines.append(RefineData.new(2, "Fondre du fer", {"ore": 3}, {"iron": 1}, 3.0, "smelting", 3))
+  refines.append(RefineData.new(3, "Tisser des fibres", {"herb": 4}, {"fabric": 1}, 2.5, "weaving", 3))
+  refines.append(RefineData.new(4, "Tanner du cuir", {"skin": 4}, {"leather": 1}, 2.5, "leatherwork", 3))
+  refines.append(RefineData.new(5, "Raffiner du quartz", {"stone": 6}, {"cristal": 1}, 3.0, "alchemy", 3))
+  refines.append(RefineData.new(6, "Scier des planches", {"wood": 3}, {"plank": 1}, 2.5, "lumberjack", 2))
+  refines.append(RefineData.new(7, "Tailler des pierres ", {"stone": 3}, {"brick": 1}, 2.5, "mining", 2))
+  refines.append(RefineData.new(8, "Préparer des parchemins ", {"skin": 3}, {"parchment": 1}, 4.0, "leatherwork", 2))
   
   # id, product, name, stamina, [skills], xp, {resources}, ?needed_progress = 1.0
   crafts.append(CraftData.new(0, HideArmor, "hide_armor", 4, ["leatherwork"], 8, {"skin": 3}, 1.0))  
@@ -50,12 +57,21 @@ func _ready():
   
   # id, _name, label, max_health, stamina, resources, ?craft_ids = [], ?refine_ids = [], ?stackables = [], ?equipables = []
   buildings.append(BuildingData.new(0, "castle", "Castle", 1000, 0, {}, [], [], ["brick","cristal","fabric","grain","herb","iron","leather","ore","parchment","plank","skin","stone","wood"], []))
-  buildings.append(BuildingData.new(1, "hunting_lodge", "Loge de chasseur", 500, 4, {"wood": 24}, [0, 1, 2], [], []))
-  buildings.append(BuildingData.new(2, "armory", "Armurerie", 500, 4, {"wood": 4, "stone": 3}, [0, 1, 6], [], [], []))
-  buildings.append(BuildingData.new(3, "foundry", "Fonderie", 500, 4, {"stone": 8}, [], [0,1], [], []))
-  buildings.append(BuildingData.new(4, "store", "Boutique", 500, 4, {"wood": 6, "stone": 4}, [4, 7], [], [], []))
-  buildings.append(BuildingData.new(5, "apothecary_shop", "Boutique d'Apothicaire", 500, 4, {"wood": 6, "stone": 4}, [10, 12, 13], [], [], []))
-  buildings.append(BuildingData.new(6, "workshop", "Atelier", 500, 4, {"wood": 5}, [2, 3, 5, 8, 9], [], ["herb"], []))
+  buildings.append(BuildingData.new(1, "field", "Champ", 150, 4, {"stone": 4, "wood": 2}, [], [0,1], ["grain", "herb"], []))
+  buildings.append(BuildingData.new(2, "foundry", "Fonderie", 300, 4, {"stone": 8, "wood": 2}, [], [2], ["ore", "iron"], []))
+  buildings.append(BuildingData.new(3, "tailor_shop", "Atelier de tailleur", 300, 4, {"wood": 8}, [4], [3], ["herb", "fabric"], []))
+  buildings.append(BuildingData.new(4, "hunting_lodge", "Loge de chasseur", 150, 4, {"wood": 6}, [0,1,2,19], [4], ["skin", "leather"], []))
+  buildings.append(BuildingData.new(5, "kitchen", "Cuisine", 200, 4, {"stone": 4, "wood": 4}, [11], [], ["grain"], []))
+  buildings.append(BuildingData.new(6, "store", "Boutique", 200, 4, {"wood": 6, "stone": 4}, [1,3,5,7,23], [], [], []))
+  buildings.append(BuildingData.new(7, "laboratory", "Laboratoire", 200, 4, {"wood": 4, "stone": 4}, [24,12,13], [5], [], []))
+  buildings.append(BuildingData.new(8, "forge", "Forge", 300, 4, {"wood": 4, "stone": 6}, [3,9,6,14], [], [], []))
+  buildings.append(BuildingData.new(9, "scout_workshop", "Atelier d'éclaireur", 200, 4, {"wood": 6}, [9,19,1,15,18], [], [], []))
+  buildings.append(BuildingData.new(10, "enchanter_tower", "Tour d'enchanteur", 300, 4, {"stone": 8,"wood": 2}, [21,20,22,25], [], [], []))
+  buildings.append(BuildingData.new(11, "sawmill", "Scierie", 300, 4, {"wood": 8}, [8], [6], ["wood", "plank"], []))
+  buildings.append(BuildingData.new(12, "stonecutter", "Briquetterie", 300, 4, {"stone": 6, "wood": 4}, [], [7], ["stone", "brick"], []))
+  buildings.append(BuildingData.new(13, "parcheminery", "Parcheminerie", 300, 4, {"plank": 6, "stone": 4}, [], [8], ["skin", "parchment"], []))
+  buildings.append(BuildingData.new(14, "thieves_guild", "Guilde de voleurs", 400, 4, {"plank": 8, "brick": 4}, [9,15,16,17], [], [], []))
+  
   
   # building de test  TODO retirer en prod
   var all_crafts = []
@@ -90,7 +106,7 @@ func _ready():
     "max_stamina": 8,
     "max_mana": 6,
     "move_speed": 250,
-    "attributes": { "gathering": 5 },
+    "attributes": { "botanic": 5 },
    }
   
   contributions = {

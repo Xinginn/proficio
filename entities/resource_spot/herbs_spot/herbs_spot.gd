@@ -1,7 +1,7 @@
 extends ResourceSpot
 
 func _ready():
-  skill = "gathering"
+  skill = "botanic"
   xp_gain = 3
   duration = 1.5
   stamina_loss_while_harvesting = 1.0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/apothecary_shop.png-73bda70965f0a84eafec4e0f31b6bc96.stex"
+path="res://.import/kitchen.png-1ef491cfe938ea764a4b4824a870929d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/buildings/apothecary_shop.png"
-dest_files=[ "res://.import/apothecary_shop.png-73bda70965f0a84eafec4e0f31b6bc96.stex" ]
+source_file="res://assets/buildings/kitchen.png"
+dest_files=[ "res://.import/kitchen.png-1ef491cfe938ea764a4b4824a870929d.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

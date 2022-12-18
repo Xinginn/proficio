@@ -176,9 +176,9 @@ func _on_recipe_requested(craft_data) -> void:
     pass
  
 func _on_refine_requested(refine_data) -> void:
-  # TODO ajouter verifs de couts
-  self.current_refine_data = refine_data
-  self.refine_progress = 0.0
+  if building_owner.has_resources(refine_data.inputs):
+    self.current_refine_data = refine_data
+    self.refine_progress = 0.0
   
 func _on_refine_loop_toggled(value: bool) -> void:
   is_refine_looping = value

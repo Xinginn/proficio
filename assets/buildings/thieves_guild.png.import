@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/armory.png-e3c7fdcdd100cdc7f4d6a357b8b18fd5.stex"
+path="res://.import/thieves_guild.png-236adb1499d8ea1a8f2186416c44b8cd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/buildings/armory.png"
-dest_files=[ "res://.import/armory.png-e3c7fdcdd100cdc7f4d6a357b8b18fd5.stex" ]
+source_file="res://assets/buildings/thieves_guild.png"
+dest_files=[ "res://.import/thieves_guild.png-236adb1499d8ea1a8f2186416c44b8cd.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

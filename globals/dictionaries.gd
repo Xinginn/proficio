@@ -65,10 +65,12 @@ var caracs = [
 
 var skills = [
   "construction",
-  "gathering",
+  "mining",
+  "botanic",
   "lumberjack",
   "smelting",
   "skinning",
+  "cristalogy",
   "leatherwork",
   "weaponsmith",
   "armorsmith",
@@ -116,10 +118,12 @@ var attribute_names = {
   "critical": "Coups critiques",
   #skills
   "construction": "Construction",
-  "gathering": "Ramassage",
+  "mining": "Prospection",
+  "botanic": "Botanique",
   "lumberjack": "Bucheron",
   "smelting": "Fonderie",
   "skinning": "Dépeçage",
+  "cristalogy": "Cristalogie",
   "leatherwork": "Travail du Cuir",
   "weaponsmith": "Forge d'armes",
   "armorsmith": "Forge d'armures",
