@@ -17,7 +17,7 @@
 [ext_resource path="res://scenes/playground/inventory_panel.gd" type="Script" id=15]
 [ext_resource path="res://assets/inventory_gear.png" type="Texture" id=16]
 [ext_resource path="res://scenes/playground/storage_panel.gd" type="Script" id=17]
-[ext_resource path="res://scenes/playground/cooldowns_manager.gd" type="Script" id=18]
+[ext_resource path="res://scenes/playground/hotkeys_manager.gd" type="Script" id=18]
 [ext_resource path="res://assets/weight.png" type="Texture" id=19]
 [ext_resource path="res://assets/gold.png" type="Texture" id=20]
 [ext_resource path="res://entities/inventory_item/inventory_item.tscn" type="PackedScene" id=21]
@@ -888,19 +888,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CooldownsManager" type="HBoxContainer" parent="Camera"]
-margin_left = -780.0
+[node name="HotkeysManager" type="Control" parent="Camera"]
+margin_left = -729.0
 margin_top = 363.0
-margin_right = -732.0
+margin_right = -729.0
 margin_bottom = 411.0
-mouse_filter = 0
-custom_constants/separation = 3
+mouse_filter = 2
 script = ExtResource( 18 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="CooldownDisplay" parent="Camera/CooldownsManager" instance=ExtResource( 23 )]
+[node name="CooldownsHolder" type="HBoxContainer" parent="Camera/HotkeysManager"]
+margin_left = -51.0
+margin_right = -3.0
+margin_bottom = 48.0
+custom_constants/separation = 3
+
+[node name="CooldownDisplay" parent="Camera/HotkeysManager/CooldownsHolder" instance=ExtResource( 23 )]
+
+[node name="AvailableTechsHolder" type="GridContainer" parent="Camera/HotkeysManager"]
+margin_left = -29.411
+margin_top = -49.5758
+margin_right = 18.589
+margin_bottom = -1.57581
+grow_vertical = 0
+columns = 5
 
 [connection signal="pressed" from="Camera/StartBuildButton" to="." method="_on_start_build_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/CraftTab/CraftPanel/CurrentCraftIcon/CurrentCraftButton" to="Camera/BuildingWindow/CraftTab/CraftPanel" method="_on_queue_button_cancel_pressed" binds= [ 0 ]]
@@ -909,4 +919,3 @@ __meta__ = {
 [connection signal="pressed" from="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel/SlowButton" to="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel" method="_on_slow_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/RepairButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "repair" ]]
 [connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "upgrade" ]]
-[connection signal="gui_input" from="Camera/CooldownsManager" to="Camera/CooldownsManager" method="_on_gui_input"]

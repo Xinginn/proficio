@@ -1,4 +1,4 @@
-extends TextureRect
+extends TextureButton
 
 onready var cooldown_label: Label = $Label
 
@@ -10,6 +10,8 @@ var is_hovered = false
 signal hotkey_entered(i)
 signal hotkey_exited(i)
 
+signal hotkey_pressed(i)
+
 func initialize(_index):
   index = _index
   var tech = GameManager.player_actor.techs[index]
@@ -17,12 +19,15 @@ func initialize(_index):
     sprite_name = GameManager.player_actor.techs[index]._name
     var sprite = load('res://assets/icons/tech_%s.png' % sprite_name)
     if !!sprite:
-      texture = sprite
+      texture_normal = sprite
 
 func _set_cooldown(value) -> void:
   cooldown = max(value, 0.0)
   cooldown_label.visible = cooldown > 0.0
   cooldown_label.text = '%.1f' % cooldown
+
+func _on_pressed():
+  emit_signal("hotkey_pressed", index)
 
 
 # TODO gestion cooldown circulaire 
