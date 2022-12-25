@@ -144,8 +144,7 @@ func _unhandled_input(event):
         player.move_to(pos)
     if event.button_index == BUTTON_RIGHT and event.pressed:
       build_mode_off()
-          
-      
+
 func _physics_process(_delta):
   if !is_placing_building:
     pass
@@ -212,7 +211,6 @@ func _ready():
   player.add_resource("wood", 20)
   player.add_resource("plank", 8)
   player.add_resource("brick", 8)
-  
   
   player.gain_xp(["light_armors", "fire_magic"], 200)
 #  player.gain_xp("leatherwork", 200)

@@ -10,9 +10,7 @@ extents = Vector2( 3.97826, 4.32016 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 25.8096, 25.8967 )
 
-[node name="TwigSpot" groups=[
-"wood",
-] instance=ExtResource( 3 )]
+[node name="TwigSpot" groups=["wood"] instance=ExtResource( 3 )]
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 

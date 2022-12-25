@@ -24,5 +24,6 @@ collision_mask = 524288
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OccupiedSpaceArea"]
 shape = SubResource( 2 )
+
 [connection signal="body_entered" from="CollectTriggerArea" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="CollectTriggerArea" to="." method="_on_body_exited"]

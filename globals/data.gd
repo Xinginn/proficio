@@ -94,7 +94,7 @@ func _ready():
   techs.append(ProjectileData.new(9, "bow_projectile", "projectile", "bows", 0, {"stamina": 1}, 0.5, 300, 1.0))
   techs.append(StrikeData.new(10, "sword_strike", "strike", "swords", 0, {"stamina": 1}, 1.0, 60))
   techs.append(StrikeData.new(11, "staff_strike", "strike", "focus", 0, {"stamina": 1}, 0.8, 40))
-  techs.append(StrikeData.new(11, "unarmed_strike", "strike", "focus", 0, {"stamina": 0.5}, 0.5, 40))
+  techs.append(StrikeData.new(12, "unarmed_strike", "strike", "focus", 0, {"stamina": 0.5}, 0.5, 40))
 
   
   races.append({"id": 0, "name": "human", "label": "Humain", "description": "Description humain", "stats_text": "Santé: 15\nEnergie: 15\nMana: 15"})

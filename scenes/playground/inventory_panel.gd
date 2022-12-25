@@ -37,7 +37,7 @@ func _set_armed_slot(value):
 
 func toggle_visible():
   if visible:
-    armed_slot = null
+    self.armed_slot = null
     hide()
     ItemTooltip.hide()
   else:
@@ -133,8 +133,13 @@ func _process(_delta):
 
 func _unhandled_input(event):
   if event is InputEventMouseButton:
-    if event.button_index == BUTTON_RIGHT and event.pressed:
+    if !event.pressed and (event.button_index == BUTTON_LEFT or event.button_index == BUTTON_RIGHT):
       self.armed_slot = null
   elif event is InputEventKey:
     if !event.pressed and event.scancode == KEY_I:
       toggle_visible()
+    if !event.pressed and event.scancode == KEY_ESCAPE:
+      ItemTooltip.hide()
+      hide()
+      
+

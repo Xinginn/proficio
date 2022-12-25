@@ -42,3 +42,5 @@ func _unhandled_input(event):
   if event is InputEventKey:
     if !event.pressed and event.scancode == KEY_K:
       toggle_visible()
+    if !event.pressed and event.scancode == KEY_ESCAPE:
+      hide()

@@ -38,6 +38,9 @@ func _on_body_exited(body):
   if body is Actor:
     body.stop_harvesting()
 
+func _ready():
+  modulate = Color(1.0, 1.0, 1.0, 0.0)
+
 # necessaire pour la gestion des overlap au spawn
 # la methode get_overlapping_areas ne donne des résultats cohérents qu'après
 # qu'une frame physique ait été calculée
@@ -50,5 +53,6 @@ func _physics_process(_delta):
     else:
       frames_since_no_overlap += 1
       if frames_since_no_overlap >= 3:
+        modulate = Color(1.0, 1.0, 1.0, 1.0)
         emit_signal('ended_spawning', self)
   

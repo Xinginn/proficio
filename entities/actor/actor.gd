@@ -147,6 +147,9 @@ func _set_resurrection_progress(value):
 
 func _get_available_techs() -> Array:
   var tech_list = []
+  # ajouter unarmed_strike si aucune arme équipée
+  if (inventory.gear["main_hand"] == null and inventory.gear["off_hand"] == null):
+    tech_list.append(Data.techs[12])
   for item in inventory.gear.values():
     if !!item:
       for index in item.granted_techs:

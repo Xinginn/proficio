@@ -64,3 +64,11 @@ func _on_player_cooldowns_changed(cooldowns):
 
 func ready():
   displays = cooldowns_holder.get_children()
+  
+func _unhandled_input(event):
+  if event is InputEventMouseButton:
+    if !event.pressed and event.button_index == BUTTON_LEFT :
+      hide_available_techs()
+  if event is InputEventKey:
+    if !event.pressed and event.scancode == KEY_ESCAPE:
+      hide_available_techs()
