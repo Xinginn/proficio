@@ -1,7 +1,9 @@
 extends Panel
 
 const inventory_item_scene: PackedScene = preload('res://entities/inventory_item/inventory_item.tscn')
-const resource_stock_scene: PackedScene = preload('res://entities/resource_stock_display/resource_stock_display.tscn')
+#const resource_stock_scene: PackedScene = preload('res://entities/resource_stock_display/resource_stock_display.tscn')
+const inventory_resource_scene: PackedScene = preload('res://entities/inventory_item/inventory_resource/inventory_resource.tscn')
+
 const grid_line_scene: PackedScene = preload('res://entities/inventory_grid_line/inventory_grid_line.tscn')
 
 onready var head_button: TextureButton = $Gear/HeadButton
@@ -14,11 +16,13 @@ onready var amulet_button: TextureButton = $Gear/AmuletButton
 
 onready var gold_label: Label = $GoldIcon/Label
 onready var weight_label: Label = $WeightIcon/Label
+onready var items_container = $ScrollContainer
+onready var resources_container = $ResourcesContainer
 onready var inventory_lines_container = $ScrollContainer/LinesContainer
 onready var items_grid = $ScrollContainer/MarginContainer/ItemsGrid
 onready var item_ghost = $ItemGhost
 
-var resource_stock_displays = {}
+#var resource_stock_displays = {}
 var gear_buttons = {}
 var armed_slot = null setget _set_armed_slot
 
@@ -56,6 +60,9 @@ func _on_weight_changed(total, maxi) -> void:
 func _on_inventory_changed(_inventory: Inventory) -> void:
   for key in gear_buttons.keys():
     gear_buttons[key]._initialize(key)
+  for child in resources_container.get_children():
+    child.update_quantity()
+    
   # cleanup des anciennes lignes de background d'inventaire et des items
   for child in inventory_lines_container.get_children():
     child.queue_free()
@@ -72,8 +79,8 @@ func _on_inventory_changed(_inventory: Inventory) -> void:
     items_grid.add_child(new_item)
     new_item._initialize(i)
     new_item.connect('inventory_item_pressed', self, '_on_inventory_item_pressed')
-  for key in _inventory.resources.keys():
-    resource_stock_displays[key].stock = _inventory.resources[key]
+#  for key in _inventory.resources.keys():
+#    resource_stock_displays[key].stock = _inventory.resources[key]
 
 #func _on_resources_changed(_resources: Dictionary):
 #  for key in _resources.keys():
@@ -113,19 +120,34 @@ func _on_line_clicked():
       GameManager.player_actor.unequip(armed_slot)
       self.armed_slot = null
 
+# affiche equipments & consommables
+func _on_items_button_pressed():
+  items_container.show()
+  resources_container.hide()
+  
+# affiche resources
+func _on_resources_button_pressed():
+  items_container.hide()
+  resources_container.show()
+
 func _ready():
+  items_container.show()
+  resources_container.hide()
   hide()
   # boucle pour connecter et pré-renseigner les gear button sans forcément avoir un player ready
   for key in ["head", "body", "main_hand", "off_hand", "feet", "ring", "amulet"]:
     gear_buttons[key] = get("%s_button" % key)
     gear_buttons[key].slot = key
     gear_buttons[key].connect('inventory_item_pressed', self, '_on_inventory_item_pressed')
-  var resources_container = $ResourcesContainer
   for key in Dictionaries.resource_names.keys():
-    var new_resource = resource_stock_scene.instance()
+    var new_resource = inventory_resource_scene.instance()
     resources_container.add_child(new_resource)
-    new_resource.texture = load('res://assets/icons/%s.png' % key)
-    resource_stock_displays[key] = new_resource
+    new_resource._initialize(key)
+    
+#    var new_resource = resource_stock_scene.instance()
+#    resources_container.add_child(new_resource)
+#    new_resource.texture = load('res://assets/icons/%s.png' % key)
+#    resource_stock_displays[key] = new_resource
 
 func _process(_delta):
   if armed_slot != null:
@@ -141,5 +163,3 @@ func _unhandled_input(event):
     if !event.pressed and event.scancode == KEY_ESCAPE:
       ItemTooltip.hide()
       hide()
-      
-

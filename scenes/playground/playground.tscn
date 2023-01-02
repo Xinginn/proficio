@@ -555,7 +555,7 @@ anchor_bottom = 1.0
 margin_left = -783.0
 margin_top = -430.0
 margin_right = -259.0
-margin_bottom = -130.0
+margin_bottom = -70.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 14 )
 script = ExtResource( 15 )
@@ -621,21 +621,37 @@ margin_bottom = 77.8901
 texture_normal = ExtResource( 22 )
 
 [node name="ResourcesContainer" type="GridContainer" parent="Camera/InventoryPanel"]
-margin_left = 2.58899
-margin_top = 307.424
-margin_right = 292.589
-margin_bottom = 452.424
-custom_constants/vseparation = 8
-custom_constants/hseparation = 60
-columns = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = 10.589
+margin_top = 229.424
+margin_right = 300.589
+margin_bottom = 339.424
+custom_constants/vseparation = 4
+custom_constants/hseparation = 12
+columns = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera/InventoryPanel"]
+margin_left = 11.0
+margin_top = 200.0
+margin_right = 173.0
+margin_bottom = 223.0
+
+[node name="ItemsButton" type="Button" parent="Camera/InventoryPanel/HBoxContainer"]
+margin_right = 80.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 80, 0 )
+text = "Items"
+
+[node name="ResoucesButton" type="Button" parent="Camera/InventoryPanel/HBoxContainer"]
+margin_left = 84.0
+margin_right = 162.0
+margin_bottom = 23.0
+text = "Resources"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Camera/InventoryPanel"]
-margin_top = 202.0
-margin_right = 523.0
-margin_bottom = 302.0
+margin_left = 0.588989
+margin_top = 227.424
+margin_right = 523.589
+margin_bottom = 327.424
 mouse_filter = 1
 
 [node name="LinesContainer" type="VBoxContainer" parent="Camera/InventoryPanel/ScrollContainer"]
@@ -919,3 +935,5 @@ columns = 5
 [connection signal="pressed" from="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel/SlowButton" to="Camera/BuildingWindow/ResurrectionTab/ResurrectionPanel" method="_on_slow_button_pressed"]
 [connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/RepairButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "repair" ]]
 [connection signal="pressed" from="Camera/BuildingWindow/ContributionTab/ContributionPanel/UpgradeButton" to="Camera/BuildingWindow/ContributionTab/ContributionPanel" method="_on_contribution_button_pressed" binds= [ "upgrade" ]]
+[connection signal="pressed" from="Camera/InventoryPanel/HBoxContainer/ItemsButton" to="Camera/InventoryPanel" method="_on_items_button_pressed"]
+[connection signal="pressed" from="Camera/InventoryPanel/HBoxContainer/ResoucesButton" to="Camera/InventoryPanel" method="_on_resources_button_pressed"]
